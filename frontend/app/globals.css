@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import 'e:\\panaversity\\design-system\\tokens.css';
+@import "./design-tokens.css";
 
 @theme {
   --font-sans: var(--font-inter);
