@@ -1,0 +1,19 @@
+@import "tailwindcss";
+@import 'e:\\panaversity\\design-system\\tokens.css';
+
+@theme {
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-mono);
+}
+
+@layer base {
+  body {
+    @apply font-sans antialiased;
+  }
+}
+
+@layer utilities {
+  .text-shadow-neon {
+    text-shadow: 0 0 10px rgba(34, 211, 238, 0.5);
+  }
+}
