@@ -1,18 +1,24 @@
-// e:/panaversity/hackathon-0/frontend/app/layout.tsx
-
 import type { Metadata } from "next";
-import { Inter, Roboto_Mono } from "next/font/google";
+import { Inter, Lora } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const mono = Roboto_Mono({ subsets: ["latin"], variable: "--font-mono" });
+const inter = Inter({ 
+  subsets: ["latin"], 
+  variable: "--font-inter",
+  display: 'swap',
+});
+
+const lora = Lora({ 
+  subsets: ["latin"], 
+  variable: "--font-lora",
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://hassaan-panaversity-portfolio.vercel.app"),
-  title: "Muhammad Hassaan Aslam | AI Agent Architect Portfolio Hub",
+  title: "Muhammad Hassaan Aslam | High-Fidelity AI Architect",
   description: "Senior AI Agent Architect specializing in Digital FTEs, robotics, and cloud-native AI systems. Exploring the future of GenAI through the Panaversity Fellowship.",
   keywords: ["AI Agent", "Architect", "Panaversity", "Hackathon", "Digital FTE", "Next.js", "Robotics", "Hassaan Aslam"],
   openGraph: {
@@ -38,21 +44,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${mono.variable}`}>
-      <body className={`${inter.variable} font-sans antialiased text-[var(--text-primary)] bg-[var(--bg-base)] min-h-screen`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
+    <html lang="en" className={`${inter.variable} ${lora.variable}`}>
+      <body className="font-inter antialiased bg-bg-base text-text-primary min-h-screen">
           <Navbar />
-          <main className="relative flex flex-col pt-16 selection:bg-cyan-400 selection:text-black">
+          <main className="relative flex flex-col pt-16">
             {children}
           </main>
           <Footer />
-        </ThemeProvider>
       </body>
     </html>
   );
 }
+

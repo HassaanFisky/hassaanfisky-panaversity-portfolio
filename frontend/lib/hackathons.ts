@@ -19,17 +19,17 @@ export const hackathons: Hackathon[] = [
     tech: ["Next.js 15","Supabase","Vercel","shadcn/ui"],
     description: "Central hub linking all Panaversity hackathon projects.",
     status: "live", 
-    url: "#", 
+    url: "https://hassaanfisky-portfolio.vercel.app", 
     points: "1000 + 500 bonus" 
   },
   { 
     id: 1, 
     title: "Physical AI & Robotics Textbook",
     category: "Education",
-    tech: ["Docusaurus","FastAPI","Groq","Supabase pgvector"],
+    tech: ["Next.js 15","FastAPI","Groq","Supabase pgvector"],
     description: "AI-native textbook with embedded RAG chatbot for interactive learning.",
-    status: "coming-soon", 
-    url: "#", 
+    status: "live", 
+    url: process.env.NEXT_PUBLIC_H1_URL || "#", 
     points: "100 + 200 bonus" 
   },
   { 
@@ -38,8 +38,8 @@ export const hackathons: Hackathon[] = [
     category: "SaaS",
     tech: ["Next.js 15","FastAPI","Supabase","Kafka","Kubernetes","Dapr"],
     description: "5-phase journey from console app to cloud-native AI chatbot.",
-    status: "coming-soon", 
-    url: "#", 
+    status: "live", 
+    url: "https://hackathon-2-todo-iota.vercel.app", 
     points: "1000 + 600 bonus" 
   },
   { 
@@ -48,8 +48,8 @@ export const hackathons: Hackathon[] = [
     category: "Developer Tools",
     tech: ["Agent Skills","MCP","Claude Code","Goose","Kubernetes","Dapr"],
     description: "Skills library with MCP code execution + AI Python tutoring platform.",
-    status: "coming-soon", 
-    url: "#", 
+    status: "live", 
+    url: "https://hassaanfisky-panaversity-learnflow.vercel.app", 
     points: "1000 + 400 bonus" 
   },
   { 
@@ -58,8 +58,8 @@ export const hackathons: Hackathon[] = [
     category: "Digital Employee",
     tech: ["Next.js 15","Groq","FastAPI","Supabase","Agent Factory"],
     description: "24/7 AI educational tutor — Zero-Backend-LLM + Hybrid Intelligence.",
-    status: "coming-soon", 
-    url: "#", 
+    status: "live", 
+    url: "https://hassaanfisky-panaversity-companion.vercel.app", 
     points: "1000 + 500 bonus" 
   },
 ];

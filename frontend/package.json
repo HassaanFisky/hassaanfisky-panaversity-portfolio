@@ -13,24 +13,24 @@
     "@supabase/supabase-js": "latest",
     "class-variance-authority": "latest",
     "clsx": "latest",
-    "groq-sdk": "latest",
     "framer-motion": "^11.12.0",
-    "lucide-react": "latest",
-    "next": "^16.2.1",
+    "groq-sdk": "latest",
+    "lucide-react": "^1.7.0",
+    "next": "15",
     "next-themes": "latest",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
+    "react": "^19",
+    "react-dom": "^19",
     "tailwind-merge": "latest"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "latest",
+    "@tailwindcss/postcss": "^4",
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "eslint": "latest",
     "eslint-config-next": "15",
     "postcss": "latest",
-    "tailwindcss": "latest",
+    "tailwindcss": "^4",
     "typescript": "latest"
   }
 }

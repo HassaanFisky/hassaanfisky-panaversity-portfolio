@@ -1,31 +1,31 @@
 import { Hero } from "@/components/Hero";
 import { HackathonCard } from "@/components/HackathonCard";
 import { hackathons } from "@/lib/hackathons";
-import { MotionDiv, MotionSection, fadeUp, stagger } from "@/components/motion";
+import { MotionDiv, fadeUp, stagger } from "@/components/motion";
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen bg-[var(--bg-base)]">
+    <div className="flex flex-col min-h-screen bg-bg-base">
       <Hero />
       
-      <section id="hackathon-grid" className="py-24 bg-[var(--bg-base)] relative">
-        <div className="max-w-7xl mx-auto px-4 relative z-10">
+      <section id="hackathon-grid" className="py-32 relative">
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
           <MotionDiv 
             variants={fadeUp}
             initial="initial"
             whileInView="animate"
             viewport={{ once: true, margin: "-100px" }}
-            className="mb-16"
+            className="mb-20 text-center"
           >
-            <div className="text-[11px] font-medium tracking-[0.08em] uppercase text-[var(--text-muted)] mb-3">
-              The Engine
+            <div className="text-[10px] font-bold tracking-[0.3em] uppercase text-accent mb-4">
+              The Architecture
             </div>
-            <h2 className="text-[32px] md:text-[40px] font-semibold tracking-tight mb-4 text-[var(--text-primary)]">
-              The <span style={{ color: "var(--accent)" }}>Panaversity</span> Pipeline
+            <h2 className="text-4xl md:text-5xl font-serif text-text-primary tracking-tight mb-6">
+              The <span className="italic text-accent">Panaversity</span> Pipeline
             </h2>
-            <p className="text-[17px] text-[var(--text-secondary)] max-w-2xl font-medium leading-relaxed">
-              Five hackathons traversing the evolution of intelligent software: 
-              from foundational UI to autonomous, multi-agent AI ecosystems.
+            <p className="prose-editorial text-lg max-w-2xl mx-auto">
+              A chronological evolution of intelligent systems: 
+              from foundational interfaces to autonomous multi-agent ecosystems.
             </p>
           </MotionDiv>
           
@@ -34,7 +34,7 @@ export default function Home() {
             initial="initial"
             whileInView="animate"
             viewport={{ once: true, margin: "-100px" }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
           >
             {hackathons.map((hackathon) => (
               <HackathonCard key={hackathon.id} hackathon={hackathon} />
@@ -43,27 +43,48 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-24 bg-[var(--bg-surface)] border-t border-[var(--border-subtle)]">
+      <section className="py-32 bg-bg-elevated border-y border-border-fine relative overflow-hidden">
+        {/* Subtle background detail */}
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
+          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <path d="M0,100 C30,40 70,40 100,100" fill="none" stroke="currentColor" strokeWidth="0.5" />
+          </svg>
+        </div>
+
         <MotionDiv 
           variants={fadeUp}
           initial="initial"
           whileInView="animate"
           viewport={{ once: true }}
-          className="max-w-4xl mx-auto px-4 text-center"
+          className="max-w-4xl mx-auto px-6 text-center relative z-10"
         >
-          <div className="text-[11px] font-medium tracking-[0.08em] uppercase text-[var(--text-muted)] mb-4">
-            Next Steps
+          <div className="text-[10px] font-bold tracking-[0.3em] uppercase text-text-muted mb-6">
+            Vision & Strategy
           </div>
-          <h2 className="text-[28px] font-semibold text-[var(--text-primary)] mb-5 tracking-tight">Build the Future of Digital Work</h2>
-          <p className="text-[15px] text-[var(--text-secondary)] mb-8 max-w-2xl mx-auto font-medium leading-relaxed">
-            These hackathons represent discrete milestones in assembling a robust, resilient AI architecture capable of autonomous reasoning and action. Join the journey.
+          <h2 className="text-3xl md:text-4xl font-serif text-text-primary mb-6 tracking-tight">
+            Building the Infrastructure for Autonomy
+          </h2>
+          <p className="prose-editorial text-lg mb-10 max-w-2xl mx-auto">
+            These milestones represent discrete steps in assembling a robust AI architecture 
+            capable of deep reasoning, autonomous action, and resilient digital labor.
           </p>
-          <a href="https://github.com/Hassaanfisky" target="_blank" rel="noopener noreferrer" 
-            className="inline-flex items-center justify-center px-6 py-3 text-[13px] font-medium text-[#0A0A0A] bg-[var(--accent)] rounded-[var(--radius-sm)] hover:brightness-110 active:scale-[0.97] transition-all duration-150 shadow-sm">
-            Explore My GitHub
-          </a>
+          
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <a 
+              href="https://github.com/Hassaanfisky" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="btn-tactile px-8 py-4 bg-accent text-white rounded-lg font-bold text-[13px] uppercase tracking-widest hover:brightness-110 shadow-lg shadow-accent/20"
+            >
+              Explore Codebase
+            </a>
+            <button className="btn-tactile px-8 py-4 bg-white border border-border-fine text-text-primary rounded-lg font-bold text-[13px] uppercase tracking-widest hover:bg-bg-base">
+              View Blueprint
+            </button>
+          </div>
         </MotionDiv>
       </section>
     </div>
   );
 }
+

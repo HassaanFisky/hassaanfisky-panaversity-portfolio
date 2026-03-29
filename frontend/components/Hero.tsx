@@ -1,8 +1,6 @@
-// e:/panaversity/hackathon-0/frontend/components/Hero.tsx
-
 "use client";
 
-import { ArrowRight, Trophy, Users } from "lucide-react";
+import { ArrowRight, Trophy, Database, Zap } from "lucide-react";
 import { hackathons } from "@/lib/hackathons";
 import { MotionDiv, fadeUp, stagger } from "./motion";
 
@@ -12,69 +10,64 @@ export function Hero() {
     .reduce((acc, h) => acc + parseInt(h.points.split(" ")[0]), 0);
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center pt-24 pb-12 overflow-hidden bg-[var(--bg-base)]">
-      {/* Radial Gradients */}
-      <div 
-        className="absolute inset-0 z-0 pointer-events-none"
-        style={{
-          background: `
-            radial-gradient(ellipse 900px 600px at 50% -100px, rgba(212,165,116,0.08), transparent 70%),
-            radial-gradient(ellipse 600px 400px at 80% 80%, rgba(61,214,140,0.04), transparent 60%),
-            var(--bg-base)`
-        }}
-      />
+    <section className="relative min-h-[90vh] flex flex-col items-center justify-center pt-32 pb-20 overflow-hidden bg-bg-base">
+      {/* Background Ornamentation */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full pointer-events-none opacity-[0.03]">
+        <div className="absolute top-20 left-10 w-64 h-64 border border-accent rounded-full animate-pulse" />
+        <div className="absolute bottom-20 right-10 w-96 h-96 border border-accent rounded-full" />
+      </div>
 
-      {/* Noise Texture */}
-      <svg className="fixed inset-0 w-full h-full pointer-events-none z-0 opacity-[0.035]">
-        <filter id="noise">
-          <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
-          <feColorMatrix type="saturate" values="0"/>
-        </filter>
-        <rect width="100%" height="100%" filter="url(#noise)"/>
-      </svg>
-
-      {/* Hero Content */}
       <MotionDiv 
         variants={stagger}
         initial="initial"
         animate="animate"
-        className="relative z-10 max-w-4xl mx-auto text-center px-4 space-y-8"
+        className="relative z-10 max-w-5xl mx-auto text-center px-6 space-y-12"
       >
-        <MotionDiv variants={fadeUp} className="space-y-4">
-          <h1 className="text-[52px] font-semibold tracking-[-0.03em] leading-[1.1] text-[var(--text-primary)]">
+        <MotionDiv variants={fadeUp} className="space-y-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-soft border border-accent/10 text-[10px] font-bold uppercase tracking-[0.3em] text-accent mb-4">
+            <Zap size={12} fill="currentColor" />
+            Engineering Autonomy
+          </div>
+          
+          <h1 className="text-6xl md:text-8xl font-serif text-text-primary tracking-tight leading-[1.05] mb-8">
             Muhammad Hassaan Aslam
             <br />
-            <span style={{ color: "var(--accent)" }}>AI Agent Architect</span>
+            <span className="italic text-accent">AI Architect</span>
           </h1>
-          <p className="max-w-xl mx-auto text-[15px] text-[var(--text-secondary)] font-medium">
-            Building Digital FTEs — 168 hours/week. 
-            <span style={{ color: "var(--accent)" }}> Zero fatigue.</span>
+          
+          <p className="prose-editorial text-xl md:text-2xl max-w-2xl mx-auto leading-relaxed">
+            Architecting high-fidelity <span className="text-text-primary font-bold">Digital FTEs</span> — 
+            engineered for deep reasoning, zero-fatigue operation, and resilient agency.
           </p>
         </MotionDiv>
 
-        <MotionDiv variants={fadeUp} className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
+        <MotionDiv variants={fadeUp} className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-12">
           <button 
             onClick={() => document.getElementById("hackathon-grid")?.scrollIntoView({ behavior: "smooth" })}
-            className="group px-4 py-2 rounded-[var(--radius-sm)] bg-[var(--accent)] text-[#0A0A0A] font-medium text-[13px] hover:brightness-110 active:scale-[0.97] transition-all duration-150 flex items-center space-x-2"
+            className="btn-tactile group px-10 py-5 bg-accent text-white rounded-xl font-bold text-[14px] uppercase tracking-widest flex items-center gap-3 shadow-float shadow-accent/20"
           >
-            <span>Explore My Progress</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <span>Explore Pipeline</span>
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </button>
           
-          <div className="flex items-center space-x-6 px-4 py-2 rounded-[var(--radius-sm)] bg-transparent border border-[var(--border-muted)] text-[var(--text-primary)] transition-all duration-150">
-            <div className="flex items-center space-x-2">
-              <Trophy className="w-4 h-4 text-[var(--accent)]" />
+          <div className="flex items-center gap-8 px-8 py-4 bg-white/50 backdrop-blur-sm border border-border-fine rounded-xl">
+            <div className="flex items-center gap-4">
+              <div className="w-10 h-10 rounded-lg bg-accent-soft flex items-center justify-center text-accent">
+                <Trophy size={20} />
+              </div>
               <div className="text-left">
-                <div className="text-[13px] font-bold font-mono">{completedPoints}+</div>
-                <div className="text-[11px] uppercase tracking-[0.02em] font-medium text-[var(--text-muted)]">Total XP</div>
+                <div className="text-xl font-serif text-text-primary font-bold leading-none">{completedPoints}</div>
+                <div className="text-[10px] uppercase tracking-[0.2em] font-bold text-text-muted mt-1">Total XP</div>
               </div>
             </div>
-            <div className="h-4 w-[1px] bg-[var(--border-subtle)]" />
-            <div className="flex items-center space-x-2">
-              <Users className="w-4 h-4 text-[var(--success)]" />
+            <div className="h-10 w-[1px] bg-border-fine" />
+            <div className="flex items-center gap-4">
+              <div className="w-10 h-10 rounded-lg bg-success/10 flex items-center justify-center text-success">
+                <Database size={20} />
+              </div>
               <div className="text-left">
-                <div className="text-[13px] font-bold font-mono">5/5</div>
-                <div className="text-[11px] uppercase tracking-[0.02em] font-medium text-[var(--text-muted)]">Hackathons</div>
+                <div className="text-xl font-serif text-text-primary font-bold leading-none">5/5</div>
+                <div className="text-[10px] uppercase tracking-[0.2em] font-bold text-text-muted mt-1">Milestones</div>
               </div>
             </div>
           </div>
@@ -83,14 +76,15 @@ export function Hero() {
 
       {/* Hero Footnote */}
       <MotionDiv 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 1 }}
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.2, duration: 1 }}
+        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4"
       >
-        <span className="text-[11px] tracking-[0.08em] uppercase font-medium text-[var(--text-muted)] mb-2">Scroll Down</span>
-        <div className="w-[1px] h-12 bg-gradient-to-b from-[var(--border-active)] to-transparent" />
+        <span className="text-[10px] tracking-[0.3em] uppercase font-bold text-text-muted">Descent</span>
+        <div className="w-[1px] h-12 bg-gradient-to-b from-accent to-transparent" />
       </MotionDiv>
     </section>
   );
 }
+

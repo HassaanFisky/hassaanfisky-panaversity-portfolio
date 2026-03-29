@@ -1,74 +1,122 @@
 // e:/panaversity/hackathon-0/frontend/components/Footer.tsx
+"use client";
 
 import Link from "next/link";
-import { Code, Users, MessageSquare, Mail, Cpu } from "lucide-react";
+import {
+  GitBranch,
+  Send,
+  Globe,
+  Briefcase,
+  Sparkles,
+  Binary,
+} from "lucide-react";
+import { Logo } from "./Logo";
 
 export function Footer() {
-  const currentYear = new Date().getFullYear();
-
   return (
-    <footer className="relative z-10 border-t border-[#1e293b] bg-black selection:bg-cyan-400 selection:text-black">
-      <div className="max-w-7xl mx-auto px-4 py-12 md:py-24">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 text-slate-400">
-          <div className="col-span-1 md:col-span-2 space-y-6">
-            <Link href="/" className="flex items-center space-x-2 group">
-              <div className="p-1.5 rounded-lg bg-cyan-400">
-                <Cpu className="w-5 h-5 text-black" />
-              </div>
-              <span className="text-xl font-bold tracking-tight text-white">
-                Panaversity<span className="text-cyan-400">Hub</span>
-              </span>
+    <footer className="bg-white border-t border-border-fine py-32 transition-editorial relative z-10">
+      <div className="max-w-7xl mx-auto px-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-20 mb-32">
+          {/* Brand/Identity Column */}
+          <div className="md:col-span-2 space-y-12">
+            <Link
+              href="/"
+              className="hover:opacity-80 transition-editorial block"
+            >
+              <Logo />
             </Link>
-            <p className="max-w-md text-sm leading-relaxed">
-              Muhammad Hassaan Aslam. Senior AI Agent Architect. 
-              Pioneering the future of Digital FTEs through Panaversity fellowship. 
-              Engineering scalable, zero-fatigue AI intelligence systems.
+            <p className="prose-editorial text-xl max-w-md leading-relaxed text-text-secondary">
+              Architecting high-fidelity{" "}
+              <span className="text-text-primary font-bold">Digital FTEs</span>{" "}
+              — engineered for deep reasoning and resilient agency in the age of
+              autonomous systems.
             </p>
-            <div className="flex items-center space-x-5">
-              <Link href="https://github.com/Hassaanfisky" target="_blank" className="hover:text-cyan-400 transition-colors">
-                <Code className="w-5 h-5" />
-              </Link>
-              <Link href="#" target="_blank" className="hover:text-cyan-400 transition-colors">
-                <Users className="w-5 h-5" />
-              </Link>
-              <Link href="#" target="_blank" className="hover:text-cyan-400 transition-colors">
-                <MessageSquare className="w-5 h-5" />
-              </Link>
-              <Link href="mailto:hello@panaversity.hub" className="hover:text-cyan-400 transition-colors">
-                <Mail className="w-5 h-5" />
-              </Link>
+            <div className="flex items-center gap-8">
+              {[
+                {
+                  icon: <GitBranch size={18} />,
+                  href: "https://github.com/Hassaanfisky",
+                },
+                { icon: <Send size={18} />, href: "/" },
+                { icon: <Globe size={18} />, href: "/" },
+              ].map((social, i) => (
+                <a
+                  key={i}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-xl border border-border-fine flex items-center justify-center text-text-muted hover:text-accent hover:border-accent/40 hover:shadow-float transition-editorial"
+                >
+                  {social.icon}
+                </a>
+              ))}
             </div>
           </div>
 
-          <div className="space-y-4">
-            <h4 className="text-xs uppercase tracking-widest font-bold text-white font-mono">Platform</h4>
-            <ul className="space-y-2 text-sm">
-              <li><Link href="#hackathons" className="hover:text-cyan-400 transition-colors">Hackathons</Link></li>
-              <li><Link href="#" className="hover:text-cyan-400 transition-colors">Agent Library</Link></li>
-              <li><Link href="#" className="hover:text-cyan-400 transition-colors">Skill Registry</Link></li>
+          {/* Quick Links */}
+          <div className="space-y-10">
+            <h4 className="text-[10px] font-bold uppercase tracking-[0.4em] text-accent">
+              Protocol
+            </h4>
+            <ul className="space-y-6 text-[11px] font-bold uppercase tracking-[0.2em] text-text-primary">
+              <FooterLink href="#hackathon-grid" label="Architecture" />
+              <FooterLink href="/" label="Skill Library" />
+              <FooterLink href="/" label="Benchmarking" />
+              <FooterLink href="/" label="Ethical Framework" />
             </ul>
           </div>
 
-          <div className="space-y-4">
-            <h4 className="text-xs uppercase tracking-widest font-bold text-white font-mono">Legal</h4>
-            <ul className="space-y-2 text-sm">
-              <li><Link href="#" className="hover:text-cyan-400 transition-colors">Terms</Link></li>
-              <li><Link href="#" className="hover:text-cyan-400 transition-colors">Privacy</Link></li>
-              <li><Link href="#" className="hover:text-cyan-400 transition-colors">Compliance</Link></li>
+          {/* Institutional Links */}
+          <div className="space-y-10">
+            <h4 className="text-[10px] font-bold uppercase tracking-[0.4em] text-accent">
+              Institutional
+            </h4>
+            <ul className="space-y-6 text-[11px] font-bold uppercase tracking-[0.2em] text-text-primary">
+              <FooterLink href="/" label="Philosophy" />
+              <FooterLink href="/" label="Case Studies" />
+              <FooterLink href="/" label="The Blueprint" />
+              <FooterLink href="/" label="Connect" />
             </ul>
           </div>
         </div>
 
-        <div className="mt-12 md:mt-24 pt-8 border-t border-[#1e293b] flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-slate-500">
-            &copy; {currentYear} Muhammad Hassaan Aslam. All rights reserved.
-          </p>
-          <div className="flex items-center space-x-2 text-[10px] text-slate-500 font-mono">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,1)]" />
-            <span>Systems Online. Continuous Deployment Active.</span>
+        {/* System Meta-data Section */}
+        <div className="pt-16 border-t border-border-fine flex flex-col md:flex-row items-center justify-between gap-12">
+          <div className="flex flex-col md:flex-row items-center gap-10">
+            <div className="text-[10px] font-bold uppercase tracking-[0.4em] text-text-muted">
+              &copy; 2026 Muhammad Hassaan Aslam &bull; All Rights Reserved.
+            </div>
+            <div className="flex items-center gap-6 opacity-30 select-none">
+              <Binary size={14} className="text-text-muted" />
+              <div className="h-[1px] w-8 bg-border-fine" />
+              <span className="text-[9px] font-bold uppercase tracking-[0.5em] text-text-muted">
+                High-Fidelity Humanist
+              </span>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-4 px-6 py-2.5 bg-bg-base border border-border-fine rounded-full">
+            <div className="w-2 h-2 rounded-full bg-success animate-pulse shadow-success/40" />
+            <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-text-muted">
+              Node Status: Operational
+            </span>
           </div>
         </div>
       </div>
     </footer>
+  );
+}
+
+function FooterLink({ href, label }: { href: string; label: string }) {
+  return (
+    <li>
+      <Link
+        href={href}
+        className="hover:text-accent transition-editorial relative group"
+      >
+        <span>{label}</span>
+        <span className="absolute -bottom-1 left-0 w-full h-[1px] bg-accent/20 scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
+      </Link>
+    </li>
   );
 }
