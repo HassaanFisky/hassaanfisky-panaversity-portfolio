@@ -39,7 +39,7 @@ export const hackathons: Hackathon[] = [
     tech: ["Next.js 15","FastAPI","Supabase","Kafka","Kubernetes","Dapr"],
     description: "5-phase journey from console app to cloud-native AI chatbot.",
     status: "live", 
-    url: "https://hackathon-2-todo-iota.vercel.app", 
+    url: "https://hassaanfisky-panaversity-todo.vercel.app", 
     points: "1000 + 600 bonus" 
   },
   { 
