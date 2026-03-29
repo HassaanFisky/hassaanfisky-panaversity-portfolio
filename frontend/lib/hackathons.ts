@@ -29,7 +29,7 @@ export const hackathons: Hackathon[] = [
     tech: ["Next.js 15","FastAPI","Groq","Supabase pgvector"],
     description: "AI-native textbook with embedded RAG chatbot for interactive learning.",
     status: "live", 
-    url: process.env.NEXT_PUBLIC_H1_URL || "#", 
+    url: "https://panaversity-h1-robotics.vercel.app", 
     points: "100 + 200 bonus" 
   },
   { 
