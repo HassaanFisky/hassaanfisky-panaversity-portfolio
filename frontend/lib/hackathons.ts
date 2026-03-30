@@ -39,7 +39,7 @@ export const hackathons: Hackathon[] = [
     tech: ["Next.js 15","FastAPI","Supabase","Kafka","Kubernetes","Dapr"],
     description: "5-phase journey from console app to cloud-native AI chatbot.",
     status: "live", 
-    url: "https://hassaanfisky-panaversity-todo.vercel.app", 
+    url: "https://panaversity-h2-todo-prod.vercel.app", 
     points: "1000 + 600 bonus" 
   },
   { 
@@ -49,7 +49,7 @@ export const hackathons: Hackathon[] = [
     tech: ["Agent Skills","MCP","Claude Code","Goose","Kubernetes","Dapr"],
     description: "Skills library with MCP code execution + AI Python tutoring platform.",
     status: "live", 
-    url: "https://hassaanfisky-panaversity-learnflow.vercel.app", 
+    url: "https://panaversity-h3-learnflow-prod.vercel.app", 
     points: "1000 + 400 bonus" 
   },
   { 
