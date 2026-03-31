@@ -60,9 +60,9 @@ export function Footer() {
             </h4>
             <ul className="space-y-6 text-[11px] font-bold uppercase tracking-[0.2em] text-text-primary">
               <FooterLink href="#hackathon-grid" label="Architecture" />
-              <FooterLink href="/" label="Skill Library" />
-              <FooterLink href="/" label="Benchmarking" />
-              <FooterLink href="/" label="Ethical Framework" />
+              <FooterLink href="https://github.com/HassaanFisky" label="Skill Library" />
+              <FooterLink href="https://hassaanfisky-panaversity-learnflow.vercel.app" label="Benchmarking" />
+              <FooterLink href="https://panaversity.org/hackathons" label="Ethical Framework" />
             </ul>
           </div>
 
@@ -72,10 +72,10 @@ export function Footer() {
               Institutional
             </h4>
             <ul className="space-y-6 text-[11px] font-bold uppercase tracking-[0.2em] text-text-primary">
-              <FooterLink href="/" label="Philosophy" />
-              <FooterLink href="/" label="Case Studies" />
-              <FooterLink href="/" label="The Blueprint" />
-              <FooterLink href="/" label="Connect" />
+              <FooterLink href="#hackathon-grid" label="Philosophy" />
+              <FooterLink href="#hackathon-grid" label="Case Studies" />
+              <FooterLink href="https://github.com/HassaanFisky" label="The Blueprint" />
+              <FooterLink href="mailto:hassaanfisky@gmail.com" label="Connect" />
             </ul>
           </div>
         </div>
