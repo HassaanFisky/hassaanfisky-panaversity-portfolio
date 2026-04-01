@@ -27,17 +27,21 @@ export function Navbar() {
         </div>
 
         <div className="flex items-center gap-4">
-          <a 
+          <Link 
             href="/resume.pdf" 
             target="_blank"
             className="btn-tactile hidden sm:flex items-center gap-2 px-5 py-2.5 bg-bg-elevated border border-border-fine text-text-primary rounded-lg font-bold text-[10px] uppercase tracking-widest hover:border-accent/30 hover:bg-white"
           >
             <FileText size={14} className="text-accent" />
             Dossier
-          </a>
-          <button className="btn-tactile px-5 py-2.5 bg-accent text-white rounded-lg font-bold text-[10px] uppercase tracking-widest shadow-lg shadow-accent/10">
-            Enlist
-          </button>
+          </Link>
+          <Link 
+            href="https://hassaanfisky-aira-digital-fte.vercel.app/"
+            target="_blank"
+            className="btn-tactile px-5 py-2.5 bg-accent text-white rounded-lg font-bold text-[10px] uppercase tracking-widest shadow-lg shadow-accent/10"
+          >
+            Launch Aira
+          </Link>
         </div>
       </div>
     </nav>

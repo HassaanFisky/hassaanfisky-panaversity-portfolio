@@ -14,6 +14,17 @@ export interface Hackathon {
 
 export const hackathons: Hackathon[] = [
   { 
+    id: 4, 
+    title: "Aira Course Companion",
+    category: "Digital Employee",
+    tech: ["Next.js 15", "React 19", "Agent Factory", "Groq"],
+    description: "A world-class digital employee providing 24/7 high-fidelity educational support.",
+    status: "live", 
+    url: "https://hassaanfisky-aira-digital-fte.vercel.app/", 
+    imageUrl: "/h4-thumb.png",
+    points: "1000 + 500 bonus" 
+  },
+  { 
     id: 0, 
     title: "Portfolio Hub", 
     category: "Foundation",
@@ -26,7 +37,7 @@ export const hackathons: Hackathon[] = [
   },
   { 
     id: 1, 
-    title: "AI Robotics Textbook",
+    title: "Aira Robotics Textbook",
     category: "Education",
     tech: ["Docusaurus", "FastAPI", "Gemini", "Qdrant", "RAG"],
     description: "Autonomous AI-native textbook and RAG chatbot for Physical AI and Robotics curriculum.",
@@ -37,7 +48,7 @@ export const hackathons: Hackathon[] = [
   },
   { 
     id: 2, 
-    title: "Smart Todo Engine",
+    title: "OpenTask Engine",
     category: "SaaS",
     tech: ["Next.js 15", "Supabase", "Better-Auth", "Kafka", "Dapr"],
     description: "Multi-phase SaaS evolution from a local console to a cloud-native agentic task manager.",
@@ -54,18 +65,7 @@ export const hackathons: Hackathon[] = [
     description: "A high-fidelity skill library with MCP-enabled code execution and Python tutoring.",
     status: "live", 
     url: "https://hassaanfisky-panaversity-learnflow-x01rnwy17.vercel.app", 
-    imageUrl: "/h2-thumb.png", // Placeholder for H3
+    imageUrl: "/h2-thumb.png",
     points: "1000 + 400 bonus" 
-  },
-  { 
-    id: 4, 
-    title: "Aira Course Companion",
-    category: "Digital Employee",
-    tech: ["Next.js 15", "React 19", "Agent Factory", "Groq"],
-    description: "A world-class digital employee providing 24/7 high-fidelity educational support.",
-    status: "live", 
-    url: "https://hassaanfisky-aira-digital-fte.vercel.app/", 
-    imageUrl: "/h4-thumb.png",
-    points: "1000 + 500 bonus" 
   },
 ];

@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
 const navLinks = [
+  { href: "https://panaversity-h0-portfolio.vercel.app/", label: "Portfolio" },
   { href: "/support", label: "Support" },
   { href: "/dashboard", label: "Dashboard" },
   { href: "/docs", label: "Docs" },
