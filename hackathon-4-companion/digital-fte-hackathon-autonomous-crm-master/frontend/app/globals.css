@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Anthropic Warm Theme */
+    --background: 40 33% 98%; /* #FAF9F6 */
+    --foreground: 20 10% 20%; /* #373330 */
+    
+    --card: 0 0% 100%;
+    --card-foreground: 20 10% 20%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 20 10% 20%;
+    
+    --primary: 15 65% 55%; /* Warm Terracotta / Peach */
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 40 20% 90%; 
+    --secondary-foreground: 20 10% 20%;
+    
+    --muted: 40 20% 90%;
+    --muted-foreground: 20 5% 45%;
+    
+    --accent: 120 15% 45%; /* Muted Forest Green */
+    --accent-foreground: 0 0% 100%;
+    
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 30 15% 85%;
+    --input: 30 15% 85%;
+    --ring: 15 65% 55%;
+    
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif tracking-tight text-[#2D2926];
+  }
+}
+
+@layer components {
+  /* Warm subtle background texture pattern */
+  .bg-texture {
+    background-image: radial-gradient(rgba(0,0,0,0.03) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  /* Elegant Document Card */
+  .document-card {
+    @apply bg-white border border-[#E5E0D8] rounded-[16px] shadow-soft transition-all duration-300;
+  }
+  
+  /* Primary Button - Warm & Accessible */
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 font-medium text-white bg-[#D97757] hover:bg-[#C86444] rounded-xl transition-all active:scale-[0.98] shadow-sm;
+  }
+
+  /* Secondary Button - Subtle */
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3 font-medium text-[#4A4541] bg-[#F0EBE1] hover:bg-[#E5E0D8] rounded-xl transition-all active:scale-[0.98];
+  }
+}
