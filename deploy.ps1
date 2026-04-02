@@ -81,42 +81,39 @@ function Start-Deployment {
     }
 
     $currentLocation = Get-Location
-    Set-Location $mod.path
+    try {
+        Set-Location $mod.path
 
-    # Clean previous build artifacts that might cause double-nesting issues
-    if (Test-Path ".next") { Remove-Item -Recurse -Force ".next" }
-    if (Test-Path ".vercel/output") { Remove-Item -Recurse -Force ".vercel/output" }
+        # Clean previous build artifacts that might cause double-nesting issues
+        if (Test-Path ".next") { Remove-Item -Recurse -Force ".next" }
+        if (Test-Path ".vercel/output") { Remove-Item -Recurse -Force ".vercel/output" }
 
-    if (-not (Test-Path "package.json")) {
-        Show-Warn "No package.json in $($mod.path) -- SKIPPING"
+        if (-not (Test-Path "package.json")) {
+            Show-Warn "No package.json in $($mod.path) -- SKIPPING"
+            return
+        }
+
+        # Node Modules Check
+        if (-not (Test-Path "node_modules")) {
+            Show-Info "node_modules missing -- running npm install..."
+            npm install --silent --legacy-peer-deps
+            if ($LASTEXITCODE -ne 0) { Show-Fail "npm install failed for $($mod.name)" }
+            Show-Ok "Dependencies installed."
+        }
+
+        # Vercel Deployment (Remote Build)
+        Show-Info "Triggering Vercel deployment for $($mod.project) via CLI..."
+        
+        # Link project and deploy directly
+        vercel link --project $($mod.project) --yes
+        vercel deploy --prod --yes
+        
+        if ($LASTEXITCODE -ne 0) { Show-Fail "Vercel deploy failed for $($mod.name)." }
+        Show-Ok "$($mod.name) is LIVE!"
+
+    } finally {
         Set-Location $currentLocation
-        return
     }
-
-    # Node Modules Check
-    if (-not (Test-Path "node_modules")) {
-        Show-Info "node_modules missing -- running npm install..."
-        npm install --silent --legacy-peer-deps
-        if ($LASTEXITCODE -ne 0) { Show-Fail "npm install failed for $($mod.name)" }
-        Show-Ok "Dependencies installed."
-    }
-
-    # Local installation (optional, mostly for local dev testing)
-    if (-not (Test-Path "node_modules")) {
-        Show-Info "node_modules missing locally -- running npm install..."
-        npm install --silent --legacy-peer-deps
-    }
-
-    # Vercel Deployment (Remote Build)
-    Show-Info "Triggering Vercel deployment and remote build for $($mod.project)..."
-    
-    # Push the source code and build on Vercel's robust Linux infrastructure
-    vercel deploy --prod --yes
-    
-    if ($LASTEXITCODE -ne 0) { Show-Fail "Vercel deploy failed for $($mod.name)." }
-    Show-Ok "$($mod.name) is LIVE!"
-
-    Set-Location $currentLocation
 }
 
 # --- Main Run ---
