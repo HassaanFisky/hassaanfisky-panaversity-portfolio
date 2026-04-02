@@ -33,7 +33,7 @@ $modules = @(
         id      = "h0"
         name    = "H0: Portfolio Hub"
         path    = "$ROOT\hackathon-0\frontend"
-        project = "hassaanfisky-portfolio"
+        project = "panaversity-h0-portfolio"
     },
     @{
         id      = "h1"
