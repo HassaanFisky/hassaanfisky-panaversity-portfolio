@@ -9,13 +9,13 @@ const features = [
   {
     icon: Sparkles,
     title: "Thoughtful Intelligence",
-    desc: "Aira reads every message with nuance, drafting responses that are deeply contextual and empathetic.",
+    desc: "The specialist reads every message with nuance, drafting responses that are deeply contextual and empathetic.",
     color: "#FDF1E7"
   },
   {
     icon: HeartHandshake,
     title: "Human in the Loop",
-    desc: "Designed to collaborate. Your team retains full control while Aira handles the repetitive inquiries.",
+    desc: "Designed to collaborate. Your team retains full control while the system handles the repetitive inquiries.",
     color: "#EDF2EE"
   },
   {
@@ -69,7 +69,7 @@ export default function LandingPage() {
             variants={itemVariants} 
             className="text-lg md:text-xl text-[#5C564D] max-w-[600px] mx-auto mb-12 leading-relaxed text-pretty"
           >
-            Aira bridges the gap between efficiency and empathy. 
+            The Course Companion bridges the gap between efficiency and empathy. 
             Deploy intelligent agents that resolve tickets across all channels while preserving your brand's warmth.
           </motion.p>
 

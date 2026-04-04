@@ -5,9 +5,9 @@ export default function Footer() {
     <footer className="w-full border-t border-[#E5E0D8] py-16 mt-20 bg-white">
       <div className="max-w-[1200px] mx-auto px-6 flex flex-col md:flex-row justify-between gap-12">
         <div className="flex flex-col items-center md:items-start gap-4 flex-1">
-          <div className="flex items-center justify-center w-10 h-10 rounded-full bg-[#F0EBE1]">
-             <span className="font-serif italic text-lg text-[#4A4541]">A</span>
-          </div>
+          <p className="font-serif text-xl tracking-tight text-[#2D2926]">
+            Course Companion
+          </p>
           <p className="text-[#8A857D] text-sm max-w-[200px] text-center md:text-left leading-relaxed">
             Human-centered autonomous infrastructure.
           </p>
@@ -37,7 +37,7 @@ export default function Footer() {
 
       <div className="max-w-[1200px] mx-auto px-6 mt-16 pt-8 border-t border-[#E5E0D8] text-center md:text-left flex flex-col md:flex-row justify-between items-center gap-4">
         <p className="text-sm text-[#8A857D]">
-          © 2026 Aria Platform. All rights reserved.
+          © 2026 Course Companion Platform. All rights reserved.
         </p>
       </div>
     </footer>

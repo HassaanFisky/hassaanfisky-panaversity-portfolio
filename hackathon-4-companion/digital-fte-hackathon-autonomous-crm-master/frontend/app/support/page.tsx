@@ -134,7 +134,7 @@ export default function SupportPage() {
               </div>
               <h1 className="text-4xl font-serif mb-4">Request received</h1>
               <p className="text-lg text-[#5C564D] mb-4 max-w-[400px]">
-                ARIA is reviewing your message. Redirecting you to your ticket…
+                The specialist is reviewing your message. Redirecting you to your ticket…
               </p>
               <div className="w-8 h-1 bg-[#D97757] rounded-full animate-pulse" />
             </motion.div>
@@ -246,7 +246,7 @@ export default function SupportPage() {
             >
               <div>
                 <h1 className="text-4xl font-serif text-[#2D2926] mb-3">Tell us more.</h1>
-                <p className="text-[#5C564D] text-lg">The more detail, the faster ARIA can help.</p>
+                <p className="text-[#5C564D] text-lg">The more detail, the faster we can help.</p>
               </div>
 
               <textarea
@@ -266,7 +266,7 @@ export default function SupportPage() {
                   disabled={loading}
                   className="btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {loading ? "Sending…" : "Send to ARIA →"}
+                  {loading ? "Sending…" : "Send Request →"}
                 </button>
               </div>
             </motion.div>

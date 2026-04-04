@@ -3,6 +3,7 @@
 import { ArrowRight, Trophy, Database, Zap } from "lucide-react";
 import { hackathons } from "@/lib/hackathons";
 import { MotionDiv, fadeUp, stagger } from "./motion";
+import { RobotPulse } from "./RobotPulse";
 
 export function Hero() {
   const completedPoints = hackathons
@@ -41,7 +42,7 @@ export function Hero() {
           </p>
         </MotionDiv>
 
-        <MotionDiv variants={fadeUp} className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-12">
+        <MotionDiv variants={fadeUp} className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-12 mb-16">
           <button 
             onClick={() => document.getElementById("hackathon-grid")?.scrollIntoView({ behavior: "smooth" })}
             className="btn-tactile group px-10 py-5 bg-accent text-white rounded-xl font-bold text-[14px] uppercase tracking-widest flex items-center gap-3 shadow-float shadow-accent/20"
@@ -71,6 +72,15 @@ export function Hero() {
               </div>
             </div>
           </div>
+        </MotionDiv>
+
+        {/* Robot Pulse - Live Heartbeat */}
+        <MotionDiv 
+            variants={fadeUp} 
+            transition={{ delay: 0.8 }}
+            className="flex justify-center"
+        >
+            <RobotPulse />
         </MotionDiv>
       </MotionDiv>
 

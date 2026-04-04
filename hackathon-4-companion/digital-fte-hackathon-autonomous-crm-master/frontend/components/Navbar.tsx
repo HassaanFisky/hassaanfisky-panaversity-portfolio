@@ -41,11 +41,8 @@ export default function Navbar() {
             href="/" 
             className="flex items-center gap-3 transition-opacity hover:opacity-80"
           >
-            <div className="w-8 h-8 rounded-xl bg-[#E8E4DB] flex items-center justify-center border border-[#DCD6CA]">
-              <span className="text-[#373330] font-serif font-medium text-lg italic">A</span>
-            </div>
             <span className="font-serif text-xl tracking-tight text-[#2D2926]">
-              Aira
+              Course Companion
             </span>
           </Link>
 

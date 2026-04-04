@@ -3,6 +3,7 @@ import { Inter, Lora } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { EcosystemNav } from "@/components/EcosystemNav";
 
 const inter = Inter({ 
   subsets: ["latin"], 
@@ -18,14 +19,14 @@ const lora = Lora({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://hassaan-panaversity-portfolio.vercel.app"),
-  title: "Muhammad Hassaan Aslam | High-Fidelity AI Architect",
+  title: "Hassan AI Architect",
   description: "Senior AI Agent Architect specializing in Digital FTEs, robotics, and cloud-native AI systems. Exploring the future of GenAI through the Panaversity Fellowship.",
-  keywords: ["AI Agent", "Architect", "Panaversity", "Hackathon", "Digital FTE", "Next.js", "Robotics", "Hassaan Aslam"],
+  keywords: ["AI Agent", "Architect", "Panaversity", "Hackathon", "Digital FTE", "Next.js", "Robotics", "Hassan AI Architect"],
   openGraph: {
-    title: "Muhammad Hassaan Aslam | Portfolio Hub",
+    title: "Hassan AI Architect",
     description: "Welcome to my Panaversity Hackathon Portfolio Hub. Exploration of GenAI-native systems and architecture.",
     url: "https://hassaan-panaversity-portfolio.vercel.app",
-    siteName: "Muhammad Hassaan Aslam Portfolio Hub",
+    siteName: "Hassan AI Architect",
     images: [
       {
         url: "/og-image.png",
@@ -50,6 +51,7 @@ export default function RootLayout({
           <main className="relative flex flex-col pt-16">
             {children}
           </main>
+          <EcosystemNav />
           <Footer />
       </body>
     </html>

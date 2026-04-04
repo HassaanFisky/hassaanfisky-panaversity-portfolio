@@ -14,7 +14,7 @@ import { Logo } from "./Logo";
 
 export function Footer() {
   return (
-    <footer className="bg-white border-t border-border-fine py-32 transition-editorial relative z-10">
+    <footer className="backdrop-blur-xl bg-white/40 dark:bg-black/20 border-t border-white/20 dark:border-white/10 shadow-[0_-8px_32px_rgba(0,0,0,0.05)] py-32 transition-editorial relative z-10">
       <div className="max-w-7xl mx-auto px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-20 mb-32">
           {/* Brand/Identity Column */}
@@ -26,7 +26,7 @@ export function Footer() {
               <Logo />
             </Link>
             <p className="prose-editorial text-xl max-w-md leading-relaxed text-text-secondary">
-              Architecting high-fidelity{" "}
+              The revolution is... Architecting high-fidelity{" "}
               <span className="text-text-primary font-bold">Digital FTEs</span>{" "}
               — engineered for deep reasoning and resilient agency in the age of
               autonomous systems.
@@ -37,8 +37,11 @@ export function Footer() {
                   icon: <GitBranch size={18} />,
                   href: "https://github.com/Hassaanfisky",
                 },
+                {
+                  icon: <Globe size={18} />,
+                  href: "https://www.facebook.com/panaversity/",
+                },
                 { icon: <Send size={18} />, href: "/" },
-                { icon: <Globe size={18} />, href: "/" },
               ].map((social, i) => (
                 <a
                   key={i}

@@ -33,7 +33,7 @@ export function HackathonCard({ hackathon }: HackathonCardProps) {
         <div className="flex items-start justify-between mb-8">
           <div className="space-y-2">
             <div className="text-[10px] font-bold tracking-[0.3em] uppercase text-accent">
-              Phase {hackathon.id}
+              Phase {hackathon.id === 0 ? "0" : hackathon.id === 1 ? "I" : hackathon.id === 2 ? "II" : hackathon.id === 3 ? "III" : "IV"}
             </div>
             <h3 className="text-2xl font-serif text-text-primary group-hover:text-accent transition-colors duration-300">
               {hackathon.title}

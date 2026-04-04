@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Lora } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
+import EcosystemNav from "@/components/EcosystemNav";
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -16,7 +17,7 @@ const lora = Lora({
 });
 
 export const metadata: Metadata = {
-  title: "Aira — Intelligent Customer Infrastructure",
+  title: "Course Companion — Intelligent Customer Infrastructure",
   description: "Human-centered autonomous support platform.",
   icons: {
     icon: "https://emojicdn.elk.sh/✨",
@@ -56,6 +57,7 @@ export default function RootLayout({
             },
           }} 
         />
+        <EcosystemNav />
       </body>
     </html>
   );
