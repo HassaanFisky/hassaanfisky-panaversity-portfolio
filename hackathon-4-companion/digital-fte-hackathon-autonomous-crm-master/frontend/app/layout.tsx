@@ -17,8 +17,8 @@ const lora = Lora({
 });
 
 export const metadata: Metadata = {
-  title: "Course Companion — Intelligent Customer Infrastructure",
-  description: "Human-centered autonomous support platform.",
+  title: "HASSAAN AI ARCHITECT",
+  description: "Autonomous CRM and Course Companion engine.",
   icons: {
     icon: "https://emojicdn.elk.sh/✨",
   }
