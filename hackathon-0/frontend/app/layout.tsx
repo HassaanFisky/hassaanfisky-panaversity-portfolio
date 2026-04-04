@@ -19,11 +19,11 @@ const lora = Lora({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://hassaan-panaversity-portfolio.vercel.app"),
-  title: "Hassan AI Architect",
+  title: "HASSAAN AI ARCHITECT",
   description: "Senior AI Agent Architect specializing in Digital FTEs, robotics, and cloud-native AI systems. Exploring the future of GenAI through the Panaversity Fellowship.",
-  keywords: ["AI Agent", "Architect", "Panaversity", "Hackathon", "Digital FTE", "Next.js", "Robotics", "Hassan AI Architect"],
+  keywords: ["AI Agent", "Architect", "Panaversity", "Hackathon", "Digital FTE", "Next.js", "Robotics", "HASSAAN AI ARCHITECT"],
   openGraph: {
-    title: "Hassan AI Architect",
+    title: "HASSAAN AI ARCHITECT",
     description: "Welcome to my Panaversity Hackathon Portfolio Hub. Exploration of GenAI-native systems and architecture.",
     url: "https://hassaan-panaversity-portfolio.vercel.app",
     siteName: "Hassan AI Architect",

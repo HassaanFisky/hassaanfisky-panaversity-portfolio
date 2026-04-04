@@ -101,12 +101,16 @@ function Start-Deployment {
             Show-Ok "Dependencies installed."
         }
 
-        # Vercel Deployment (Remote Build)
-        Show-Info "Triggering Vercel deployment for $($mod.project) via CLI..."
+        # Vercel Deployment (Prebuilt)
+        Show-Info "Triggering Vercel build and prebuilt deployment for $($mod.project)..."
         
-        # Link project and deploy directly
-        vercel link --project $($mod.project) --yes
-        vercel deploy --prod --yes
+        # Build locally on this machine to ensure path consistency
+        # Use --prod flag to build for production
+        vercel build --prod --yes
+        if ($LASTEXITCODE -ne 0) { Show-Fail "Vercel build failed for $($mod.name)." }
+
+        # Deploy the prebuilt output
+        vercel deploy --prebuilt --prod --yes
         
         if ($LASTEXITCODE -ne 0) { Show-Fail "Vercel deploy failed for $($mod.name)." }
         Show-Ok "$($mod.name) is LIVE!"

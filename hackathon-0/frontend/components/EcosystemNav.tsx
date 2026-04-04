@@ -17,11 +17,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const ECOSYSTEM_APPS = [
-  { name: "Portfolio Hub", icon: Layout, url: "https://panaversity-h0-portfolio.vercel.app", id: "h0" },
-  { name: "Physical AI Robotics", icon: Book, url: "https://panaversity-h1-robotics.vercel.app", id: "h1" },
-  { name: "Evolution of To-Do", icon: CheckSquare, url: "https://evolution-of-todo.vercel.app", id: "h2" },
-  { name: "LearnFlow Platform", icon: Terminal, url: "https://hassaanfisky-panaversity-learnflow-x01rnwy17.vercel.app", id: "h3" },
-  { name: "Course Companion", icon: Zap, url: "https://hassaanfisky-aira-digital-fte.vercel.app", id: "h4" },
+  { name: "Portfolio Hub", image: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png", url: "https://panaversity-h0-portfolio.vercel.app", id: "h0" },
+  { name: "Physical AI & Robotics", image: "https://panaversity-h1-robotics.vercel.app/h1-thumb.png", url: "https://panaversity-h1-robotics.vercel.app", id: "h1" },
+  { name: "Evolution of Todo", image: "https://evolution-of-todo.vercel.app/h2-thumb.png", url: "https://evolution-of-todo.vercel.app", id: "h2" },
+  { name: "LearnFlow Engine", image: "https://hassaanfisky-panaversity-learnflow.vercel.app/h2-thumb.png", url: "https://hassaanfisky-panaversity-learnflow.vercel.app", id: "h3" },
+  { name: "Companion FTE", image: "https://hassaanfisky-aira-digital-fte.vercel.app/h4-thumb.png", url: "https://hassaanfisky-aira-digital-fte.vercel.app", id: "h4" },
 ];
 
 export function EcosystemNav() {
@@ -48,8 +48,12 @@ export function EcosystemNav() {
                   href={app.url}
                   className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-bg-surface transition-editorial group"
                 >
-                  <div className="w-8 h-8 rounded-md bg-white border border-border-fine flex items-center justify-center text-text-muted group-hover:text-accent transition-colors">
-                    <app.icon size={14} />
+                  <div className="relative w-8 h-8 rounded-md bg-white border border-border-fine flex items-center justify-center overflow-hidden transition-colors">
+                    <img 
+                      src={app.image} 
+                      alt={app.name}
+                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
                   </div>
                   <div className="flex flex-col">
                     <span className="text-[11px] font-bold text-text-primary">{app.name}</span>

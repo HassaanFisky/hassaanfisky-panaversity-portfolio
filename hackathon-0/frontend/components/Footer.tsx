@@ -14,7 +14,7 @@ import { Logo } from "./Logo";
 
 export function Footer() {
   return (
-    <footer className="backdrop-blur-xl bg-white/40 dark:bg-black/20 border-t border-white/20 dark:border-white/10 shadow-[0_-8px_32px_rgba(0,0,0,0.05)] py-32 transition-editorial relative z-10">
+    <footer className="backdrop-blur-xl bg-white/40 border-t border-white/20 shadow-[0_-8px_32px_rgba(0,0,0,0.05)] py-32 transition-editorial relative z-10">
       <div className="max-w-7xl mx-auto px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-20 mb-32">
           {/* Brand/Identity Column */}

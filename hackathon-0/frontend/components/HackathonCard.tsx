@@ -85,7 +85,7 @@ export function HackathonCard({ hackathon }: HackathonCardProps) {
               : "bg-accent text-white shadow-lg shadow-accent/10 hover:shadow-accent/20"
           }`}
         >
-          <span>{isComingSoon ? "Awaiting Deployment" : "Detailed Brief"}</span>
+          <span>{isComingSoon ? "Awaiting Deployment" : "View Details"}</span>
           {!isComingSoon && <ExternalLink size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />}
         </Link>
       </div>

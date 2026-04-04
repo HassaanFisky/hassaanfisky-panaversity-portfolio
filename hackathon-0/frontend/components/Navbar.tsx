@@ -11,8 +11,8 @@ export function Navbar() {
         <Link href="/" className="flex items-center gap-3 group transition-all duration-500 hover:scale-[1.02]">
           <Logo />
           <div className="flex flex-col">
-            <span className="text-sm font-serif font-bold tracking-tight text-[#38312E]">Hassaan Aslam</span>
-            <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#D97757]">AI Architect</span>
+            <span className="text-sm font-serif font-bold tracking-[0.1em] text-[#38312E] uppercase">HASSAAN</span>
+            <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#D97757]">AI ARCHITECT</span>
           </div>
         </Link>
 

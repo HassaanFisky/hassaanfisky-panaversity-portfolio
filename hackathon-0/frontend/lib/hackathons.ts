@@ -15,21 +15,21 @@ export interface Hackathon {
 export const hackathons: Hackathon[] = [
   { 
     id: 0, 
-    title: "Portfolio Hub", 
-    category: "Foundation",
-    tech: ["Next.js 15", "React 19", "Tailwind 4", "Framer Motion"],
-    description: "The editorial gateway to the Panaversity autonomous ecosystem.",
+    title: "Personal AI Employee — Building Autonomous FTEs", 
+    category: "Phase 0",
+    tech: ["Claude Code", "Obsidian"],
+    description: "Build an autonomous Digital FTE that proactively manages your personal and business affairs 24/7 using Claude Code and Obsidian. Gmail, WhatsApp, bank transactions, and tasks — all on autopilot.",
     status: "live", 
-    url: process.env.NEXT_PUBLIC_PORTFOLIO_URL || "https://panaversity-h0-portfolio.vercel.app", 
+    url: "https://github.com/Hassaanfisky/hassaanfisky-panaversity-portfolio", 
     imageUrl: "/blueprint-footer.png",
-    points: "1000 + 500 bonus" 
+    points: "1600 points" 
   },
   { 
     id: 1, 
-    title: "Physical AI Robotics Textbook",
-    category: "Education",
-    tech: ["Docusaurus", "FastAPI", "Gemini", "Qdrant", "RAG"],
-    description: "Autonomous AI-native textbook and RAG chatbot for Physical AI and Robotics curriculum.",
+    title: "Physical AI & Humanoid Robotics Textbook",
+    category: "Phase I",
+    tech: ["Docusaurus", "FastAPI", "OpenAI Agents SDK", "Qdrant", "RAG"],
+    description: "Create an AI-native textbook with Docusaurus and build an embedded RAG chatbot using OpenAI Agents SDK, FastAPI, and Qdrant for interactive, personalised learning.",
     status: "live", 
     url: process.env.NEXT_PUBLIC_H1_URL || "https://panaversity-h1-robotics.vercel.app", 
     imageUrl: "/h1-thumb.png",
@@ -37,10 +37,10 @@ export const hackathons: Hackathon[] = [
   },
   { 
     id: 2, 
-    title: "Evolution of To-Do",
-    category: "SaaS",
-    tech: ["Next.js 15", "Supabase", "Better-Auth", "Kafka", "Dapr"],
-    description: "Multi-phase SaaS evolution from a local console to a cloud-native agentic task manager.",
+    title: "The Evolution of Todo — Spec-Driven Development",
+    category: "Phase II",
+    tech: ["Next.js", "Supabase", "Kafka", "Dapr", "Kubernetes"],
+    description: "Master spec-driven development through a 5-phase journey: console app → full-stack web → AI chatbot → local Kubernetes → cloud deployment with Kafka and Dapr.",
     status: "live", 
     url: process.env.NEXT_PUBLIC_H2_URL || "https://evolution-of-todo.vercel.app", 
     imageUrl: "/h2-thumb.png",
@@ -48,24 +48,25 @@ export const hackathons: Hackathon[] = [
   },
   { 
     id: 3, 
-    title: "LearnFlow Platform",
-    category: "Developer Tools",
-    tech: ["Next.js 15", "MCP", "Skills Library", "Kubernetes"],
-    description: "A high-fidelity skill library with MCP-enabled code execution and Python tutoring.",
+    title: "Reusable Intelligence & Cloud-Native Mastery",
+    category: "Phase III",
+    tech: ["MCP", "Agent Skills", "Claude Code", "Goose"],
+    description: "Build agentic infrastructure with MCP Code Execution and Agent Skills. Create a LearnFlow platform using Claude Code and Goose — the Skills are the product.",
     status: "live", 
-    url: process.env.NEXT_PUBLIC_H3_URL || "https://hassaanfisky-panaversity-learnflow-x01rnwy17.vercel.app", 
+    url: process.env.NEXT_PUBLIC_H3_URL || "https://hassaanfisky-panaversity-learnflow.vercel.app", 
     imageUrl: "/h2-thumb.png",
     points: "1000 + 400 bonus" 
   },
   { 
     id: 4, 
-    title: "Course Companion",
-    category: "Digital Employee",
-    tech: ["Next.js 15", "React 19", "Agent Factory", "Groq"],
-    description: "A world-class digital employee providing 24/7 high-fidelity educational support.",
+    title: "Course Companion FTE — Digital Tutor at Scale",
+    category: "Phase IV",
+    tech: ["Agent Factory", "Next.js", "AI Tutors", "Groq"],
+    description: "Build a Digital FTE educational tutor with dual-frontend architecture (ChatGPT App + standalone Web App). A 24/7 AI tutor at 99% cost reduction using Agent Factory Architecture.",
     status: "live", 
     url: process.env.NEXT_PUBLIC_H4_URL || "https://hassaanfisky-aira-digital-fte.vercel.app/", 
     imageUrl: "/h4-thumb.png",
     points: "1000 + 500 bonus" 
   }
 ];
+
