@@ -69,7 +69,7 @@ export default function LandingPage() {
             variants={itemVariants} 
             className="text-lg md:text-xl text-[#5C564D] max-w-[600px] mx-auto mb-12 leading-relaxed text-pretty"
           >
-            The Course Companion bridges the gap between efficiency and empathy. 
+            The Companion FTE bridges the gap between efficiency and empathy. 
             Deploy intelligent agents that resolve tickets across all channels while preserving your brand's warmth.
           </motion.p>
 
