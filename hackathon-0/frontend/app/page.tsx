@@ -78,12 +78,12 @@ export default function Home() {
             >
               Explore Codebase
             </a>
-            <button 
-              onClick={() => document.getElementById("hackathon-grid")?.scrollIntoView({ behavior: "smooth" })}
-              className="btn-tactile px-8 py-4 bg-white border border-border-fine text-text-primary rounded-lg font-bold text-[13px] uppercase tracking-widest hover:bg-bg-base"
+            <a 
+              href="#hackathon-grid"
+              className="btn-tactile px-8 py-4 bg-white border border-border-fine text-text-primary rounded-lg font-bold text-[13px] uppercase tracking-widest hover:bg-bg-base inline-flex items-center justify-center cursor-pointer"
             >
               View Blueprint
-            </button>
+            </a>
           </div>
         </MotionDiv>
       </section>
