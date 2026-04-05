@@ -3,27 +3,35 @@ import { HackathonCard } from "@/components/HackathonCard";
 import { hackathons } from "@/lib/hackathons";
 import { MotionDiv, fadeUp, stagger } from "@/components/motion";
 
+/**
+ * HASSAAN AI ARCHITECT — Portfolio Hub Landing Page
+ * Re-engineered for 100% theme fidelity. All surfaces use semantic tokens.
+ */
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen bg-bg-base">
+    <div className="flex flex-col min-h-screen bg-bg-base transition-colors duration-500 selection:bg-accent/10">
       <Hero />
       
-      <section id="hackathon-grid" className="py-32 relative">
+      {/* Hackathon Pipeline Grid */}
+      <section id="hackathon-grid" className="py-24 md:py-40 relative">
+        {/* Subtle dot grid overlay */}
+        <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-bg-base to-transparent pointer-events-none" />
+
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <MotionDiv 
             variants={fadeUp}
             initial="initial"
             whileInView="animate"
             viewport={{ once: true, margin: "-100px" }}
-            className="mb-20 text-center"
+            className="mb-24 text-center"
           >
-            <div className="text-[10px] font-bold tracking-[0.3em] uppercase text-accent mb-4">
-              The Architecture
+            <div className="text-[10px] font-bold tracking-[0.4em] uppercase text-accent mb-6">
+              Engineering Protocol
             </div>
-            <h2 className="text-4xl md:text-5xl font-serif text-text-primary tracking-tight mb-6">
+            <h2 className="text-4xl md:text-6xl font-serif text-text-primary tracking-tight mb-8">
               The <span className="italic text-accent">Panaversity</span> Pipeline
             </h2>
-            <p className="prose-editorial text-lg max-w-2xl mx-auto">
+            <p className="prose-editorial text-lg md:text-xl max-w-2xl mx-auto opacity-80 leading-relaxed font-serif italic text-text-secondary">
               A chronological evolution of intelligent systems: 
               from foundational interfaces to autonomous multi-agent ecosystems.
             </p>
@@ -34,7 +42,7 @@ export default function Home() {
             initial="initial"
             whileInView="animate"
             viewport={{ once: true, margin: "-100px" }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"
           >
             {hackathons.map((hackathon) => (
               <HackathonCard key={hackathon.id} hackathon={hackathon} />
@@ -43,11 +51,11 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-32 bg-bg-elevated border-y border-border-fine relative overflow-hidden">
-        {/* Subtle background detail */}
-        <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
-          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <path d="M0,100 C30,40 70,40 100,100" fill="none" stroke="currentColor" strokeWidth="0.5" />
+      {/* Philosophy Section */}
+      <section className="py-40 bg-bg-surface border-y border-border-fine relative overflow-hidden transition-colors duration-500">
+        <div className="absolute inset-0 opacity-[0.05] dark:opacity-[0.1] pointer-events-none">
+          <svg className="w-full h-full text-text-primary" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <path d="M0,100 C30,40 70,40 100,100" fill="none" stroke="currentColor" strokeWidth="0.2" />
           </svg>
         </div>
 
@@ -58,29 +66,29 @@ export default function Home() {
           viewport={{ once: true }}
           className="max-w-4xl mx-auto px-6 text-center relative z-10"
         >
-          <div className="text-[10px] font-bold tracking-[0.3em] uppercase text-text-muted mb-6">
+          <div className="text-[10px] font-bold tracking-[0.4em] uppercase text-text-muted mb-8">
             Vision & Strategy
           </div>
-          <h2 className="text-3xl md:text-4xl font-serif text-text-primary mb-6 tracking-tight">
-            Building the Infrastructure for Autonomy
+          <h2 className="text-4xl md:text-5xl font-serif text-text-primary mb-8 tracking-tight leading-tight">
+            Building the Infrastructure <br className="hidden md:block"/> for Autonomy
           </h2>
-          <p className="prose-editorial text-lg mb-10 max-w-2xl mx-auto">
+          <p className="prose-editorial text-lg md:text-xl mb-14 max-w-2xl mx-auto opacity-70 font-serif italic text-text-secondary">
             These milestones represent discrete steps in assembling a robust AI architecture 
             capable of deep reasoning, autonomous action, and resilient digital labor.
           </p>
           
-          <div className="flex flex-wrap items-center justify-center gap-4">
+          <div className="flex flex-wrap items-center justify-center gap-6">
             <a 
               href="https://github.com/Hassaanfisky" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="btn-tactile px-8 py-4 bg-accent text-white rounded-lg font-bold text-[13px] uppercase tracking-widest hover:brightness-110 shadow-lg shadow-accent/20"
+              className="btn-tactile px-10 py-5 bg-accent text-white rounded-2xl font-bold text-[11px] uppercase tracking-[0.2em] hover:brightness-110 shadow-lg shadow-accent/20 transition-all hover:-translate-y-0.5 active:translate-y-0"
             >
               Explore Codebase
             </a>
             <a 
               href="#hackathon-grid"
-              className="btn-tactile px-8 py-4 bg-white border border-border-fine text-text-primary rounded-lg font-bold text-[13px] uppercase tracking-widest hover:bg-bg-base inline-flex items-center justify-center cursor-pointer"
+              className="btn-tactile px-10 py-5 bg-bg-base border border-border-fine text-text-primary rounded-2xl font-bold text-[11px] uppercase tracking-[0.2em] hover:bg-bg-surface inline-flex items-center justify-center cursor-pointer transition-all hover:border-accent/30 hover:-translate-y-0.5 active:translate-y-0 shadow-sm"
             >
               View Blueprint
             </a>
@@ -90,4 +98,3 @@ export default function Home() {
     </div>
   );
 }
-

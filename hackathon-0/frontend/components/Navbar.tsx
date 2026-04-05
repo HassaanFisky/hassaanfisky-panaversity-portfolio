@@ -21,12 +21,12 @@ export function Navbar() {
           </div>
         </Link>
 
-        {/* Navigation Protocol */}
+        {/* Desktop Navigation Protocol */}
         <div className="hidden md:flex items-center gap-10">
-          <Link href="#hackathon-grid" className="text-[10px] font-bold uppercase tracking-[0.3em] text-text-muted hover:text-accent transition-colors">
+          <Link href="#hackathon-grid" className="text-[10px] font-bold uppercase tracking-[0.4em] text-text-muted hover:text-accent transition-colors">
             Blueprint
           </Link>
-          <Link href="https://github.com/Hassaanfisky" target="_blank" className="text-[10px] font-bold uppercase tracking-[0.3em] text-text-muted hover:text-accent transition-colors flex items-center gap-2">
+          <Link href="https://github.com/Hassaanfisky" target="_blank" className="text-[10px] font-bold uppercase tracking-[0.4em] text-text-muted hover:text-accent transition-colors flex items-center gap-2">
             <GitBranch size={12} className="opacity-50" />
             Ecosystem
           </Link>
@@ -38,7 +38,7 @@ export function Navbar() {
           <Link 
             href="/resume.pdf" 
             target="_blank"
-            className="hidden sm:flex items-center gap-2 px-6 py-2.5 bg-bg-surface border border-border-fine text-text-primary rounded-full font-bold text-[10px] uppercase tracking-widest hover:border-accent/40 hover:bg-white dark:hover:bg-bg-elevated transition-all duration-300"
+            className="hidden sm:flex items-center gap-2 px-6 py-2.5 bg-bg-surface border border-border-fine text-text-primary rounded-full font-bold text-[10px] uppercase tracking-widest hover:border-accent/40 hover:bg-bg-elevated dark:hover:bg-bg-base transition-all duration-300 shadow-sm"
           >
             <FileText size={14} className="text-accent" />
             Dossier
