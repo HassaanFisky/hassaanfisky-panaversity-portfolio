@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import ThemeToggle from "./ThemeToggle";
 
 const navLinks = [
   { href: "https://panaversity-h0-portfolio.vercel.app/", label: "Portfolio" },
@@ -133,6 +134,7 @@ export default function Navbar() {
           >
             Submit Request
           </Link>
+          <ThemeToggle />
 
           <button 
             className="md:hidden p-2 text-[#8A857D]"
