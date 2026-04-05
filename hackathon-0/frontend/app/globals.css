@@ -2,42 +2,44 @@
 
 /**
  * HASSAAN AI ARCHITECT — Portfolio Hub (H0)
- * Perfect Fidelity Theme System (v2.0)
- * 100% Functional Dark/Light Mode
+ * Perfect Fidelity Theme System (v2.1)
+ * Optimized for High-Contrast Accessibility & Semantic Visibility.
  */
 
 @layer base {
   :root {
-    /* Anthropic Warm Theme (LIGHT) */
-    --bg-base: #FCFAF8;
-    --bg-surface: #F0EBE1;
-    --bg-elevated: #EAE4D9;
-    --text-primary: #38312E;
-    --text-secondary: #5F5854;
-    --text-muted: #8A857D;
+    /* Anthropic Warm Theme (LIGHT) — High Contrast Refresh */
+    --bg-base: #FAF9F6;
+    --bg-surface: #F2EFE8;
+    --bg-elevated: #EBE5DB;
+    --text-primary: #1C1917;      /* Darker for absolute legibility */
+    --text-secondary: #44403C;
+    --text-muted: #78716C;
     --accent: #D97757;
-    --border-fine: #E5E0D8;
+    --accent-soft: rgba(217, 119, 87, 0.08);
+    --border-fine: #E7E2DA;
     
     --font-lora: "Lora", serif;
     --font-inter: "Inter", sans-serif;
     
-    --shadow-card: 0 2px 12px -4px rgba(56, 49, 46, 0.08), 0 0 0 0.8px var(--border-fine);
-    --shadow-float: 0 12px 48px -8px rgba(56, 49, 46, 0.15), 0 0 0 0.8px var(--border-fine);
+    --shadow-card: 0 4px 16px -4px rgba(28, 25, 23, 0.1), 0 0 0 0.8px var(--border-fine);
+    --shadow-float: 0 20px 64px -12px rgba(28, 25, 23, 0.2), 0 0 0 0.8px var(--border-fine);
   }
 
   .dark {
-    /* Senior Architect Theme (DARK) */
-    --bg-base: #141210;          /* #121110 Deep Onyx */
-    --bg-surface: #1C1A17;
-    --bg-elevated: #232018;
-    --text-primary: #F2EDE7;     /* Soft Off-White */
-    --text-secondary: #C4BCB4;
-    --text-muted: #9C948A;
+    /* Senior Architect Theme (DARK) — Depth Refresh */
+    --bg-base: #0C0B0A;           /* Deeper Onyx */
+    --bg-surface: #171513;        /* Subtly lighter than base */
+    --bg-elevated: #1F1D1A;
+    --text-primary: #FAF9F6;      /* Pure readability */
+    --text-secondary: #D6D3D1;
+    --text-muted: #A8A29E;
     --accent: #E58A6D;           /* Muted Glow Terracotta */
-    --border-fine: #2E2B27;      /* Deep Border */
+    --accent-soft: rgba(229, 138, 109, 0.1);
+    --border-fine: #292524;      /* Deep Border */
     
-    --shadow-card: 0 4px 20px -8px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--border-fine);
-    --shadow-float: 0 20px 60px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--border-fine);
+    --shadow-card: 0 8px 32px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--border-fine);
+    --shadow-float: 0 32px 80px -16px rgba(0, 0, 0, 0.8), 0 0 0 1px var(--border-fine);
   }
 }
 
@@ -52,16 +54,17 @@ body {
   background-size: 40px 40px;
   background-position: center center;
   line-height: 1.6;
-  transition: background-color 0.45s cubic-bezier(0.16, 1, 0.3, 1), 
-              color 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-  opacity: 1;
+  transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+              color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-x: hidden;
 }
 
+/* Subtle background grain / pulse */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background-image: radial-gradient(rgba(217, 119, 87, 0.04) 2px, transparent 2px);
+  background-image: radial-gradient(rgba(217, 119, 87, 0.05) 1.5px, transparent 1.5px);
   background-size: 80px 80px;
   pointer-events: none;
   z-index: -1;
@@ -69,21 +72,22 @@ body::before {
 }
 
 .dark body::before {
-  opacity: 0.2;
+  background-image: radial-gradient(rgba(229, 138, 109, 0.08) 1.8px, transparent 1.8px);
+  opacity: 0.3;
 }
 
 .prose-editorial {
   font-family: var(--font-lora);
-  line-height: 1.6;
+  line-height: 1.65;
   color: var(--text-secondary);
 }
 
 .card-humanist {
   background-color: var(--bg-surface);
   border: 1px solid var(--border-fine);
-  border-radius: 1.25rem;
+  border-radius: 1.75rem;
   box-shadow: var(--shadow-card);
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .dark .card-humanist {
@@ -92,13 +96,14 @@ body::before {
 
 .card-humanist:hover {
   box-shadow: var(--shadow-float);
-  transform: translateY(-4px);
+  transform: translateY(-6px);
+  border-color: rgba(217, 119, 87, 0.2);
 }
 
 .btn-tactile {
   position: relative;
   overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
 }
 
@@ -108,25 +113,30 @@ body::before {
 
 .glass-nav {
   position: sticky;
-  top: 0;
-  z-index: 50;
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  background-color: rgba(var(--bg-base), 0.75);
-  border-bottom: 1px solid var(--border-fine);
-  transition: background-color 0.4s ease, border-color 0.4s ease;
+  top: 1rem;
+  margin-inline: auto;
+  width: calc(100% - 2rem);
+  max-width: 1200px;
+  z-index: 100;
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  background-color: rgba(var(--bg-base), 0.8);
+  border: 1px solid var(--border-fine);
+  border-radius: 2rem;
+  transition: all 0.5s ease;
 }
 
 .dark .glass-nav {
-  background-color: rgba(20, 18, 16, 0.85);
+  background-color: rgba(12, 11, 10, 0.85);
 }
 
 .transition-editorial {
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Custom scrollbar matching tokens */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 ::-webkit-scrollbar-track {
   background: var(--bg-base);

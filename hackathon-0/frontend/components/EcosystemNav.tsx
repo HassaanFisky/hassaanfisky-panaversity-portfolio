@@ -17,13 +17,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const ECOSYSTEM_APPS = [
-  { name: "Portfolio Hub", image: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png", url: "https://panaversity-h0-portfolio.vercel.app", id: "h0" },
-  { name: "Physical AI & Robotics", image: "https://panaversity-h1-robotics.vercel.app/h1-thumb.png", url: "https://panaversity-h1-robotics.vercel.app", id: "h1" },
-  { name: "Evolution of Todo", image: "https://evolution-of-todo.vercel.app/h2-thumb.png", url: "https://evolution-of-todo.vercel.app", id: "h2" },
-  { name: "LearnFlow Engine", image: "https://hassaanfisky-panaversity-learnflow.vercel.app/h2-thumb.png", url: "https://hassaanfisky-panaversity-learnflow.vercel.app", id: "h3" },
-  { name: "Companion FTE", image: "https://hassaanfisky-aira-digital-fte.vercel.app/h4-thumb.png", url: "https://hassaanfisky-aira-digital-fte.vercel.app", id: "h4" },
+  { name: "Portfolio Hub", image: "/blueprint-footer.png", url: "https://panaversity-h0-portfolio.vercel.app", id: "h0" },
+  { name: "Robotics Textbook", image: "/h1-thumb.png", url: "https://panaversity-h1-robotics.vercel.app", id: "h1" },
+  { name: "Todo Evolution", image: "/h2-thumb.png", url: "https://evolution-of-todo.vercel.app", id: "h2" },
+  { name: "LearnFlow Engine", image: "/h3-thumb.png", url: "https://learnflow-platform-h3.vercel.app", id: "h3" },
+  { name: "Companion FTE", image: "/h4-thumb.png", url: "https://digital-fte-crm.vercel.app", id: "h4" },
 ];
 
+/**
+ * HASSAAN AI ARCHITECT — Ecosystem Connectivity Hub
+ * v2.1: Re-engineered for high-contrast accessibility and premium visibility.
+ */
 export function EcosystemNav() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
@@ -36,28 +40,31 @@ export function EcosystemNav() {
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="absolute bottom-16 left-0 w-64 bg-bg-base border border-border-fine rounded-2xl shadow-float overflow-hidden p-2"
+            className="absolute bottom-16 left-0 w-72 bg-bg-surface/95 backdrop-blur-2xl border border-border-fine rounded-[2rem] shadow-float overflow-hidden p-3"
           >
-            <div className="px-3 py-2 text-[9px] font-bold uppercase tracking-[0.3em] text-accent border-b border-border-fine mb-2">
-              Ecosystem Connectivity
+            <div className="px-4 py-3 flex items-center justify-between border-b border-border-fine/40 mb-3 bg-accent/5 rounded-t-2xl">
+              <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-accent">Ecosystem Node Map</span>
+              <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
             </div>
-            <div className="space-y-1">
+            
+            <div className="space-y-1.5">
               {ECOSYSTEM_APPS.map((app) => (
                 <a
                   key={app.id}
                   href={app.url}
-                  className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-bg-surface transition-editorial group"
+                  className="flex items-center gap-4 px-4 py-3 rounded-2xl hover:bg-bg-elevated transition-editorial group"
                 >
-                  <div className="relative w-8 h-8 rounded-md bg-white border border-border-fine flex items-center justify-center overflow-hidden transition-colors">
+                  <div className="relative w-12 h-12 rounded-xl bg-bg-base border border-border-fine flex items-center justify-center overflow-hidden transition-all group-hover:border-accent/30 shadow-sm">
                     <img 
                       src={app.image} 
                       alt={app.name}
-                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-90 group-hover:opacity-100"
                     />
+                    <div className="absolute inset-0 bg-black/5" />
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-[11px] font-bold text-text-primary">{app.name}</span>
-                    <span className="text-[9px] text-text-muted uppercase tracking-wider">{app.id.toUpperCase()} Node</span>
+                    <span className="text-[13px] font-bold text-text-primary group-hover:text-accent transition-colors tracking-tight">{app.name}</span>
+                    <span className="text-[9px] text-text-muted/80 uppercase tracking-[0.2em] font-serif italic">{app.id.toUpperCase()} Production Node</span>
                   </div>
                 </a>
               ))}
@@ -68,11 +75,11 @@ export function EcosystemNav() {
 
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="btn-tactile w-12 h-12 bg-white border border-border-fine rounded-full shadow-card flex items-center justify-center text-text-primary hover:text-accent group relative"
+        className="btn-tactile w-14 h-14 bg-bg-surface border border-border-fine rounded-full shadow-card flex items-center justify-center text-text-primary hover:text-accent group relative overflow-visible transition-all hover:scale-105 active:scale-95"
       >
-        <Globe size={18} className={isOpen ? "rotate-180" : "animate-spin-slow"} style={{ animationDuration: '8s' }} />
-        {/* Unread indicator / Notification */}
-        <div className="absolute top-0 right-0 w-3 h-3 bg-accent rounded-full border-2 border-white animate-pulse" />
+        <Globe size={22} className={isOpen ? "rotate-180" : "animate-spin-slow"} style={{ animationDuration: '10s' }} />
+        {/* Unread indicator with high visibility */}
+        <div className="absolute top-1 right-1 w-4 h-4 bg-accent rounded-full border-2 border-bg-surface shadow-md animate-pulse z-10" />
       </button>
     </div>
   );
