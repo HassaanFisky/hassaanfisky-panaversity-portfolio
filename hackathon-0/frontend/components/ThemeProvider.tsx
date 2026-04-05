@@ -2,8 +2,11 @@
 
 import * as React from "react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
-import { type ThemeProviderProps } from "next-themes/dist/types";
 
-export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
+/**
+ * HASSAAN AI ARCHITECT — Theme Node Wrapper
+ * Re-engineered for Next.js 15 + next-themes compatibility.
+ */
+export function ThemeProvider({ children, ...props }: any) {
   return <NextThemesProvider {...props}>{children}</NextThemesProvider>;
 }
