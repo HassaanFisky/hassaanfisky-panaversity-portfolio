@@ -1,0 +1,11 @@
+{
+  "name": "@panaversity/design-system",
+  "version": "1.0.0",
+  "description": "High-Fidelity Humanist Design Tokens and Patterns for the Panaversity Ecosystem",
+  "main": "tokens.css",
+  "files": [
+    "tokens.css"
+  ],
+  "author": "Hassaan AI Architect",
+  "license": "MIT"
+}
