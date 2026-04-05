@@ -12,8 +12,8 @@ interface HackathonCardProps {
 
 /**
  * HASSAAN AI ARCHITECT — Hackathon Node Component
- * Re-engineered for 100% Image Fidelity and Unified Branding.
- * The image now perfectly fills the card width with zero gaps.
+ * Re-engineered for 100% Visual Fidelity.
+ * Using 'object-contain' and responsive container scaling to prevent cropping of editorial assets.
  */
 export function HackathonCard({ hackathon }: HackathonCardProps) {
   const isComingSoon = hackathon.status === "coming-soon";
@@ -22,35 +22,37 @@ export function HackathonCard({ hackathon }: HackathonCardProps) {
     <MotionDiv variants={fadeUp} className="group h-full">
       <div className="card-humanist p-10 flex flex-col h-full relative overflow-hidden group-hover:scale-[1.02] transition-editorial bg-bg-surface/50 backdrop-blur-sm shadow-soft border-border-fine/50">
         
-        {/* Project Thumbnail — Corrected for Full-Width Fidelity */}
-        <div className="relative -mt-10 -mx-10 mb-10 h-64 overflow-hidden border-b border-border-fine/40 bg-bg-base/30">
+        {/* Project Thumbnail — Standardized for 100% visibility (No cropping) */}
+        <div className="relative -mt-10 -mx-10 mb-10 h-72 overflow-hidden border-b border-border-fine/40 bg-bg-elevated/80 flex items-center justify-center p-4">
+          {/* Subtle background blur for contained images */}
+          <div className="absolute inset-0 opacity-[0.15] blur-xl grayscale">
+             <img src={hackathon.imageUrl} alt="" className="w-full h-full object-cover" />
+          </div>
+
           <img 
             src={hackathon.imageUrl} 
             alt={hackathon.title} 
-            className="w-full h-full object-cover transition-transform duration-[2.5s] group-hover:scale-110 opacity-90 group-hover:opacity-100 grayscale-[10%] group-hover:grayscale-0"
+            className="relative z-10 w-full h-full object-contain transition-transform duration-[1.5s] group-hover:scale-105"
           />
           
-          {/* Universal Branding Overlay — Senior Architect Insignia */}
-          <div className="absolute top-6 left-6 flex flex-col pointer-events-none drop-shadow-md">
-            <span className="text-[11px] font-serif font-bold tracking-[0.1em] text-white uppercase opacity-90 leading-none">HASSAAN</span>
-            <span className="text-[7.5px] font-bold uppercase tracking-[0.3em] text-white/80 leading-none mt-1">AI ARCHITECT</span>
+          {/* High-Fidelity Universal Branding Overlay */}
+          <div className="absolute top-6 left-6 flex flex-col items-start gap-1 z-20 drop-shadow-lg">
+             <div className="px-3 py-1 bg-black/40 backdrop-blur-md rounded-lg border border-white/10 flex flex-col">
+                <span className="text-[10px] font-serif font-bold tracking-[0.1em] text-white uppercase leading-none">HASSAAN</span>
+                <span className="text-[7px] font-bold uppercase tracking-[0.3em] text-white/80 leading-none mt-0.5">AI ARCHITECT</span>
+             </div>
           </div>
 
-          <div className="absolute inset-0 bg-gradient-to-t from-bg-base/40 via-transparent to-black/10 pointer-events-none" />
-          
-          {/* Subtle corner detail */}
-          <div className="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-             <Sparkles size={16} className="text-white/40 font-bold" />
-          </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-bg-base/30 via-transparent to-black/5 pointer-events-none" />
         </div>
         
         {/* Header content */}
-        <div className="flex items-start justify-between mb-10">
+        <div className="flex items-start justify-between mb-8">
           <div className="space-y-3">
             <div className="text-[9px] font-bold tracking-[0.4em] uppercase text-accent opacity-80">
               Protocol Phase {hackathon.id === 0 ? "O" : hackathon.id === 1 ? "I" : hackathon.id === 2 ? "II" : hackathon.id === 3 ? "III" : "IV"}
             </div>
-            <h3 className="text-3xl font-serif text-text-primary group-hover:text-accent transition-colors duration-500 leading-[1.2] tracking-tight">
+            <h3 className="text-2xl md:text-3xl font-serif text-text-primary group-hover:text-accent transition-colors duration-500 leading-[1.2] tracking-tight">
               {hackathon.title}
             </h3>
           </div>
@@ -64,11 +66,11 @@ export function HackathonCard({ hackathon }: HackathonCardProps) {
           </p>
 
           {/* Tech Stack Chips */}
-          <div className="mt-10 flex flex-wrap gap-2.5">
+          <div className="mt-8 flex flex-wrap gap-2.5">
             {hackathon.tech.map((tech) => (
               <span 
                 key={tech} 
-                className="px-4 py-1.5 rounded-full bg-bg-base/50 border border-border-fine/60 text-[9px] font-bold tracking-[0.1em] text-text-muted hover:text-accent hover:border-accent/30 transition-all cursor-crosshair opacity-80"
+                className="px-4 py-1.5 rounded-full bg-bg-base/30 border border-border-fine/40 text-[9px] font-bold tracking-[0.1em] text-text-muted hover:text-accent hover:border-accent/30 transition-all cursor-crosshair"
               >
                 {tech}
               </span>
