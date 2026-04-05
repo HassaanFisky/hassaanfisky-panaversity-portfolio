@@ -1,29 +1,44 @@
 @import "tailwindcss";
 
-@theme {
-  --color-bg-base: #FCFAF8;
-  --color-bg-surface: #F0EBE1;
-  --color-bg-elevated: #EAE4D9;
-  --color-text-primary: #38312E;
-  --color-text-secondary: #5F5854;
-  --color-text-muted: #8A857D;
-  --color-accent: #D97757;
-  --color-border-fine: #E5E0D8;
-  --font-lora: "Lora", serif;
-  --font-inter: "Inter", sans-serif;
-  
-  --shadow-card: 0 2px 12px -4px rgba(56, 49, 46, 0.08), 0 0 0 0.8px var(--color-border-fine);
-  --shadow-float: 0 12px 48px -8px rgba(56, 49, 46, 0.15), 0 0 0 0.8px var(--color-border-fine);
-}
+/**
+ * HASSAAN AI ARCHITECT — Portfolio Hub (H0)
+ * Perfect Fidelity Theme System (v2.0)
+ * 100% Functional Dark/Light Mode
+ */
 
-:root {
-  --bg-base: #FCFAF8;
-  --bg-surface: #F0EBE1;
-  --text-primary: #38312E;
-  --text-secondary: #5F5854;
-  --text-muted: #8A857D;
-  --accent: #D97757;
-  --border-fine: #E5E0D8;
+@layer base {
+  :root {
+    /* Anthropic Warm Theme (LIGHT) */
+    --bg-base: #FCFAF8;
+    --bg-surface: #F0EBE1;
+    --bg-elevated: #EAE4D9;
+    --text-primary: #38312E;
+    --text-secondary: #5F5854;
+    --text-muted: #8A857D;
+    --accent: #D97757;
+    --border-fine: #E5E0D8;
+    
+    --font-lora: "Lora", serif;
+    --font-inter: "Inter", sans-serif;
+    
+    --shadow-card: 0 2px 12px -4px rgba(56, 49, 46, 0.08), 0 0 0 0.8px var(--border-fine);
+    --shadow-float: 0 12px 48px -8px rgba(56, 49, 46, 0.15), 0 0 0 0.8px var(--border-fine);
+  }
+
+  .dark {
+    /* Senior Architect Theme (DARK) */
+    --bg-base: #141210;          /* #121110 Deep Onyx */
+    --bg-surface: #1C1A17;
+    --bg-elevated: #232018;
+    --text-primary: #F2EDE7;     /* Soft Off-White */
+    --text-secondary: #C4BCB4;
+    --text-muted: #9C948A;
+    --accent: #E58A6D;           /* Muted Glow Terracotta */
+    --border-fine: #2E2B27;      /* Deep Border */
+    
+    --shadow-card: 0 4px 20px -8px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--border-fine);
+    --shadow-float: 0 20px 60px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--border-fine);
+  }
 }
 
 body {
@@ -37,6 +52,8 @@ body {
   background-size: 40px 40px;
   background-position: center center;
   line-height: 1.6;
+  transition: background-color 0.45s cubic-bezier(0.16, 1, 0.3, 1), 
+              color 0.45s cubic-bezier(0.16, 1, 0.3, 1);
   opacity: 1;
 }
 
@@ -44,10 +61,15 @@ body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background-image: radial-gradient(rgba(217, 119, 87, 0.03) 2px, transparent 2px);
+  background-image: radial-gradient(rgba(217, 119, 87, 0.04) 2px, transparent 2px);
   background-size: 80px 80px;
   pointer-events: none;
   z-index: -1;
+  transition: opacity 0.5s ease;
+}
+
+.dark body::before {
+  opacity: 0.2;
 }
 
 .prose-editorial {
@@ -57,35 +79,46 @@ body::before {
 }
 
 .card-humanist {
-  background-color: #ffffff;
+  background-color: var(--bg-surface);
   border: 1px solid var(--border-fine);
-  border-radius: 1rem;
+  border-radius: 1.25rem;
   box-shadow: var(--shadow-card);
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.dark .card-humanist {
+  background-color: var(--bg-elevated);
+}
+
 .card-humanist:hover {
   box-shadow: var(--shadow-float);
+  transform: translateY(-4px);
 }
 
 .btn-tactile {
   position: relative;
   overflow: hidden;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
 }
 
 .btn-tactile:active {
-  transform: scale(0.98);
+  transform: scale(0.96);
 }
 
 .glass-nav {
   position: sticky;
   top: 0;
   z-index: 50;
-  backdrop-filter: blur(20px);
-  background-color: rgba(252, 250, 248, 0.7);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  background-color: rgba(var(--bg-base), 0.75);
   border-bottom: 1px solid var(--border-fine);
+  transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+.dark .glass-nav {
+  background-color: rgba(20, 18, 16, 0.85);
 }
 
 .transition-editorial {
