@@ -98,6 +98,13 @@ body::before {
   box-shadow: var(--shadow-float);
   transform: translateY(-6px);
   border-color: rgba(217, 119, 87, 0.2);
+  /* Explicit bg lock — prevents white-flash on hover in dark mode */
+  background-color: var(--bg-surface);
+}
+
+.dark .card-humanist:hover {
+  background-color: var(--bg-elevated);
+  border-color: rgba(229, 138, 109, 0.25);
 }
 
 .btn-tactile {

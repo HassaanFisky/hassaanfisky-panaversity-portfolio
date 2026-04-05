@@ -20,7 +20,7 @@ export function HackathonCard({ hackathon }: HackathonCardProps) {
 
   return (
     <MotionDiv variants={fadeUp} className="group h-full">
-      <div className="card-humanist p-10 flex flex-col h-full relative overflow-hidden group-hover:scale-[1.02] transition-editorial bg-bg-surface/50 backdrop-blur-sm shadow-soft border-border-fine/50">
+      <div className="card-humanist p-10 flex flex-col h-full relative overflow-hidden group-hover:scale-[1.02] transition-editorial bg-bg-surface dark:bg-bg-elevated border-border-fine/50 shadow-soft">
         
         {/* Project Thumbnail — Standardized for 100% visibility (No cropping) */}
         <div className="relative -mt-10 -mx-10 mb-10 h-72 overflow-hidden border-b border-border-fine/40 bg-bg-elevated/80 flex items-center justify-center p-4">
