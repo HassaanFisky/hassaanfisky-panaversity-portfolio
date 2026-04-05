@@ -12,6 +12,10 @@ export interface Hackathon {
   points: string;
 }
 
+/**
+ * HASSAAN AI ARCHITECT — Hackathon Ecosystem Registry
+ * Corrected production aliases for 'Perfect Fidelity' audit.
+ */
 export const hackathons: Hackathon[] = [
   { 
     id: 0, 
@@ -20,7 +24,7 @@ export const hackathons: Hackathon[] = [
     tech: ["Claude Code", "Obsidian"],
     description: "Build an autonomous Digital FTE that proactively manages your personal and business affairs 24/7 using Claude Code and Obsidian. Gmail, WhatsApp, bank transactions, and tasks — all on autopilot.",
     status: "live", 
-    url: "https://hassaan-panaversity-portfolio.vercel.app/", 
+    url: "https://panaversity-h0-portfolio.vercel.app/", 
     imageUrl: "/blueprint-footer.png",
     points: "1600 points" 
   },
@@ -53,7 +57,7 @@ export const hackathons: Hackathon[] = [
     tech: ["MCP", "Agent Skills", "Claude Code", "Goose"],
     description: "Build agentic infrastructure with MCP Code Execution and Agent Skills. Create a LearnFlow platform using Claude Code and Goose — the Skills are the product.",
     status: "live", 
-    url: "https://hassaanfisky-panaversity-learnflow.vercel.app", 
+    url: "https://learnflow-platform-h3.vercel.app", 
     imageUrl: "/h2-thumb.png",
     points: "1000 + 400 bonus" 
   },
