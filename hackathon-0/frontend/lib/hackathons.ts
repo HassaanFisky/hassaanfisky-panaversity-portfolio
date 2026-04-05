@@ -14,7 +14,8 @@ export interface Hackathon {
 
 /**
  * HASSAAN AI ARCHITECT — Hackathon Ecosystem Registry
- * Corrected production aliases for 'Perfect Fidelity' audit.
+ * Corrected production aliases and 'Perfect Fidelity' assets.
+ * 194th Turn Update: Mapping high-fidelity generated thumbnails.
  */
 export const hackathons: Hackathon[] = [
   { 
@@ -58,7 +59,7 @@ export const hackathons: Hackathon[] = [
     description: "Build agentic infrastructure with MCP Code Execution and Agent Skills. Create a LearnFlow platform using Claude Code and Goose — the Skills are the product.",
     status: "live", 
     url: "https://learnflow-platform-h3.vercel.app", 
-    imageUrl: "/h2-thumb.png",
+    imageUrl: "/h3-thumb.png",
     points: "1000 + 400 bonus" 
   },
   { 

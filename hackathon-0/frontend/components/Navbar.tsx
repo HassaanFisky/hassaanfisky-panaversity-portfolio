@@ -7,11 +7,12 @@ import { ThemeToggle } from "./ThemeToggle";
 
 /**
  * HASSAAN AI ARCHITECT — Portfolio Hub Navbar
- * Re-engineered with ThemeToggle and semantic design tokens.
+ * Re-engineered with high-fidelity theme switching and premium z-index.
+ * z-index set to 100 to ensure 100% interactivity over all Hero elements.
  */
 export function Navbar() {
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 h-20 bg-bg-base/80 backdrop-blur-md border-b border-border-fine transition-all duration-500">
+    <nav className="fixed top-0 left-0 right-0 z-[100] h-20 bg-bg-base/80 backdrop-blur-xl border-b border-border-fine transition-all duration-500">
       <div className="max-w-7xl mx-auto px-6 h-full flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3 group transition-all duration-500 hover:scale-[1.02]">
           <Logo />
@@ -33,7 +34,9 @@ export function Navbar() {
         </div>
 
         <div className="flex items-center gap-6">
-          <ThemeToggle />
+          <div className="relative z-[110]">
+             <ThemeToggle />
+          </div>
           
           <Link 
             href="/resume.pdf" 
