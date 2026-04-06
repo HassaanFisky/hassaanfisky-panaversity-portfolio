@@ -20,6 +20,14 @@ build/
 .env.test.local
 .env.production.local
 *.env
+**/.env
+**/.env.*
+
+# Python
+venv/
+**/venv/
+__pycache__/
+**/__pycache__/
 
 # Operating system files
 .DS_Store
@@ -40,3 +48,4 @@ yarn-error.log*
 
 # Vercel
 .vercel
+**/.vercel
