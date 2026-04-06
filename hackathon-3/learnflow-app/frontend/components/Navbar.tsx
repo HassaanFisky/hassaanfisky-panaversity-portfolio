@@ -54,20 +54,30 @@ export function Navbar() {
           ))}
         </div>
 
-        {/* Actions */}
+        {/* Actions Menu */}
         <div className="flex items-center gap-6">
-          <div className="hidden md:flex items-center gap-6">
-            <Link href="/progress" className={cn(
-              "p-2 rounded-xl border transition-editorial",
-              pathname === "/progress" ? "bg-accent/5 border-accent/20 text-accent" : "border-transparent text-text-muted hover:text-text-primary"
-            )}>
-              <User size={18} strokeWidth={2.5} />
-            </Link>
+          <div className="flex items-center gap-3">
             <ThemeToggle />
+            <Link 
+              href="/progress" 
+              className={cn(
+                "h-10 w-10 flex items-center justify-center rounded-xl border transition-editorial group",
+                pathname === "/progress" 
+                  ? "bg-accent/10 border-accent/30 text-accent shadow-lg shadow-accent/5" 
+                  : "border-border-fine text-text-muted hover:border-text-primary hover:text-text-primary"
+              )}
+            >
+              <User size={18} className="group-hover:scale-110 transition-transform" />
+            </Link>
           </div>
-          <button className="btn-tactile px-6 py-2.5 bg-accent text-white text-[10px] font-bold uppercase tracking-[0.3em] rounded-xl shadow-lg shadow-accent/10 hover:brightness-110 active:scale-95 transition-all duration-300">
-            Current Session
-          </button>
+          
+          <Link 
+            href="/learn"
+            className="hidden sm:flex btn-tactile px-6 py-2.5 bg-[#141210] text-[#E58A6D] text-[10px] font-bold uppercase tracking-[0.3em] rounded-xl border border-border-fine hover:border-accent hover:text-accent shadow-xl shadow-black/20 active:scale-95 transition-all duration-300"
+          >
+            Study Protocol
+          </Link>
+
           <button className="lg:hidden text-text-muted">
             <Menu size={20} />
           </button>

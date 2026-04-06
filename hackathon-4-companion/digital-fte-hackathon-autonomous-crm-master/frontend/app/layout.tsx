@@ -3,6 +3,7 @@ import { Inter, Lora } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import EcosystemNav from "@/components/EcosystemNav";
+import { AiraAssistant } from "@/components/AiraAssistant";
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -41,6 +42,11 @@ export default function RootLayout({
         <div className="fixed inset-0 pointer-events-none -z-10 bg-texture opacity-50" />
         
         {children}
+
+        <AiraAssistant 
+          platform="H4" 
+          context="Digital FTE is monitoring the Kafka 'struggle.alerts' topic. CRM Tickets are synchronized. All autonomous agents are active." 
+        />
 
         <Toaster 
           position="bottom-right" 

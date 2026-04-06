@@ -2,6 +2,7 @@ import { Hero } from "@/components/Hero";
 import { HackathonCard } from "@/components/HackathonCard";
 import { hackathons } from "@/lib/hackathons";
 import { MotionDiv, fadeUp, stagger } from "@/components/motion";
+import { AiraAssistant } from "@/components/AiraAssistant";
 
 /**
  * HASSAAN AI ARCHITECT — Portfolio Hub Landing Page
@@ -95,6 +96,12 @@ export default function Home() {
           </div>
         </MotionDiv>
       </section>
+      
+      {/* Global ECOSYSTEM ASSISTANT */}
+      <AiraAssistant 
+        platform="H0" 
+        context="Showcasing the complete Panaversity Hackathon Pipeline from H0 to H4. All systems were built by Hassaan and AI." 
+      />
     </div>
   );
 }

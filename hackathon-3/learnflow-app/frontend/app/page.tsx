@@ -17,12 +17,21 @@ import {
   Target
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
+import { AiraAssistant } from "@/components/AiraAssistant";
+import { cn } from "@/lib/utils";
 
 export default function LandingPage() {
   const [user, setUser] = useState<any>(null);
   const [modules, setModules] = useState<any[]>([]);
   const [progress, setProgress] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [uplink, setUplink] = useState("INITIALIZING...");
+
+  useEffect(() => {
+    // High-Fidelity Uplink Sequence
+    const timer = setTimeout(() => setUplink("WIRED (KOYEB)"), 2400);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const checkAuthAndData = async () => {
@@ -168,7 +177,7 @@ export default function LandingPage() {
                   <StatCard icon={<Star size={18} />} label="Streak" value="5 Days" />
                   <StatCard icon={<Clock size={18} />} label="Focus" value="12h" />
                   <StatCard icon={<CheckCircle2 size={18} />} label="Modules" value={`${modules.length}`} />
-                  <StatCard icon={<Zap size={18} />} label="Uplink" value="WIRED" />
+                  <StatCard icon={<Zap size={18} className={cn("transition-colors", uplink === "INITIALIZING..." ? "text-yellow-500 animate-pulse" : "text-emerald-500")} />} label="Uplink" value={uplink} />
                 </div>
               </MotionDiv>
             </div>
@@ -231,7 +240,6 @@ export default function LandingPage() {
           </div>
         </section>
       </main>
-
       <footer className="py-20 bg-bg-surface/50 border-t border-border-fine px-6">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10">
           <div className="flex flex-col gap-2 scale-75 origin-left">
@@ -241,6 +249,11 @@ export default function LandingPage() {
           <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-text-muted opacity-40">Architected by Hassaan & AI • 2026</span>
         </div>
       </footer>
+
+      <AiraAssistant 
+        platform="H3" 
+        context="Student mastery scoring is active. Arena matches are live. All microservices are healthy on Koyeb mesh." 
+      />
     </div>
   );
 }

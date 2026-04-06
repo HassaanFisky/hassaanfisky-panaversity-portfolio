@@ -4,6 +4,7 @@ import Link from "@docusaurus/Link";
 import Layout from "@theme/Layout";
 import { useLanguage } from "../context/LanguageContext";
 import styles from "./index.module.css";
+import { AiraAssistant } from "../components/AiraAssistant";
 
 function HomepageHeader() {
   const { t } = useLanguage();
@@ -108,6 +109,10 @@ export default function Home() {
         <HomepageFeatures />
         <ModulePreview />
       </main>
+      <AiraAssistant 
+        platform="H1" 
+        context="Physical AI Curriculum is 100% loaded. Chapters 01-05 are synchronized. Ready to simulate kinematics." 
+      />
     </Layout>
   );
 }

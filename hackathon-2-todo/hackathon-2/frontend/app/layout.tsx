@@ -22,6 +22,7 @@ export const metadata: Metadata = {
 };
 
 import { EcosystemNav } from "@/components/EcosystemNav";
+import { AiraAssistant } from "@/components/AiraAssistant";
 
 export default function RootLayout({
   children,
@@ -38,6 +39,10 @@ export default function RootLayout({
         >
           {children}
           <EcosystemNav />
+          <AiraAssistant 
+            platform="H2" 
+            context="Your task stack is optimized. Syncing with the global learning protocol." 
+          />
           <Toaster 
             richColors 
             position="top-right" 
