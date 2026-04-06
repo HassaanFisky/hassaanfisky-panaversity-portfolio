@@ -1,0 +1,458 @@
+[
+  {
+    "id": 0,
+    "title": "4.3 Responsible Deployment",
+    "section": "4.3 Responsible Deployment",
+    "text": "Responsible Deployment (Safety, Ethics, Reliability) Why this matters: Robots sharing space with humans brings massive responsibility. A bug isn't just a crash; it's an injury.",
+    "url": "/docs/module-04-deployment/03-responsible-deployment",
+    "module": "module-04-deployment"
+  },
+  {
+    "id": 1,
+    "title": "4.3 Responsible Deployment",
+    "section": "Safety Standards",
+    "text": "- ISO 13482: Safety requirements for personal care robots. - Functional Safety: Redundancy. If the main PC crashes, a \"safety core\" (MCU) must lock the joints or damp them.",
+    "url": "/docs/module-04-deployment/03-responsible-deployment",
+    "module": "module-04-deployment"
+  },
+  {
+    "id": 2,
+    "title": "4.3 Responsible Deployment",
+    "section": "Ethics of Humanoid AI",
+    "text": "1. Displacement: Will this replace jobs? (Yes, likely dull/dangerous ones first). 2. Affection: Humans bond with humanoids. Is it ethical to simulate emotions to manipulate users? 3. Dual Use: Every rescue robot is a potential soldier.",
+    "url": "/docs/module-04-deployment/03-responsible-deployment",
+    "module": "module-04-deployment"
+  },
+  {
+    "id": 3,
+    "title": "4.3 Responsible Deployment",
+    "section": "Reliability Engineering",
+    "text": "- Mean Time Between Failure (MTBF): How long until a gear strips? - Fail-Safe Design: When power is lost, does it collapse dangerously or sag gently? (Knees should buckle, not lock).",
+    "url": "/docs/module-04-deployment/03-responsible-deployment",
+    "module": "module-04-deployment"
+  },
+  {
+    "id": 4,
+    "title": "4.3 Responsible Deployment",
+    "section": "Key Takeaways",
+    "text": "- Safety is the #1 priority. - Respect the psychological impact of human-like machines. - Design for failure—because it will fail.",
+    "url": "/docs/module-04-deployment/03-responsible-deployment",
+    "module": "module-04-deployment"
+  },
+  {
+    "id": 5,
+    "title": "4.2 Benchmarks & Metrics",
+    "section": "4.2 Benchmarks & Metrics",
+    "text": "Benchmarks, Metrics, and Debug Playbooks Why this matters: \"It walks good\" is not engineering. \"It walks at 1.2m/s with a Cost of Transport of 1.5\" is engineering.",
+    "url": "/docs/module-04-deployment/02-benchmarks-debug",
+    "module": "module-04-deployment"
+  },
+  {
+    "id": 6,
+    "title": "4.2 Benchmarks & Metrics",
+    "section": "Key Metrics",
+    "text": "1. Cost of Transport (CoT): Energy efficiency. Humans: ~0.2. Existing Robots: ~1.5 - 3.0. 2. Success Rate: Walks 10m without falling (N/100 trials). 3. Recovery Window: Maximum push (in Newtons) the robot can survive.",
+    "url": "/docs/module-04-deployment/02-benchmarks-debug",
+    "module": "module-04-deployment"
+  },
+  {
+    "id": 7,
+    "title": "4.2 Benchmarks & Metrics",
+    "section": "Debug Playbook",
+    "text": "When the robot falls: 1. Check Power/Comms: Did a motor cut out? 2. Check State Estimation: Did it think it was falling before it actually did? 3. Check Torque Limits: Did the controller ask for more torque than the motor can give (saturation)? 4. Check Latency: Did a control loop miss its deadline?",
+    "url": "/docs/module-04-deployment/02-benchmarks-debug",
+    "module": "module-04-deployment"
+  },
+  {
+    "id": 8,
+    "title": "4.2 Benchmarks & Metrics",
+    "section": "Key Takeaways",
+    "text": "- Measure everything. - CoT is a brutal metric; it exposes inefficient designs. - A systematic debug process beats random parameter tuning.",
+    "url": "/docs/module-04-deployment/02-benchmarks-debug",
+    "module": "module-04-deployment"
+  },
+  {
+    "id": 9,
+    "title": "4.1 Digital Twins",
+    "section": "4.1 Digital Twins",
+    "text": "Digital Twins & Testing Pipelines Why this matters: A Digital Twin is more than a simulation; it's a live, data-connected replica. It allows debugging past failures and predicting future ones.",
+    "url": "/docs/module-04-deployment/01-digital-twins",
+    "module": "module-04-deployment"
+  },
+  {
+    "id": 10,
+    "title": "4.1 Digital Twins",
+    "section": "The Loop",
+    "text": "1. Robot Logs: Record everything (ROS Bags). 2. Replay: Feed logs into the Simulator (Digital Twin). 3. Analysis: Why did it fall? Was it a sensor glitch or a control bug?",
+    "url": "/docs/module-04-deployment/01-digital-twins",
+    "module": "module-04-deployment"
+  },
+  {
+    "id": 11,
+    "title": "4.1 Digital Twins",
+    "section": "CI/CD for Robotics",
+    "text": "Software bugs in robotics cause hardware damage. - Unit Tests: Test functions (math). - Integration Tests: Test node communication. - Regression Tests (Sim): \"Does the robot still walk 10m without falling?\" Run this on every Pull Request.",
+    "url": "/docs/module-04-deployment/01-digital-twins",
+    "module": "module-04-deployment"
+  },
+  {
+    "id": 12,
+    "title": "4.1 Digital Twins",
+    "section": "Hardware-in-the-Loop (HIL)",
+    "text": "Connecting the real compute/electronics to a simulated physics world. This verifies the embedded software timing without risking the mechanics.",
+    "url": "/docs/module-04-deployment/01-digital-twins",
+    "module": "module-04-deployment"
+  },
+  {
+    "id": 13,
+    "title": "4.1 Digital Twins",
+    "section": "Key Takeaways",
+    "text": "- Digital Twins bridge historical data with simulation. - Never deploy code to a robot without passing Sim Regression tests. - \"It worked on my machine\" is not a valid excuse when the machine costs $100k.",
+    "url": "/docs/module-04-deployment/01-digital-twins",
+    "module": "module-04-deployment"
+  },
+  {
+    "id": 14,
+    "title": "3.3 Perception for Humanoids",
+    "section": "3.3 Perception for Humanoids",
+    "text": "Perception for Humanoids Why this matters: Walking blind is hard. To step over debris or stairs, the robot must map the terrain in 3D.",
+    "url": "/docs/module-03-software/03-perception",
+    "module": "module-03-software"
+  },
+  {
+    "id": 15,
+    "title": "3.3 Perception for Humanoids",
+    "section": "SLAM (Simultaneous Localization and Mapping)",
+    "text": "- Lidar SLAM: Precise 3D point clouds. Good for geometry. (e.g., LIO-SAM). - Visual SLAM: Uses cameras. Good for textures/semantics. (e.g., ORB-SLAM3). For walking, we need Elevation Maps: a 2.5D grid where every cell has a height. The planner uses this to pick safe footsteps.",
+    "url": "/docs/module-03-software/03-perception",
+    "module": "module-03-software"
+  },
+  {
+    "id": 16,
+    "title": "3.3 Perception for Humanoids",
+    "section": "Terrain Analysis",
+    "text": "Is that surface walkable? 1. Roughness: Too bumpy? 2. Slope: Too steep? 3. Stability: Will it crumble? (Visual inspection is hard here).",
+    "url": "/docs/module-03-software/03-perception",
+    "module": "module-03-software"
+  },
+  {
+    "id": 17,
+    "title": "3.3 Perception for Humanoids",
+    "section": "Contact Sensing",
+    "text": "The feet are sensors. - Detecting Touchdown: Switch from swing logic to stance logic. - Detecting Slip: If the foot creates noise but doesn't move global position, it's slipping.",
+    "url": "/docs/module-03-software/03-perception",
+    "module": "module-03-software"
+  },
+  {
+    "id": 18,
+    "title": "3.3 Perception for Humanoids",
+    "section": "Key Takeaways",
+    "text": "- Perception isn't just \"seeing objects\"; it's \"mapping walkability\". - Elevation maps are the standard interface between Perception and Locomotion. - Foot contact is the most critical event to detect.",
+    "url": "/docs/module-03-software/03-perception",
+    "module": "module-03-software"
+  },
+  {
+    "id": 19,
+    "title": "3.2 The Control Stack",
+    "section": "3.2 The Control Stack",
+    "text": "Control Stack Overview Why this matters: A brain without a nervous system is useless. The control stack organizes algorithms from \"high-level desire\" to \"low-level voltage\".",
+    "url": "/docs/module-03-software/02-control-stack",
+    "module": "module-03-software"
+  },
+  {
+    "id": 20,
+    "title": "3.2 The Control Stack",
+    "section": "The Hierarchy",
+    "text": "1. High Level (Behavior): \"Go to the kitchen\" (Finite State Machine / Behavior Tree). 2. Planner: \"Generate a trajectory of footsteps\" (MPC - Model Predictive Control). 3. Whole-Body Controller (WBC): \"Move the CoM here while balancing and swinging the leg\" (Quadratic Programming). 4. Low Level: \"Apply 5A current to the knee motor\" (FOC - Field Oriented Control).",
+    "url": "/docs/module-03-software/02-control-stack",
+    "module": "module-03-software"
+  },
+  {
+    "id": 21,
+    "title": "3.2 The Control Stack",
+    "section": "Whole-Body Control (WBC)",
+    "text": "WBC solves an optimization problem every 1-2ms: - Tasks: Keep head level, swing foot, maintain balance. - Constraints: Friction cone (don't slip), Torque limits.",
+    "url": "/docs/module-03-software/02-control-stack",
+    "module": "module-03-software"
+  },
+  {
+    "id": 22,
+    "title": "3.2 The Control Stack",
+    "section": "Safety Layer",
+    "text": "The most important part. - Watchdogs: If the PC hangs, cut power. - Joint Limits: Don't break the robot's own legs. - Emergency Stop: Hardware button that kills power physically.",
+    "url": "/docs/module-03-software/02-control-stack",
+    "module": "module-03-software"
+  },
+  {
+    "id": 23,
+    "title": "3.2 The Control Stack",
+    "section": "Key Takeaways",
+    "text": "- Control is layered: Slow/Smart on top, Fast/Dumb on bottom. - WBC allows handling multiple tasks (balance + reaching) simultaneously. - Safety must be enforced at the lowest firmware level.",
+    "url": "/docs/module-03-software/02-control-stack",
+    "module": "module-03-software"
+  },
+  {
+    "id": 24,
+    "title": "3.1 ROS 2 for Humanoids",
+    "section": "3.1 ROS 2 for Humanoids",
+    "text": "ROS 2 Concepts for Humanoids Why this matters: The Robot Operating System (ROS 2) is the industry standard plumbing. It handles how your camera talks to your SLAM, and how your SLAM talks to your walk controller.",
+    "url": "/docs/module-03-software/01-ros2-concepts",
+    "module": "module-03-software"
+  },
+  {
+    "id": 25,
+    "title": "3.1 ROS 2 for Humanoids",
+    "section": "Nodes, Topics, and Services",
+    "text": "- Node: An executable (e.g., cameradriver, pathplanner). - Topic: A bus for data (e.g., /images, /joint_states). Pub/Sub. - Service: A request/reply mechanism (e.g., /reset_simulation).",
+    "url": "/docs/module-03-software/01-ros2-concepts",
+    "module": "module-03-software"
+  },
+  {
+    "id": 26,
+    "title": "3.1 ROS 2 for Humanoids",
+    "section": "Real-Time Constraints",
+    "text": "For humanoids, timing is not optional. - DDS (Data Distribution Service): The middleware under ROS 2. - Lifecycle Nodes: Managed states (Unconfigured -> Inactive -> Active). Essential for safety. You don't want the motors active before the controller is ready.",
+    "url": "/docs/module-03-software/01-ros2-concepts",
+    "module": "module-03-software"
+  },
+  {
+    "id": 27,
+    "title": "3.1 ROS 2 for Humanoids",
+    "section": "Efficient Data Handling",
+    "text": "- Zero Copy: Passing pointers instead of serializing data (intra-process). - QoS (Quality of Service): - Reliable: Deliver every packet (good for commands). - Best Effort: Drop old packets (good for high-rate sensor data).",
+    "url": "/docs/module-03-software/01-ros2-concepts",
+    "module": "module-03-software"
+  },
+  {
+    "id": 28,
+    "title": "3.1 ROS 2 for Humanoids",
+    "section": "Key Takeaways",
+    "text": "- ROS 2 is a graph of nodes talking over DDS. - Humanoids require Real-Time performance; standard Linux isn't enough (need PREEMPT_RT kernel). - Use Lifecycle Nodes to manage startup/shutdown safely.",
+    "url": "/docs/module-03-software/01-ros2-concepts",
+    "module": "module-03-software"
+  },
+  {
+    "id": 29,
+    "title": "2.3 Locomotion & Balance",
+    "section": "2.3 Locomotion & Balance",
+    "text": "Locomotion & Balance Why this matters: Falling over is the #1 failure mode of humanoids. Balance is an active, continuous fight against gravity.",
+    "url": "/docs/module-02-hardware/03-locomotion-balance",
+    "module": "module-02-hardware"
+  },
+  {
+    "id": 30,
+    "title": "2.3 Locomotion & Balance",
+    "section": "Center of Mass (CoM) & ZMP",
+    "text": "1. Center of Mass (CoM): The weighted average position of all mass in the robot. 2. Zero Moment Point (ZMP): The point on the ground where the total tipping moment is zero. The Rule: To stay balanced, the ZMP must be inside the Support Polygon (the area covered by the feet).",
+    "url": "/docs/module-02-hardware/03-locomotion-balance",
+    "module": "module-02-hardware"
+  },
+  {
+    "id": 31,
+    "title": "2.3 Locomotion & Balance",
+    "section": "Walking Gaits",
+    "text": "1. Static Walking: Keep CoM over one foot at all times. Very slow, looks like a zombie. 2. Dynamic Walking: Allow CoM to leave the support polygon briefly, but \"catch\" it with the next step. This is how humans walk.",
+    "url": "/docs/module-02-hardware/03-locomotion-balance",
+    "module": "module-02-hardware"
+  },
+  {
+    "id": 32,
+    "title": "2.3 Locomotion & Balance",
+    "section": "Push Recovery",
+    "text": "What if you get shoved? 1. Ankle Strategy: Use ankle torque to correct small pushes. 2. Hip Strategy: Bend at the waist to generate angular momentum. 3. Stepping Strategy: Take a step to widen the support polygon.",
+    "url": "/docs/module-02-hardware/03-locomotion-balance",
+    "module": "module-02-hardware"
+  },
+  {
+    "id": 33,
+    "title": "2.3 Locomotion & Balance",
+    "section": "Key Takeaways",
+    "text": "- ZMP is the currency of balance. - Dynamic walking requires \"falling\" and catching yourself. - The robot must continuously re-plan footsteps based on disturbances.",
+    "url": "/docs/module-02-hardware/03-locomotion-balance",
+    "module": "module-02-hardware"
+  },
+  {
+    "id": 34,
+    "title": "2.2 Actuation & Compliant Control",
+    "section": "2.2 Actuation & Compliant Control",
+    "text": "Actuation & Compliant Control Why this matters: Industrial robots (arms) are stiff and dangerous. Humanoids must be compliant (soft) to interact safely with the world and handle terrain impacts.",
+    "url": "/docs/module-02-hardware/02-actuation-control",
+    "module": "module-02-hardware"
+  },
+  {
+    "id": 35,
+    "title": "2.2 Actuation & Compliant Control",
+    "section": "Stiff vs. Compliant",
+    "text": "Stiff Control (Position Control): \"Go to 90 degrees.\" If you push it, it fights back with max power. Dangerous. Compliant Control (Torque/Impedance Control): \"Act like a spring.\" If you push it, it gives way.",
+    "url": "/docs/module-02-hardware/02-actuation-control",
+    "module": "module-02-hardware"
+  },
+  {
+    "id": 36,
+    "title": "2.2 Actuation & Compliant Control",
+    "section": "Actuator Types",
+    "text": "1. Geared Electric Motors: High RPM, low torque. Need gearboxes (10:1 to 100:1). - Pros: Precise, easy to control. - Cons: Gearboxes break on impact. 2. Quasi-Direct Drive (QDD): Low gear ratio (6:1 to 9:1). - Pros: Backdrivable (compliant), transparent. - Cons: Lower peak torque. Used in quadrupeds and light humanoids (e.g., Unitree). 3. Series Elastic Actuators (SEA): Spring in series with the motor. - Pros: Impact resistant, measures torque via spring deflection. - Cons: Limits control bandwidth.",
+    "url": "/docs/module-02-hardware/02-actuation-control",
+    "module": "module-02-hardware"
+  },
+  {
+    "id": 37,
+    "title": "2.2 Actuation & Compliant Control",
+    "section": "Impedance Control",
+    "text": "We virtually simulate a spring-damper system: We virtually simulate a spring-damper system: By changing Kp (Stiffness), we can make the robot soft (walking on rocks) or stiff (carrying a load).",
+    "url": "/docs/module-02-hardware/02-actuation-control",
+    "module": "module-02-hardware"
+  },
+  {
+    "id": 38,
+    "title": "2.2 Actuation & Compliant Control",
+    "section": "Key Takeaways",
+    "text": "- Humanoids typically use Torque or Impedance control. - Backdrivability allows the robot to \"feel\" the ground. - Safety comes from compliance, not just software limits.",
+    "url": "/docs/module-02-hardware/02-actuation-control",
+    "module": "module-02-hardware"
+  },
+  {
+    "id": 39,
+    "title": "2.1 Kinematics & Dynamics",
+    "section": "2.1 Kinematics & Dynamics",
+    "text": "Kinematics & Dynamics Why this matters: If you don't know where your foot is relative to your hip (Kinematics), you can't walk. If you don't know how much force is needed to lift your leg (Dynamics), you can't move.",
+    "url": "/docs/module-02-hardware/01-kinematics-dynamics",
+    "module": "module-02-hardware"
+  },
+  {
+    "id": 40,
+    "title": "2.1 Kinematics & Dynamics",
+    "section": "Kinematics: Geometry of Motion",
+    "text": "Forward Kinematics (FK): Given joint angles, where is the hand? Inverse Kinematics (IK): Given a desired hand position, what should the joint angles be? For humanoids, IK is often \"ill-posed\" (redundant). You can reach a cup in infinite ways. We use optimization (QP - Quadratic Programming) to pick the \"best\" way (minimizing effort or maximizing balance).",
+    "url": "/docs/module-02-hardware/01-kinematics-dynamics",
+    "module": "module-02-hardware"
+  },
+  {
+    "id": 41,
+    "title": "2.1 Kinematics & Dynamics",
+    "section": "Dynamics: Forces & Torques",
+    "text": "Equation of Motion: - M(q): Mass Matrix (Inertia) - C(q, q'): Coriolis & Centrifugal forces - g(q): Gravity - tau: Joint Torques (what we control) The Inverted Pendulum We often approximate a robot as a Linear Inverted Pendulum (LIP). Imagine a broom balanced on a hand. The robot is the broom; the feet are the hand. To stay upright, the feet must move to \"catch\" the falling body.",
+    "url": "/docs/module-02-hardware/01-kinematics-dynamics",
+    "module": "module-02-hardware"
+  },
+  {
+    "id": 42,
+    "title": "2.1 Kinematics & Dynamics",
+    "section": "Key Takeaways",
+    "text": "- Kinematics = Geometry. Dynamics = Physics. - Humanoids are underactuated systems (you can't fly, you must push against the ground). - Simplified models (LIP) are crucial for real-time control.",
+    "url": "/docs/module-02-hardware/01-kinematics-dynamics",
+    "module": "module-02-hardware"
+  },
+  {
+    "id": 43,
+    "title": "1.3 Simulation & Sim-to-Real",
+    "section": "1.3 Simulation & Sim-to-Real",
+    "text": "Simulation Basics & Sim-to-Real Overview Why this matters: Hardware is expensive and breaks easily. Training a walking policy on a real robot means fixing broken gears every 5 minutes. Simulation allows millions of failures safely.",
+    "url": "/docs/module-01-foundations/03-simulation-basics",
+    "module": "module-01-foundations"
+  },
+  {
+    "id": 44,
+    "title": "1.3 Simulation & Sim-to-Real",
+    "section": "The Simulation Landscape",
+    "text": "Popular simulators for Humanoids: - MuJoCo: The gold standard for contact physics. Fast, stable. - Isaac Sim (NVIDIA): Photorealistic, GPU-accelerated massive parallel training. - Gazebo: Classic, great for ROS integration, but can be unstable for complex contacts.",
+    "url": "/docs/module-01-foundations/03-simulation-basics",
+    "module": "module-01-foundations"
+  },
+  {
+    "id": 45,
+    "title": "1.3 Simulation & Sim-to-Real",
+    "section": "The Reality Gap",
+    "text": "The \"Sim-to-Real\" gap is the difference between how your robot behaves in code vs. reality. Sources of Gap: 1. Friction: Extremely hard to model perfectly. 2. Actuator Dynamics: Motors don't respond instantly. 3. Latency: Simulators usually run instantaneously; reality has delays.",
+    "url": "/docs/module-01-foundations/03-simulation-basics",
+    "module": "module-01-foundations"
+  },
+  {
+    "id": 46,
+    "title": "1.3 Simulation & Sim-to-Real",
+    "section": "Domain Randomization",
+    "text": "To cross the gap, we use Domain Randomization. Instead of trying to model the world perfectly, we model thousands of slightly wrong worlds. If your policy can walk on ice, mud, and carpet in sim (represented by varying friction coefficients), it has a better chance of walking on the real floor.",
+    "url": "/docs/module-01-foundations/03-simulation-basics",
+    "module": "module-01-foundations"
+  },
+  {
+    "id": 47,
+    "title": "1.3 Simulation & Sim-to-Real",
+    "section": "Key Takeaways",
+    "text": "- Simulation is mandatory for modern learning-based control. - The Reality Gap is the enemy. - Randomize physics parameters during training to build robustness.",
+    "url": "/docs/module-01-foundations/03-simulation-basics",
+    "module": "module-01-foundations"
+  },
+  {
+    "id": 48,
+    "title": "1.2 Sensors & State Estimation",
+    "section": "1.2 Sensors & State Estimation",
+    "text": "Sensors & State Estimation Why this matters: A robot fundamentally does not know where it is. It only knows what its sensors tell it. State estimation is the art of hallucinating the probable truth from noisy, lying sensors.",
+    "url": "/docs/module-01-foundations/02-sensors-state-estimation",
+    "module": "module-01-foundations"
+  },
+  {
+    "id": 49,
+    "title": "1.2 Sensors & State Estimation",
+    "section": "The Sensor Suite",
+    "text": "Humanoids typically rely on a fusion of sensors: | Sensor | Measures | Pros | Cons | | :---------------------------------- | :------------------------------ | :--------------------------- | :-------------------------- | | IMU (Inertial Measurement Unit) | Acceleration & Angular Velocity | Fast (1kHz+), Self-contained | Drifts over time | | Encoders | Joint Angles | Precise, Direct | Gear backlash, belt stretch | | Vision (Cameras/Lidar) | External World | Rich semantic data | Slow (30-60Hz), Occlusions | | Force/Torque | Contact | Detecting impact/ground | Noisy, expensive |",
+    "url": "/docs/module-01-foundations/02-sensors-state-estimation",
+    "module": "module-01-foundations"
+  },
+  {
+    "id": 50,
+    "title": "1.2 Sensors & State Estimation",
+    "section": "State Estimation Basics",
+    "text": "We combine these inputs using filters. The most common is the Kalman Filter or its variants (Extended/Unscented). The Kalman Concept 1. Predict: \"Based on my last command, I should be here.\" 2. Update: \"My sensors say I am there.\" 3. Fusion: \"I trust my prediction 40% and sensors 60%, so I am somewhere in between.\"",
+    "url": "/docs/module-01-foundations/02-sensors-state-estimation",
+    "module": "module-01-foundations"
+  },
+  {
+    "id": 51,
+    "title": "1.2 Sensors & State Estimation",
+    "section": "Practical Notes",
+    "text": "- IMU Calibration is critical. A slight bias makes you think you are tilting when you are standing still. - Filtering introduces delay. A heavy filter smooths noise but makes the robot feel \"sluggish\" to controllers.",
+    "url": "/docs/module-01-foundations/02-sensors-state-estimation",
+    "module": "module-01-foundations"
+  },
+  {
+    "id": 52,
+    "title": "1.2 Sensors & State Estimation",
+    "section": "Key Takeaways",
+    "text": "- Sensors are noisy and sometimes wrong. - Proprioception (internal state) is fast; Exteroception (vision) is slow. - State Estimation fuses these to guess the \"True State\".",
+    "url": "/docs/module-01-foundations/02-sensors-state-estimation",
+    "module": "module-01-foundations"
+  },
+  {
+    "id": 53,
+    "title": "1.1 What is Physical AI?",
+    "section": "1.1 What is Physical AI?",
+    "text": "What is Physical AI? Why this matters: Physical AI is the bridge between digital intelligence and the physical world. Unlike pure software AI (Chatbots, Image Generators), Physical AI must deal with gravity, inertia, friction, and the unforgiving reality of physics.",
+    "url": "/docs/module-01-foundations/01-what-is-physical-ai",
+    "module": "module-01-foundations"
+  },
+  {
+    "id": 54,
+    "title": "1.1 What is Physical AI?",
+    "section": "The Perception-Actuation Loop",
+    "text": "At its core, a Physical AI system operates in a continuous loop. It is not just \"input -> output\", but \"observation -> action -> state change -> observation\". Key Components 1. Perception: Converting raw sensor data (pixels, currents, lidar points) into a semantic understanding of the world. 2. Planning: Deciding what to do next (e.g., \"Step forward\", \"Grab the cup\"). 3. Control: Deciding how to execute that plan (e.g., \"Apply 5Nm torque to knee joint\").",
+    "url": "/docs/module-01-foundations/01-what-is-physical-ai",
+    "module": "module-01-foundations"
+  },
+  {
+    "id": 55,
+    "title": "1.1 What is Physical AI?",
+    "section": "Embodied Intelligence",
+    "text": "Physical AI implies embodiment. The intelligence is constrained by the body. A 50kg robot cannot stop instantly. A hand with 3 fingers grasps differently than one with 5. The software must understand the hardware. Common Pitfalls - Latency Ignoring: In software, a 500ms delay is annoying. In robotics, it causes falling over. - Model Mismatch: Your physics simulation is never 100% accurate to the real world. - Safety: A bad LLM output prints text. A bad robot output breaks a leg (or yours).",
+    "url": "/docs/module-01-foundations/01-what-is-physical-ai",
+    "module": "module-01-foundations"
+  },
+  {
+    "id": 56,
+    "title": "1.1 What is Physical AI?",
+    "section": "Key Takeaways",
+    "text": "- Physical AI closes the loop between bits and atoms. - Latency and physics are hard constraints, not just optimization targets. - The body and the brain must be co-designed.",
+    "url": "/docs/module-01-foundations/01-what-is-physical-ai",
+    "module": "module-01-foundations"
+  }
+]

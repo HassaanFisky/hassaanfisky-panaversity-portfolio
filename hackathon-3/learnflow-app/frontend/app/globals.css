@@ -1,0 +1,126 @@
+@import "tailwindcss";
+
+/**
+ * HASSAAN AI ARCHITECT — LearnFlow Ecosystem
+ * Perfect Fidelity Theme System (v2.0)
+ * 100% Functional Dark/Light Mode
+ */
+
+@layer base {
+  :root {
+    /* Anthropic Warm Theme (LIGHT) */
+    --bg-base: #FCFAF8;
+    --bg-surface: #F0EBE1;
+    --bg-elevated: #EAE4D9;
+    --text-primary: #38312E;
+    --text-secondary: #5F5854;
+    --text-muted: #8A857D;
+    --accent: #D97757;
+    --border-fine: #E5E0D8;
+    
+    --font-lora: "Lora", serif;
+    --font-inter: "Inter", sans-serif;
+    
+    --shadow-card: 0 2px 12px -4px rgba(56, 49, 46, 0.08), 0 0 0 0.8px var(--border-fine);
+    --shadow-float: 0 12px 48px -8px rgba(56, 49, 46, 0.15), 0 0 0 0.8px var(--border-fine);
+  }
+
+  .dark {
+    /* Senior Architect Theme (DARK) */
+    --bg-base: #141210;          /* Deep Onyx */
+    --bg-surface: #1C1A17;
+    --bg-elevated: #232018;
+    --text-primary: #F2EDE7;     /* Soft Off-White */
+    --text-secondary: #C4BCB4;
+    --text-muted: #9C948A;
+    --accent: #E58A6D;           /* Muted Glow Terracotta */
+    --border-fine: #2E2B27;      /* Deep Border */
+    
+    --shadow-card: 0 4px 20px -8px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--border-fine);
+    --shadow-float: 0 20px 60px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--border-fine);
+  }
+}
+
+body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-inter);
+  -webkit-font-smoothing: antialiased;
+  background-image: radial-gradient(rgba(56, 49, 46, 0.05) 1px, transparent 1px);
+  background-size: 28px 28px;
+  background-position: center center;
+  line-height: 1.6;
+  transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+              color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dark body {
+  background-image: radial-gradient(rgba(242, 237, 231, 0.03) 1.2px, transparent 1.2px);
+}
+
+.prose-editorial {
+  font-family: var(--font-lora);
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.card-humanist {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-fine);
+  border-radius: 1.25rem;
+  box-shadow: var(--shadow-card);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dark .card-humanist {
+  background-color: var(--bg-elevated);
+}
+
+.card-humanist:hover {
+  box-shadow: var(--shadow-float);
+  transform: translateY(-4px);
+}
+
+.btn-tactile {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.btn-tactile:active {
+  transform: scale(0.96);
+}
+
+.glass-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  background-color: rgba(var(--bg-base), 0.7);
+  border-bottom: 1px solid var(--border-fine);
+  transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+.dark .glass-nav {
+  background-color: rgba(20, 18, 16, 0.8);
+}
+
+.transition-editorial {
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-base);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-fine);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}

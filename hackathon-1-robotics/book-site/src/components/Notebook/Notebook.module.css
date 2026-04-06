@@ -1,0 +1,212 @@
+.notebookWrapper {
+  position: fixed;
+  right: 5.5rem;
+  top: 50%;
+  transform: translateY(-50%) translateX(20px) scale(0.96);
+  width: 480px;
+  height: 60vh;
+  max-width: calc(100vw - 7rem);
+  max-height: 700px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 42px 100px -20px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  z-index: 9500;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.notebookOpen {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-50%) translateX(0) scale(1);
+  pointer-events: auto;
+}
+
+.notebookHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.headerInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+}
+
+.notebookIcon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: 1px solid var(--accent-glow);
+}
+
+.notebookTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.closeBtn {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.closeBtn:hover {
+  background: var(--bg-elevated);
+  border-color: var(--glass-border);
+  color: var(--text-primary);
+}
+
+.notebookBody {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  position: relative;
+}
+
+.textarea {
+  flex: 1;
+  width: 100%;
+  padding: 1.5rem;
+  background: transparent;
+  border: none;
+  font-family: 'JetBrains Mono', 'Fira Code', var(--ifm-font-family-base), monospace;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+  resize: none;
+  outline: none;
+  transition: padding 0.3s;
+}
+
+.textarea::placeholder {
+  color: var(--text-muted);
+  opacity: 0.5;
+  font-style: italic;
+}
+
+.notebookFooter {
+  padding: 1rem 1.5rem;
+  background: rgba(0, 0, 0, 0.05);
+  border-top: 1px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.stats {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.clearBtn {
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.clearBtn:hover {
+  background: var(--bg-error-soft);
+  color: #ef4444;
+  border-color: #ef444466;
+}
+
+.saveBtn {
+  padding: 0.5rem 1.25rem;
+  background: var(--accent);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 12px var(--accent-glow);
+}
+
+.saveBtn:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+}
+
+.saveBtn:active {
+  transform: scale(0.96);
+}
+
+.saved {
+  background: #10b981 !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3) !important;
+}
+
+.shimmer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.5;
+  filter: blur(1px);
+}
+
+@media (max-width: 768px) {
+  .notebookWrapper {
+    right: 0;
+    left: 0;
+    top: auto;
+    bottom: 0;
+    width: 100%;
+    max-width: 100%;
+    height: 80vh;
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    transform: translateY(100%) scale(1);
+    border: none;
+    border-top: 1px solid var(--glass-border);
+  }
+
+  .notebookOpen {
+    transform: translateY(0);
+  }
+}

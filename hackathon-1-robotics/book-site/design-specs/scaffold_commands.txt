@@ -1,0 +1,61 @@
+# Docusaurus Scaffold Commands
+# Physical AI & Humanoid Robotics Textbook
+
+## Initial Setup
+
+# 1. Create Docusaurus site (run from textbook-variant folder)
+npx create-docusaurus@latest book-site classic --skip-install
+
+# 2. Navigate to site directory
+cd book-site
+
+# 3. Install dependencies
+npm install
+
+# 4. Install additional packages for chatbot
+npm install react-markdown
+
+## Development
+
+# Start development server
+npm run start
+# Opens at http://localhost:3000
+
+## Production Build
+
+# Build static files
+npm run build
+# Output in build/ folder
+
+# Test production build locally
+npm run serve
+# Opens at http://localhost:3000
+
+## Additional Setup
+
+# Copy chapter markdown files to docs/
+# Files: 01-intro.md, 02-core.md, 03-howto.md, 04-examples.md, 05-appendix.md
+
+# Install example dependencies (from examples/ folder)
+cd ../examples
+npm install
+
+# Run examples
+node run-example.js
+
+## Verification Commands
+
+# Check for broken links
+npx broken-link-checker http://localhost:3000 --recursive
+
+# Build and ensure exit code 0
+npm run build && echo "Build successful!"
+
+## Deployment
+
+# Vercel (recommended)
+npx vercel --prod
+
+# GitHub Pages
+npm run build
+# Upload build/ contents to gh-pages branch

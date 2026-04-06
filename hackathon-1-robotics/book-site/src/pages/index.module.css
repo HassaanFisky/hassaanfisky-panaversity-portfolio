@@ -1,0 +1,324 @@
+/**
+ * index.module.css
+ * Homepage layout styles for the Aira Robotics Textbook.
+ * Design system tokens live in src/css/custom.css.
+ */
+
+/* ── MAIN WRAPPER ────────────────────────────────────────────────────────── */
+.mainWrapper {
+  background-color: var(--bg);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ── HERO SECTION ────────────────────────────────────────────────────────── */
+.hero {
+  min-height: min(88vh, 800px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 7rem 1.5rem 5rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Badge */
+.heroBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 1rem;
+  border: 0.8px solid var(--accent);
+  background: var(--accent-soft);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  animation: fadeUp 0.8s ease-out both;
+}
+
+.pulseDot {
+  width: 7px;
+  height: 7px;
+  background: var(--accent);
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1);   opacity: 1; }
+  50%       { transform: scale(1.6); opacity: 0.5; }
+}
+
+/* Headline */
+.heroTitle {
+  font-family: var(--ifm-heading-font-family);
+  font-size: clamp(2.75rem, 7vw, 5.5rem);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  margin-bottom: 1.75rem;
+  color: var(--text-primary);
+  animation: fadeUp 0.8s 0.1s ease-out both;
+}
+
+.heroItalic {
+  font-style: italic;
+  color: var(--accent);
+}
+
+/* Subtitle */
+.heroSubtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto 3rem;
+  line-height: 1.75;
+  text-wrap: balance;
+  animation: fadeUp 0.8s 0.2s ease-out both;
+}
+
+/* CTA Buttons */
+.heroButtons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  animation: fadeUp 0.8s 0.3s ease-out both;
+}
+
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  background: var(--accent);
+  color: white !important;
+  text-decoration: none !important;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: background 0.2s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 8px 24px -6px var(--accent-glow);
+}
+
+.btnPrimary:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px -6px var(--accent-glow);
+}
+
+.btnPrimary:active {
+  transform: scale(0.98) translateY(0);
+}
+
+.btnSecondary {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.875rem 2rem;
+  background: var(--bg-surface);
+  color: var(--text-primary) !important;
+  text-decoration: none !important;
+  border: 0.8px solid var(--border);
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.btnSecondary:hover {
+  background: var(--bg-elevated);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.btnSecondary:active {
+  transform: scale(0.98);
+}
+
+/* ── SECTION LAYOUT ──────────────────────────────────────────────────────── */
+.sectionContainer {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 6rem 1.5rem;
+}
+
+.sectionHeader {
+  text-align: left;
+  margin-bottom: 3.5rem;
+  max-width: 520px;
+}
+
+.sectionHeader h2 {
+  font-family: var(--ifm-heading-font-family);
+  font-size: clamp(1.75rem, 4vw, 2.8rem);
+  font-weight: 500;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+  letter-spacing: -0.025em;
+}
+
+.sectionHeader p {
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ── GRID ────────────────────────────────────────────────────────────────── */
+.grid3 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .grid3 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 1024px) {
+  .grid3 { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ── CARDS ───────────────────────────────────────────────────────────────── */
+.card {
+  background: var(--bg-surface);
+  border: 0.8px solid var(--border);
+  border-radius: 20px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+  border-color: var(--accent);
+}
+
+/* Feature card image */
+.cardImageWrapper {
+  width: 100%;
+  height: 180px;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  border: 0.8px solid var(--border);
+}
+
+.cardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.card:hover .cardImage {
+  transform: scale(1.04);
+}
+
+.card h3 {
+  font-family: var(--ifm-heading-font-family);
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.cardDesc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Chapter card overrides */
+.chapterCard {
+  padding: 1.75rem;
+  border-radius: 16px;
+}
+
+.chapterBadge {
+  display: inline-block;
+  padding: 0.2rem 0.65rem;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: 0.8px solid var(--accent);
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 1rem;
+}
+
+.chapterTitle {
+  font-family: var(--ifm-heading-font-family);
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.chapterCard p {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  flex: 1;
+  margin: 0 0 1.5rem;
+}
+
+.chapterFooter {
+  margin-top: auto;
+  padding-top: 1.25rem;
+  border-top: 0.8px solid var(--border);
+}
+
+.chapterLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent) !important;
+  text-decoration: none !important;
+  transition: gap 0.2s ease;
+}
+
+.chapterLink:hover {
+  gap: 0.65rem;
+}
+
+/* ── ANIMATIONS ──────────────────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── MOBILE ──────────────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .btnPrimary,
+  .btnSecondary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .heroButtons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .sectionContainer {
+    padding: 4rem 1.25rem;
+  }
+}

@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-bg-1 text-text-primary antialiased min-h-screen selection:bg-accent-primary/20 selection:text-accent-primary;
+    font-family:
+      var(--font-jakarta),
+      system-ui,
+      -apple-system,
+      sans-serif;
+  }
+
+  /* Override default mono font for Terminal/Code sections */
+  .font-mono {
+    font-family:
+      var(--font-jetbrains), ui-monospace, SFMono-Regular, Menlo, Monaco,
+      Consolas, monospace !important;
+  }
+
+  h1 {
+    @apply text-h1 tracking-tight;
+  }
+  h2 {
+    @apply text-h2 tracking-tight;
+  }
+  h3 {
+    @apply text-h3 tracking-tight;
+  }
+}
+
+@layer components {
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-accent-primary/20 focus:border-accent-primary transition-all duration-150;
+  }
+
+  .scrollbar-premium::-webkit-scrollbar {
+    width: 6px;
+  }
+  .scrollbar-premium::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  .scrollbar-premium::-webkit-scrollbar-thumb {
+    @apply bg-bg-3 rounded-full hover:bg-bg-4 transition-colors;
+  }
+}
+
+@layer utilities {
+  /* Custom styles for specific requirements */
+  .auto-grow-textarea {
+    min-height: 120px;
+    max-height: 400px;
+    resize: vertical;
+  }
+
+  @keyframes drawCheck {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  .animate-draw-check {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    animation: drawCheck 0.4s ease-out forwards;
+  }
+}

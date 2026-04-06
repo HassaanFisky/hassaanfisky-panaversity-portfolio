@@ -1,0 +1,144 @@
+/* UnifiedFloatingUI.module.css */
+
+.controlArea {
+  position: fixed;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  pointer-events: none; /* Allow interaction with logos and buttons specifically */
+}
+
+/* The Horizontal Row of Buttons */
+.buttonRow {
+  display: flex;
+  flex-direction: row-reverse; /* Chat on right, Snow on left */
+  gap: 20px;
+  pointer-events: auto;
+}
+
+/* Base Button Style (Glassmorphism) */
+.glassButton {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: visible; /* To allow floating logos above */
+}
+
+.glassButton:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.05);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.glassButton.active {
+  background: rgba(102, 126, 234, 0.2);
+  border-color: rgba(102, 126, 234, 0.4);
+  box-shadow: 0 0 30px rgba(102, 126, 234, 0.3);
+}
+
+/* Floating Logo Container */
+.logoWrapper {
+  position: absolute;
+  top: -40px; /* Offset above button */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* The Anti-Gravity Animation */
+@keyframes float {
+  0% {
+    transform: translate(-50%, 0px);
+  }
+  50% {
+    transform: translate(-50%, -8px);
+  }
+  100% {
+    transform: translate(-50%, 0px);
+  }
+}
+
+.antiGravity {
+  animation: float 4s infinite ease-in-out;
+}
+
+/* Falling Logic */
+.logoFalling {
+  top: 8px; /* Land inside the button */
+  transform: translateX(-50%) scale(0.9);
+  animation: none !important;
+}
+
+/* Logos specifically */
+.chatLogo,
+.snowLogo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+}
+
+/* Chat logo being same as inside widget: circular white backing */
+.chatLogo {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 50%;
+  padding: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Snow Logo - Snowflake icon */
+.snowLogo {
+  color: #fff;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
+}
+
+/* Stacked Logos Logic (Snow above Chat) */
+.snowLogoWrapper {
+  top: -95px; /* Higher up */
+}
+
+.snowLogoWrapper.falling {
+  top: 8px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .controlArea {
+    right: 16px;
+  }
+  .glassButton {
+    width: 52px;
+    height: 52px;
+  }
+  .logoWrapper {
+    width: 38px;
+    height: 38px;
+    top: -30px;
+  }
+  .snowLogoWrapper {
+    top: -75px;
+  }
+}

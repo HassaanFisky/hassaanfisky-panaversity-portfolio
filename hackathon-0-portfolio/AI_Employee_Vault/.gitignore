@@ -1,0 +1,16 @@
+.env
+*.pyc
+__pycache__/
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+credentials.json
+token.json
+*.key
+*.pem
+Thumbs.db
+desktop.ini
+.venv/
+venv/
+node_modules/
+whatsapp_session/credentials.json.json 
+credentials.json.json 

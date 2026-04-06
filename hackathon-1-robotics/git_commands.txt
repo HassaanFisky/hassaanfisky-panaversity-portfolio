@@ -1,0 +1,85 @@
+# Git Commands for Physical AI Textbook Submission
+
+## Initial Repository Setup
+
+# Navigate to submission folder
+cd "E:\GIAIC\GIAIC HACKATHON 01\submissions\textbook-variant"
+
+# Initialize git repository (if not already initialized)
+git init
+
+# Create .gitignore to exclude sensitive files
+echo "node_modules/" > .gitignore
+echo ".env" >> .gitignore
+echo ".docusaurus/" >> .gitignore
+echo "build/" >> .gitignore
+
+## Stage and Commit Files
+
+# Add all submission files
+git add .
+
+# Verify what will be committed
+git status
+
+# Commit with descriptive message
+git commit -m "Add Physical AI & Humanoid Robotics Textbook submission
+
+- 5 comprehensive chapters with original content
+- Runnable Node.js examples
+- iOS-26 glassmorphism UI prototype
+- OpenRouter-powered chat integration
+- Complete documentation (design, test plan, deploy instructions)
+- Video script and originality statement
+
+GIAIC Hackathon 2024 Submission"
+
+## Remote Repository Configuration
+
+# Check if remote already exists
+git remote -v
+
+# Add remote origin (only if remote is missing)
+git remote add origin https://github.com/HassaanFisky/Physical-AI-Humanoid-Robots-Textbook.git
+
+# Alternatively, if using personal access token:
+# git remote add origin https://github_pat_TOKEN@github.com/HassaanFisky/Physical-AI-Humanoid-Robots-Textbook.git
+
+## Push to GitHub
+
+# Push to main branch (USER MUST RUN MANUALLY)
+# git push -u origin main
+
+# Or if using a different branch name:
+# git push -u origin HEAD
+
+## Alternative: Push Specific Folder Only
+
+# If you want to push only the submission folder to a specific path:
+# Create a subtree or use sparse checkout
+
+## Verification After Push
+
+# Check remote branches
+git branch -r
+
+# Verify push succeeded
+git log --oneline -3
+
+## Quick Reference
+
+# Full sequence from scratch:
+git init
+git add .
+git commit -m "Add textbook submission"
+git remote add origin https://github.com/HassaanFisky/Physical-AI-Humanoid-Robots-Textbook.git
+# git push -u origin main  # USER RUNS THIS
+
+## Notes
+
+# Personal Access Token is stored in .env file
+# GitHub PAT: <YOUR_GITHUB_PAT_HERE>
+# Use this token when prompted for password, or configure it in remote URL
+
+# To use token in push command:
+# git push https://github_pat_TOKEN@github.com/HassaanFisky/Physical-AI-Humanoid-Robots-Textbook.git main

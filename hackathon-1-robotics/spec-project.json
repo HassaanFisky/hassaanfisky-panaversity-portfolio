@@ -1,0 +1,62 @@
+{
+  "project": "Physical AI & Humanoid Robotics Textbook",
+  "version": "1.0.0",
+  "goal": "Create a comprehensive educational resource covering physical AI principles, humanoid robot architectures, motion planning, sensor fusion, and real-world deployment strategies for students and practitioners entering the robotics field.",
+  "audience": [
+    "Computer Science students (undergraduate/graduate)",
+    "Robotics engineering students",
+    "AI/ML practitioners transitioning to embodied AI",
+    "Hobbyists building humanoid robots",
+    "Industry professionals exploring physical AI applications"
+  ],
+  "chapters": [
+    {
+      "id": "01-intro",
+      "title": "Introduction to Physical AI & Humanoid Robotics",
+      "description": "Foundational concepts bridging artificial intelligence with physical embodiment",
+      "topics": ["History of humanoid robots", "Physical AI paradigm", "Key industry players", "Future trajectory"]
+    },
+    {
+      "id": "02-core",
+      "title": "Core Concepts & System Architecture",
+      "description": "Essential building blocks of humanoid robot systems",
+      "topics": ["Sensor systems", "Actuators and motors", "Control architectures", "Software stacks"]
+    },
+    {
+      "id": "03-howto",
+      "title": "Practical Implementation Guides",
+      "description": "Step-by-step tutorials for building humanoid capabilities",
+      "topics": ["Motion planning", "Balance control", "Object manipulation", "Navigation"]
+    },
+    {
+      "id": "04-examples",
+      "title": "Real-World Examples & Case Studies",
+      "description": "Industry applications and learning from deployed systems",
+      "topics": ["Boston Dynamics Atlas", "Tesla Optimus", "Figure AI", "Research platforms"]
+    },
+    {
+      "id": "05-appendix",
+      "title": "Resources, Tools & Appendix",
+      "description": "Reference materials and extended learning resources",
+      "topics": ["Simulation platforms", "Hardware suppliers", "Research papers", "Community resources"]
+    }
+  ],
+  "acceptance_criteria": [
+    "All 5 chapters contain 600-900 words of original content",
+    "Each chapter includes learning outcomes and runnable code example",
+    "Docusaurus site builds successfully with exit code 0",
+    "UI prototype implements iOS-26 glassmorphism design",
+    "OpenRouter chatbot integration is functional",
+    "All documentation files are complete",
+    "No broken internal links"
+  ],
+  "tech_stack": {
+    "site_generator": "Docusaurus",
+    "runtime": "Node.js",
+    "chatbot": "OpenRouter API",
+    "ui_framework": "Vanilla HTML/CSS with glassmorphism",
+    "deployment": ["Vercel", "GitHub Pages"]
+  },
+  "created": "2025-12-09T17:03:34+05:00",
+  "preferred_mode": "OPENROUTER"
+}
