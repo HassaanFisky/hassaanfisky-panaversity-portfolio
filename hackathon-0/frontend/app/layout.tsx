@@ -5,6 +5,8 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { EcosystemNav } from "@/components/EcosystemNav";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { LanguageProvider } from "@/context/LanguageContext";
+import { ActionDock } from "@/components/ActionDock";
 
 const inter = Inter({ 
   subsets: ["latin"], 
@@ -46,22 +48,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${lora.variable}`}>
-       <body className="font-inter antialiased bg-bg-base text-text-primary min-h-screen">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Navbar />
-          <main className="relative flex flex-col pt-16">
-            {children}
-          </main>
-          <EcosystemNav />
-          <Footer />
-        </ThemeProvider>
-      </body>
-    </html>
+    <LanguageProvider>
+      <html lang="en" suppressHydrationWarning className={`${inter.variable} ${lora.variable}`}>
+        <body className="font-inter antialiased bg-bg-base text-text-primary min-h-screen">
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Navbar />
+            <main className="relative flex flex-col pt-16">
+              {children}
+            </main>
+            <ActionDock />
+            <EcosystemNav />
+            <Footer />
+          </ThemeProvider>
+        </body>
+      </html>
+    </LanguageProvider>
   );
 }

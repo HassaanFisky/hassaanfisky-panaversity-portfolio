@@ -19,6 +19,7 @@ const ECOSYSTEM_APPS = [
 ];
 
 export function EcosystemNav() {
+  const { t, lang } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [user, setUser] = useState<any>(null);
@@ -47,7 +48,7 @@ export function EcosystemNav() {
 
   return (
     <>
-      <div className="fixed top-6 right-6 z-[10000]">
+      <div className={`fixed top-6 z-[10000] ${lang === 'ur' ? 'left-6' : 'right-6'}`}>
         <div className="relative flex flex-col items-end">
           <button 
             onClick={() => setIsAuthOpen(!isAuthOpen)}
@@ -63,10 +64,11 @@ export function EcosystemNav() {
                 initial={{ opacity: 0, y: -10, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                className="absolute top-16 right-0 w-72 bg-[#FAF9F6]/95 backdrop-blur-[24px] border border-[#E5E0D8]/80 rounded-2xl shadow-[0_24px_56px_-12px_rgba(45,41,38,0.14)] overflow-hidden p-2 origin-top-right mt-2"
+                className={`absolute top-16 w-72 bg-[#FAF9F6]/95 backdrop-blur-[24px] border border-[#E5E0D8]/80 rounded-2xl shadow-[0_24px_56px_-12px_rgba(45,41,38,0.14)] overflow-hidden p-2 origin-top-right mt-2 ${lang === 'ur' ? 'left-0' : 'right-0'}`}
+                dir={t.dir}
               >
                 <div className="px-3 py-2 text-[9.5px] font-bold uppercase tracking-[0.25em] text-[#D97757] border-b border-[#E5E0D8]/60 mb-2 font-mono">
-                  Network Identity
+                  {t.ui.network}
                 </div>
                 {user ? (
                   <div className="flex flex-col gap-1">
@@ -75,19 +77,19 @@ export function EcosystemNav() {
                          <User size={18} />
                        </div>
                        <span className="text-xs font-bold text-[#2D2926] break-all max-w-[240px] leading-tight block">{user.email}</span>
-                       <span className="text-[10px] text-emerald-600 uppercase tracking-widest block mt-1 font-serif italic flex items-center gap-1 justify-center"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500"></div> Verified Architect Node</span>
+                       <span className="text-[10px] text-emerald-600 uppercase tracking-widest block mt-1 font-serif italic flex items-center gap-1 justify-center"><div className="w-1.5 h-1.5 rounded-full bg-emerald-500"></div> {t.ui.architect}</span>
                     </div>
                     <button onClick={handleSignOut} className="flex flex-row-reverse justify-center items-center gap-3 px-3 py-3 rounded-[12px] bg-red-50 hover:bg-red-100 text-red-600 transition-all text-[11px] font-bold w-full mt-1 border border-red-100">
-                      Terminate Session <LogOut size={14} />
+                      {t.ui.terminate} <LogOut size={14} />
                     </button>
                   </div>
                 ) : (
                   <div className="flex flex-col gap-2 p-1">
                     <div className="text-center py-2">
-                       <p className="text-[11.5px] font-medium text-[#5C564D] leading-relaxed px-2">Global ecosystem verification is required. Connect your identity to access full functionality.</p>
+                       <p className="text-[11.5px] font-medium text-[#5C564D] leading-relaxed px-2">{t.auth.greeting}</p>
                     </div>
                     <button onClick={handleSignIn} className="flex justify-center items-center gap-2 px-3 py-3 rounded-xl bg-gradient-to-r from-[#D97757] to-[#c86444] text-white transition-all text-xs font-bold w-full shadow-[0_8px_16px_-4px_rgba(217,119,87,0.3)] hover:shadow-[0_12px_24px_-4px_rgba(217,119,87,0.4)]">
-                      Initialize Uplink <LogIn size={15} />
+                      {t.ui.uplink} <LogIn size={15} />
                     </button>
                   </div>
                 )}
@@ -97,18 +99,19 @@ export function EcosystemNav() {
         </div>
       </div>
 
-      <div className="fixed bottom-8 left-8 z-[10000]">
+      <div className={`fixed bottom-8 z-[10000] ${lang === 'ur' ? 'right-8' : 'left-8'}`}>
         <AnimatePresence>
           {isOpen && (
             <motion.div
               initial={{ opacity: 0, y: 20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 20, scale: 0.95 }}
-              className="absolute bottom-16 left-0 w-72 bg-[#FAF9F6]/95 backdrop-blur-[24px] border border-[#E5E0D8]/80 rounded-2xl shadow-[0_24px_56px_-12px_rgba(45,41,38,0.14)] overflow-hidden p-2 origin-bottom-left"
+              className={`absolute bottom-16 w-72 bg-[#FAF9F6]/95 backdrop-blur-[24px] border border-[#E5E0D8]/80 rounded-2xl shadow-[0_24px_56px_-12px_rgba(45,41,38,0.14)] overflow-hidden p-2 ${lang === 'ur' ? 'right-0 origin-bottom-right' : 'left-0 origin-bottom-left'}`}
+              dir={t.dir}
             >
               <div className="px-3 py-2 text-[9.5px] font-bold uppercase tracking-[0.25em] text-[#D97757] border-b border-[#E5E0D8]/60 mb-2 font-mono flex items-center justify-between">
-                <span>Ecosystem Grid</span>
-                <span className="text-[8px] tracking-widest opacity-60">Status: WIRED</span>
+                <span>{t.ui.ecosystem}</span>
+                <span className="text-[8px] tracking-widest opacity-60">{t.ui.status}</span>
               </div>
               <div className="space-y-1">
                 {ECOSYSTEM_APPS.map((app) => (
@@ -126,7 +129,7 @@ export function EcosystemNav() {
                     </div>
                     <div className="flex flex-col flex-1">
                       <span className="text-xs font-bold text-[#2D2926] group-hover:text-[#D97757] transition-colors">{app.name}</span>
-                      <span className="text-[9px] text-[#8A857D] uppercase tracking-widest font-serif italic mt-0.5">{app.id.toUpperCase()} Production Node</span>
+                      <span className="text-[9px] text-[#8A857D] uppercase tracking-widest font-serif italic mt-0.5">{app.id.toUpperCase()} {t.ui.production}</span>
                     </div>
                   </a>
                 ))}
