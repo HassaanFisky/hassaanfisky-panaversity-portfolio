@@ -111,7 +111,11 @@
 
   /* Elegant Document Card — Corrected for Theme Switching */
   .document-card {
-    @apply bg-card border border-border rounded-[20px] shadow-soft transition-all duration-400;
+    background-color: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: 20px;
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
   
   .document-card:hover {

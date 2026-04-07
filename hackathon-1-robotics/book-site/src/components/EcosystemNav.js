@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 import clsx from 'clsx';
 
 const ECOSYSTEM_APPS = [
@@ -10,8 +11,8 @@ const ECOSYSTEM_APPS = [
 ];
 
 export default function EcosystemNav() {
+  const { lang, t } = useLanguage();
   const [active, setActive] = useState(false);
-  const [authActive, setAuthActive] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => setMounted(true), []);
@@ -23,6 +24,8 @@ export default function EcosystemNav() {
        window.location.href = "https://panaversity-h0-portfolio.vercel.app/auth?redirect=" + encodeURIComponent(window.location.href);
     }
   };
+
+  const isRTL = lang === 'ur';
 
   return (
     <>
@@ -43,7 +46,7 @@ export default function EcosystemNav() {
           }}
           onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.05)'; e.currentTarget.style.borderColor = 'rgba(217,119,87,0.5)'; }}
           onMouseLeave={(e) => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.borderColor = 'var(--border)'; }}
-          title="Initialize Uplink"
+          title={lang === 'ur' ? "سائن ان کریں" : lang === 'ro' ? "Sign in karen" : "Initialize Uplink"}
         >
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: '20px', height: '20px', color: 'var(--text-secondary)' }}>
             <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
@@ -51,21 +54,21 @@ export default function EcosystemNav() {
         </button>
       </div>
 
-      <div className="ecosystem-nav-container">
+      <div className={clsx("ecosystem-nav-container", isRTL && "rtl-nav")}>
         <div className={clsx("ecosystem-panel", active && "active")}>
-          <div className="ecosystem-panel-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span>Ecosystem Grid</span>
+          <div className="ecosystem-panel-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', direction: isRTL ? 'rtl' : 'ltr' }}>
+            <span>{isRTL ? 'ایکو سسٹم گرڈ' : lang === 'ro' ? 'Ecosystem Grid' : 'Ecosystem Grid'}</span>
             <span style={{ fontSize: '8px', opacity: 0.6, letterSpacing: '0.2em' }}>WIRED</span>
           </div>
-          <div className="ecosystem-panel-items">
+          <div className="ecosystem-panel-items" style={{ direction: isRTL ? 'rtl' : 'ltr' }}>
             {ECOSYSTEM_APPS.map((app) => (
               <a key={app.id} href={app.url} className="ecosystem-item" style={{ gap: '1rem', padding: '12px' }}>
                 <div className="ecosystem-item-icon" style={{ padding: 0, overflow: 'hidden', width: '40px', height: '40px', borderRadius: '8px' }}>
                   <img src={app.image} alt={app.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
-                <div className="ecosystem-item-label" style={{ flex: 1 }}>
+                <div className="ecosystem-item-label" style={{ flex: 1, textAlign: isRTL ? 'right' : 'left' }}>
                   <span className="ecosystem-item-name" style={{ fontSize: '12px', fontWeight: 'bold' }}>{app.name}</span>
-                  <span className="ecosystem-item-id" style={{ fontSize: '9px', fontStyle: 'italic' }}>{app.id.toUpperCase()} Node</span>
+                  <span className="ecosystem-item-id" style={{ fontSize: '9px', fontStyle: 'italic' }}>{app.id.toUpperCase()} {isRTL ? 'پروڈکشن نوڈ' : 'Production Node'}</span>
                 </div>
               </a>
             ))}

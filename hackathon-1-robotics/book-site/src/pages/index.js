@@ -109,10 +109,6 @@ export default function Home() {
         <HomepageFeatures />
         <ModulePreview />
       </main>
-      <AiraAssistant 
-        platform="H1" 
-        context="Physical AI Curriculum is 100% loaded. Chapters 01-05 are synchronized. Ready to simulate kinematics." 
-      />
     </Layout>
   );
 }

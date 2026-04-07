@@ -4,6 +4,9 @@ import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import EcosystemNav from "@/components/EcosystemNav";
 import { AiraAssistant } from "@/components/AiraAssistant";
+import { LanguageProvider } from "@/components/LanguageProvider";
+import { SnowOverlay } from "@/components/SnowOverlay";
+import { ActionDock } from "@/components/ActionDock";
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -18,8 +21,8 @@ const lora = Lora({
 });
 
 export const metadata: Metadata = {
-  title: "HASSAAN AI ARCHITECT",
-  description: "Autonomous CRM and Course Companion engine.",
+  title: "HASSAAN AI ARCHITECT — Digital FTE",
+  description: "Autonomous CRM and Course Companion engine for the Panaversity Ecosystem.",
   icons: {
     icon: "https://emojicdn.elk.sh/✨",
   }
@@ -39,31 +42,42 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${lora.variable} selection:bg-[#D97757]/20 selection:text-[#D97757]`}>
       <body className="font-sans bg-background text-foreground min-h-screen antialiased overflow-x-hidden">
-        <div className="fixed inset-0 pointer-events-none -z-10 bg-texture opacity-50" />
-        
-        {children}
+        <LanguageProvider>
+          {/* Subtle Background Detail */}
+          <div className="fixed inset-0 pointer-events-none -z-10 bg-texture opacity-50" />
+          
+          {/* Interactivity Layers */}
+          <SnowOverlay />
+          <ActionDock />
 
-        <AiraAssistant 
-          platform="H4" 
-          context="Digital FTE is monitoring the Kafka 'struggle.alerts' topic. CRM Tickets are synchronized. All autonomous agents are active." 
-        />
+          {/* Main Content */}
+          <div className="relative z-0">
+            {children}
+          </div>
 
-        <Toaster 
-          position="bottom-right" 
-          toastOptions={{
-            style: {
-              background: "#ffffff",
-              color: "#2D2926",
-              border: "1px solid #E5E0D8",
-              fontSize: "14px",
-              fontWeight: 500,
-              borderRadius: "12px",
-              padding: "16px",
-              boxShadow: "0 10px 40px -4px rgba(0, 0, 0, 0.08)",
-            },
-          }} 
-        />
-        <EcosystemNav />
+          {/* Assistant Node */}
+          <AiraAssistant 
+            platform="H4" 
+            context="Digital FTE is monitoring the Kafka 'struggle.alerts' topic. CRM Tickets are synchronized. All autonomous agents are active." 
+          />
+
+          <Toaster 
+            position="bottom-right" 
+            toastOptions={{
+              style: {
+                background: "#FAF9F6",
+                color: "#38312E",
+                border: "0.8px solid #E5E0D8",
+                fontSize: "14px",
+                fontWeight: 500,
+                borderRadius: "16px",
+                padding: "16px",
+                boxShadow: "0 10px 40px -4px rgba(0, 0, 0, 0.08)",
+              },
+            }} 
+          />
+          <EcosystemNav />
+        </LanguageProvider>
       </body>
     </html>
   );

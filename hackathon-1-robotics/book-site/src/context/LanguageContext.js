@@ -13,14 +13,14 @@ export const languages = {
     short: "EN",
     dir: "ltr",
     chat: {
-      title: "AI Robotics Guide",
+      title: "Physical AI Guide",
       subtitle: "Knowledge Base v2.4",
       placeholder: "Ask me anything about robotics...",
       send: "Send",
-      thinking: "Thinking...",
+      thinking: "Analyzing Protocol...",
       greeting:
-        "Hello! I am your Physical AI guide. How can I help you explore robotics today?",
-      authRequired: "Please sign in to continue.",
+        "Greetings, Architect. I am your specialized Physical AI guide. How can I facilitate your research today?",
+      authRequired: "Global verification required. Please sign in.",
       close: "Close",
     },
     snow: {
@@ -36,47 +36,48 @@ export const languages = {
       theme: "Theme",
       companion: "AI Companion",
       openChat: "Open Chat",
+      notebook: "Study Notebook",
     },
     notebook: {
       title: "Study Notebook",
-      placeholder: "Jot down your notes here...",
-      save: "Save",
-      clear: "Clear",
-      saved: "Saved!",
-      chars: "characters",
-      clearConfirm: "Clear all notes?",
+      placeholder: "Jot down your robotics research and notes here...",
+      save: "Save Protocol",
+      clear: "Clear All",
+      saved: "Notes Synchronized!",
+      chars: "characters written",
+      clearConfirm: "Are you sure you want to clear your research notes?",
     },
     home: {
-      badge: "Physical AI — A Comprehensive Curriculum",
+      badge: "Physical AI — The definitive world-class curriculum",
       title_p1: "Robotics that feels",
       title_p2: "beautifully human.",
-      subtitle: "Bridging the gap between pure digital intelligence and the physical world. A modern textbook designed for the next generation of engineers.",
+      subtitle: "Bridging the gap between pure digital intelligence and the physical world. A modern, interactive textbook designed for the next generation of engineers.",
       btn_companion: "Meet Companion FTE",
       philosophy_title: "The Core Philosophy",
-      philosophy_desc: "Physical AI is not just about making robots move. It's about designing a unified brain and body that adapts to our world.",
-      curriculum_title: "Modern Curriculum",
-      curriculum_desc: "A five-module journey through the state of the art in humanoid robotics and physical intelligence.",
-      learn_more: "Learn More",
+      philosophy_desc: "Physical AI is not just about making robots move. It's about designing a unified brain and body that adapts to our world with empathy.",
+      curriculum_title: "Engineering Protocol",
+      curriculum_desc: "A high-fidelity five-module journey through the state of the art in humanoid robotics and physical intelligence.",
+      learn_more: "Explore Module",
       features: [
         {
           title: "Tactile Dexterity",
-          desc: "Understand how machines interact with their environment. From fine motor control to large-scale locomotion."
+          desc: "Understand how machines interact with their environment. From fine motor control to large-scale sentient locomotion."
         },
         {
           title: "Shared Intelligence",
-          desc: "The intersection of human empathy and mechanical precision. Designing systems that cooperate naturally."
+          desc: "The intersection of human empathy and mechanical precision. Designing systems that cooperate naturally with us."
         },
         {
           title: "Adaptive Perception",
-          desc: "Sensory systems that process more than just data. Building machines that truly see the context around them."
+          desc: "Sensory systems that process more than just raw data. Building machines that truly see the context around them."
         }
       ],
       modules: {
-        m1: { title: "Foundations", desc: "Defining the bridge between software and silicon. The first steps into embodiment." },
-        m2: { title: "Hardware Control", desc: "The mathematics of movement. Kinematics, dynamics, and real-time control loops." },
-        m3: { title: "The ROS 2 Stack", desc: "Architecting the operating system of the future. Node communication and sensory integration." },
-        m4: { title: "Human Interaction", desc: "Building intuitive interfaces. How humans and machines communicate in physical spaces." },
-        m5: { title: "Future Horizons", desc: "Exploring the next decade of robotics research from the world's leading laboratories." }
+        m1: { title: "Foundations", desc: "Defining the bridge between software and silicon. The first major steps into physical embodiment." },
+        m2: { title: "Hardware Control", desc: "The mathematics of movement. Kinematics, dynamics, and sub-millisecond control loops." },
+        m3: { title: "The ROS 2 Stack", desc: "Architecting the operating system of the future. Node communication and real-time integration." },
+        m4: { title: "Human Interaction", desc: "Building intuitive interfaces. How humans and machines communicate in shared physical spaces." },
+        m5: { title: "Future Horizons", desc: "Exploring the next decade of robotics research from the world's most innovative laboratories." }
       }
     },
   },
@@ -90,10 +91,10 @@ export const languages = {
       subtitle: "نالج بیس v2.4",
       placeholder: "روبوٹکس کے بارے میں کچھ بھی پوچھیں...",
       send: "بھیجیں",
-      thinking: "سوچ رہا ہوں...",
+      thinking: "تجزیہ ہو رہا ہے...",
       greeting:
-        "السلام علیکم! میں آپ کا فزیکل اے آئی گائیڈ ہوں۔ آج روبوٹکس میں کیا جاننا چاہتے ہیں؟",
-      authRequired: "آگے بڑھنے کے لیے سائن ان کریں۔",
+        "اسلام علیکم! میں آپ کا مخصوص فزیکل اے آئی گائیڈ ہوں۔ آج آپ کی تحقیق میں کس طرح مدد کر سکتا ہوں؟",
+      authRequired: "تصدیق درکار ہے۔ براہ کرم سائن ان کریں۔",
       close: "بند کریں",
     },
     snow: {
@@ -107,29 +108,30 @@ export const languages = {
       backToTop: "اوپر جائیں",
       language: "زبان",
       theme: "تھیم",
-      companion: "AI ساتھی",
+      companion: "اے آئی ساتھی",
       openChat: "چیٹ کھولیں",
+      notebook: "مطالعہ نوٹ بک",
     },
     notebook: {
       title: "مطالعہ نوٹ بک",
-      placeholder: "یہاں اپنے نوٹس لکھیں...",
+      placeholder: "روبوٹکس سے متعلق اپنے نوٹس اور تحقیق یہاں لکھیں...",
       save: "محفوظ کریں",
-      clear: "صاف کریں",
-      saved: "محفوظ ہو گیا!",
-      chars: "حروف",
-      clearConfirm: "کیا آپ تمام نوٹس صاف کرنا چاہتے ہیں؟",
+      clear: "سب صاف کریں",
+      saved: "نوٹس محفوظ ہو گئے!",
+      chars: "حروف لکھے گئے",
+      clearConfirm: "کیا آپ واقعی اپنے تمام ریسرچ نوٹس مٹانا چاہتے ہیں؟",
     },
     home: {
-      badge: "فزیکل اے آئی — ایک جامع نصاب",
+      badge: "فزیکل اے آئی — ایک عالمی معیار کا جامع نصاب",
       title_p1: "روبوٹکس جو محسوس ہو",
       title_p2: "خوبصورتی سے انسانی۔",
-      subtitle: "خالص ڈیجیٹل ذہانت اور مادی دنیا کے درمیان فرق کو ختم کرنا۔ انجینئرز کی اگلی نسل کے لیے ڈیزائن کی گئی ایک جدید نصابی کتاب۔",
+      subtitle: "ڈیجیٹل ذہانت اور مادی دنیا کے درمیان فرق کو ختم کرنا۔ انجینئرز کی اگلی نسل کے لیے تیار کردہ ایک جدید ترین نصابی کتاب۔",
       btn_companion: "اے آئی ساتھی سے ملیں",
       philosophy_title: "بنیادی فلسفہ",
-      philosophy_desc: "فزیکل اے آئی صرف روبوٹ کو حرکت دینے کے بارے میں نہیں ہے۔ یہ ایک متحد دماغ اور جسم کو ڈیزائن کرنے کے بارے میں ہے جو ہماری دنیا کے مطابق ڈھل سکے۔",
-      curriculum_title: "جدید نصاب",
-      curriculum_desc: "ہیومنائیڈ روبوٹکس اور فزیکل انٹیلیجنس میں جدید ترین ٹیکنالوجی کے ذریعے پانچ ماڈیولز کا سفر۔",
-      learn_more: "مزید جانیں",
+      philosophy_desc: "فزیکل اے آئی صرف مشینوں کو حرکت دینے کا نام نہیں ہے۔ یہ ایک متحد دماغ اور جسم کو ترتیب دینے کا عمل ہے جو ہماری دنیا کے مطابق ڈھل سکے۔",
+      curriculum_title: "انجینئرنگ پروٹوکول",
+      curriculum_desc: "ہیومنائیڈ روبوٹکس اور فزیکل انٹیلیجنس کی جدید دنیا کا پانچ ماڈیولز پر مشتمل ایک اعلیٰ تحقیقی سفر۔",
+      learn_more: "ماڈیول دیکھیں",
       features: [
         {
           title: "حسی مہارت",
@@ -137,7 +139,7 @@ export const languages = {
         },
         {
           title: "مشترکہ ذہانت",
-          desc: "انسانی ہمدردی اور میکانی درستگی کا ملاپ۔ ایسے سسٹم ڈیزائن کرنا جو قدرتی طور پر تعاون کریں۔"
+          desc: "انسانی ہمدردی اور میکانی درستگی کا ملاپ۔ ایسے سسٹمز جو قدرتی طور پر ہمارے ساتھ مل کر کام کر سکیں۔"
         },
         {
           title: "انکولی ادراک",
@@ -145,10 +147,10 @@ export const languages = {
         }
       ],
       modules: {
-        m1: { title: "بنیادیں", desc: "سافٹ ویئر اور سلیکون کے درمیان پل کی تعریف۔ تجسیم کی طرف پہلا قدم۔" },
+        m1: { title: "بنیادیں", desc: "سافٹ ویئر اور سلیکون کے درمیان پل کی تعریف۔ مادی تجسیم کی طرف پہلا قدم۔" },
         m2: { title: "ہارڈ ویئر کنٹرول", desc: "حرکت کی ریاضی۔ حرکیات، ڈائنامکس، اور رئیل ٹائم کنٹرول لوپس۔" },
         m3: { title: "ROS 2 اسٹیک", desc: "مستقبل کے آپریٹنگ سسٹم کی فن تعمیر۔ نوڈ کمیونیکیشن اور حسی انضمام۔" },
-        m4: { title: "انسانی تعامل", desc: "بدیہی انٹرفیس بنانا۔ انسان اور مشینیں مادی جگہوں میں کیسے بات چیت کرتے ہیں۔" },
+        m4: { title: "انسانی تعامل", desc: "بدیہی انٹرفیس بنانا۔ انسان اور مشینیں مادی جگہوں میں کس طرح بات چیت کرتے ہیں۔" },
         m5: { title: "مستقبل کے افق", desc: "دنیا کی معروف لیبارٹریوں سے روبوٹکس ریسرچ کی اگلی دہائی کی تلاش۔" }
       }
     },
@@ -159,14 +161,14 @@ export const languages = {
     short: "RO",
     dir: "ltr",
     chat: {
-      title: "Robotics Guide",
+      title: "Physical AI Guide",
       subtitle: "Knowledge Base v2.4",
       placeholder: "Kuch bhi poochein robotics ke baare mein...",
       send: "Bhejen",
-      thinking: "Soch raha hun...",
+      thinking: "Analyzing Protocol...",
       greeting:
-        "Assalam o Alaikum! Main aapka Physical AI guide hun. Aaj robotics mein kya seekhna chahte hain?",
-      authRequired: "Aage badhne ke liye sign in karein.",
+        "Assalam o Alaikum! Main aapka specialized Physical AI guide hun. Aaj research mein kis tarah madad karun?",
+      authRequired: "Global verification required. Sign in karein.",
       close: "Band Karen",
     },
     snow: {
@@ -182,27 +184,28 @@ export const languages = {
       theme: "Theme",
       companion: "AI Saathi",
       openChat: "Chat Kholen",
+      notebook: "Study Notebook",
     },
     notebook: {
       title: "Study Notebook",
-      placeholder: "Yahan apne notes likhein...",
-      save: "Save Karen",
+      placeholder: "Robotics se mutaliq apne research notes yahan likhein...",
+      save: "Save Protocol",
       clear: "Saaf Karen",
-      saved: "Save ho gaya!",
-      chars: "huroof",
-      clearConfirm: "Saare notes saaf kar dein?",
+      saved: "Notes Sync hogaye!",
+      chars: "huroof likhe gaye",
+      clearConfirm: "Kya aap waqai apne research notes khatam karna chahte hain?",
     },
     home: {
-      badge: "Physical AI — Ek Jame Curriculum",
+      badge: "Physical AI — Ek world-class jame curriculum",
       title_p1: "Robotics jo mehsoos ho",
       title_p2: "beautifully human.",
       subtitle: "Pure digital intelligence aur physical world ke darmiyan farq ko khatam karna. Engineers ki agli nasl ke liye design ki gayi ek modern textbook.",
       btn_companion: "Companion FTE se milein",
       philosophy_title: "Core Philosophy",
       philosophy_desc: "Physical AI sirf robots ko move karne ke baare mein nahi hai. Yeh ek unified brain aur body design karne ke baare mein hai.",
-      curriculum_title: "Modern Curriculum",
+      curriculum_title: "Engineering Protocol",
       curriculum_desc: "Humanoid robotics aur physical intelligence mein state-of-the-art technology ke zariye 5 modules ka safar.",
-      learn_more: "Mazeed Janien",
+      learn_more: "Module Dekhein",
       features: [
         {
           title: "Tactile Dexterity",

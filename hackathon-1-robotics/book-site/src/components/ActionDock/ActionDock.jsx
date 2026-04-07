@@ -18,7 +18,7 @@ const ActionDock = () => {
   const [isSnowActive, setIsSnowActive] = useState(false);
 
   useEffect(() => {
-    // Load persisted snow state without flash/glitch
+    // Load persisted snow state
     const savedSnow = localStorage.getItem('let_it_snow') === '1';
     setIsSnowActive(savedSnow);
 
@@ -114,7 +114,10 @@ const ActionDock = () => {
       <div className={styles.dockItem} style={{ '--idx': 3 }}>
         <button
           className={`${styles.dockButton} ${styles.chatButton} ${isChatOpen ? styles.activeItem : ''}`}
-          onClick={() => setIsChatOpen(v => !v)}
+          onClick={() => {
+            setIsChatOpen(v => !v);
+            if (isNotebookOpen) setIsNotebookOpen(false);
+          }}
           title={t?.ui?.companion || 'AI Companion'}
           aria-label="Open AI Chatbot"
           aria-pressed={isChatOpen}
@@ -139,18 +142,19 @@ const ActionDock = () => {
           className={`${styles.dockButton} ${isNotebookOpen ? styles.activeItem : ''}`}
           onClick={() => {
             setIsNotebookOpen(v => !v);
-            if (isChatOpen) setIsChatOpen(false); // Close chat if opening notebook
+            if (isChatOpen) setIsChatOpen(false);
           }}
-          title={t?.notebook?.title || 'Study Notebook'}
+          title={t?.ui?.notebook || 'Study Notebook'}
           aria-label="Open Study Notebook"
           aria-pressed={isNotebookOpen}
         >
           {/* Book icon */}
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+             style={{ transform: isNotebookOpen ? 'scale(1.1) rotate(-5deg)' : 'none', transition: '0.4s' }}
+          >
             <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
             <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
           </svg>
-          {/* Lightning Glass shimmer ring */}
           <span className={`${styles.glassRing} ${isNotebookOpen ? styles.glassRingActive : ''}`} aria-hidden="true" />
         </button>
 
