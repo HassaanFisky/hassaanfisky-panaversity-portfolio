@@ -36,7 +36,7 @@ export const hackathons: Hackathon[] = [
     tech: ["Docusaurus", "FastAPI", "OpenAI Agents SDK", "Qdrant", "RAG"],
     description: "Create an AI-native textbook with Docusaurus and build an embedded RAG chatbot using OpenAI Agents SDK, FastAPI, and Qdrant for interactive, personalised learning.",
     status: "live", 
-    url: "https://panaversity-h1-robotics.vercel.app", 
+    url: "https://hackathon-1-robotics.vercel.app", 
     imageUrl: "/h1-thumb.png",
     points: "1200 + 300 bonus" 
   },
@@ -47,8 +47,8 @@ export const hackathons: Hackathon[] = [
     tech: ["Next.js", "Supabase", "Kafka", "Dapr", "Kubernetes"],
     description: "Master spec-driven development through a 5-phase journey: console app → full-stack web → AI chatbot → local Kubernetes → cloud deployment with Kafka and Dapr.",
     status: "live", 
-    url: "https://hackathon-2-todo-iota.vercel.app", 
-    imageUrl: "https://hackathon-2-todo-iota.vercel.app/h2-thumb.png",
+    url: "https://evolution-of-todo.vercel.app", 
+    imageUrl: "https://evolution-of-todo.vercel.app/h2-thumb.png",
     points: "1000 + 600 bonus" 
   },
   { 
@@ -58,8 +58,8 @@ export const hackathons: Hackathon[] = [
     tech: ["MCP", "Agent Skills", "Claude Code", "Goose"],
     description: "Build agentic infrastructure with MCP Code Execution and Agent Skills. Create a LearnFlow platform using Claude Code and Goose — the Skills are the product.",
     status: "live", 
-    url: "https://hassaanfisky-panaversity-learnflow.vercel.app", 
-    imageUrl: "https://hassaanfisky-panaversity-learnflow.vercel.app/h3-thumb.png",
+    url: "https://learnflow-platform-h3.vercel.app", 
+    imageUrl: "https://learnflow-platform-h3.vercel.app/h3-thumb.png",
     points: "1000 + 400 bonus" 
   },
   { 
@@ -69,8 +69,8 @@ export const hackathons: Hackathon[] = [
     tech: ["Agent Factory", "Next.js", "AI Tutors", "Groq"],
     description: "Build a Digital FTE educational tutor with dual-frontend architecture (ChatGPT App + standalone Web App). A 24/7 AI tutor at 99% cost reduction using Agent Factory Architecture.",
     status: "live", 
-    url: "https://panaversity-h4-companion.vercel.app", 
-    imageUrl: "https://panaversity-h4-companion.vercel.app/h4-thumb.png",
+    url: "https://hassaanfisky-aira-digital-fte.vercel.app", 
+    imageUrl: "https://hassaanfisky-aira-digital-fte.vercel.app/h4-thumb.png",
     points: "1000 + 500 bonus" 
   }
 ];
