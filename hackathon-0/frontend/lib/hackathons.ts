@@ -47,8 +47,8 @@ export const hackathons: Hackathon[] = [
     tech: ["Next.js", "Supabase", "Kafka", "Dapr", "Kubernetes"],
     description: "Master spec-driven development through a 5-phase journey: console app → full-stack web → AI chatbot → local Kubernetes → cloud deployment with Kafka and Dapr.",
     status: "live", 
-    url: "https://evolution-of-todo.vercel.app", 
-    imageUrl: "/h2-thumb.png",
+    url: "https://hackathon-2-todo-iota.vercel.app", 
+    imageUrl: "https://hackathon-2-todo-iota.vercel.app/h2-thumb.png",
     points: "1000 + 600 bonus" 
   },
   { 
@@ -58,8 +58,8 @@ export const hackathons: Hackathon[] = [
     tech: ["MCP", "Agent Skills", "Claude Code", "Goose"],
     description: "Build agentic infrastructure with MCP Code Execution and Agent Skills. Create a LearnFlow platform using Claude Code and Goose — the Skills are the product.",
     status: "live", 
-    url: "https://learnflow-platform-h3.vercel.app", 
-    imageUrl: "/h3-thumb.png",
+    url: "https://hassaanfisky-panaversity-learnflow.vercel.app", 
+    imageUrl: "https://hassaanfisky-panaversity-learnflow.vercel.app/h3-thumb.png",
     points: "1000 + 400 bonus" 
   },
   { 
@@ -69,8 +69,8 @@ export const hackathons: Hackathon[] = [
     tech: ["Agent Factory", "Next.js", "AI Tutors", "Groq"],
     description: "Build a Digital FTE educational tutor with dual-frontend architecture (ChatGPT App + standalone Web App). A 24/7 AI tutor at 99% cost reduction using Agent Factory Architecture.",
     status: "live", 
-    url: "https://digital-fte-crm.vercel.app", 
-    imageUrl: "/h4-thumb.png",
+    url: "https://panaversity-h4-companion.vercel.app", 
+    imageUrl: "https://panaversity-h4-companion.vercel.app/h4-thumb.png",
     points: "1000 + 500 bonus" 
   }
 ];

@@ -1,17 +1,26 @@
-.env
-__pycache__/
-*.pyc
-*.pyo
-.venv/
-venv/
-node_modules/
-.next/
-*.log
-*.pid
-credentials/gmail_token.json
-credentials/gmail_credentials.json
-session_data/
-whatsapp_session/
-.DS_Store
-
+# Dependencies
+node_modules
+.next
 .vercel
+dist
+build
+
+# Environment
+.env
+.env.local
+.env.production
+.env*.local
+
+# Python
+venv
+__pycache__
+*.pyc
+.ipynb_checkpoints
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Misc
+*.tsbuildinfo
+build_output.log
