@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageSquare, X, Send, Sparkles, Loader2 } from "lucide-react";
+import { X, Send, Sparkles, Loader2, MessageSquare } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface Message {
   role: "user" | "assistant";
@@ -14,15 +15,14 @@ interface AiraAssistantProps {
   context: string;
 }
 
-const cn = (...classes: any[]) => classes.filter(Boolean).join(" ");
-
 export function AiraAssistant({ platform, context }: AiraAssistantProps) {
+  const { lang, t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<Message[]>([
     { 
       role: "assistant", 
-      content: `Greetings, Architect. I am Aira, your specialized assistant for the ${platform} platform. How can I facilitate your productivity today?` 
+      content: `Greetings. I am Aira, synchronized with the ${platform} platform. How can I facilitate your productivity today?` 
     }
   ]);
   const [isTyping, setIsTyping] = useState(false);
@@ -36,6 +36,12 @@ export function AiraAssistant({ platform, context }: AiraAssistantProps) {
     scrollToBottom();
   }, [messages, isTyping]);
 
+  useEffect(() => {
+    const handleToggle = () => setIsOpen(prev => !prev);
+    window.addEventListener("toggle-chat", handleToggle);
+    return () => window.removeEventListener("toggle-chat", handleToggle);
+  }, []);
+
   const handleSend = async () => {
     if (!input.trim() || isTyping) return;
 
@@ -44,114 +50,109 @@ export function AiraAssistant({ platform, context }: AiraAssistantProps) {
     setInput("");
     setIsTyping(true);
 
+    // Human-like delay simulation
     setTimeout(() => {
       const assistantMsg: Message = { 
         role: "assistant", 
-        content: `Analyzing ${platform} protocol... ${context}. Systems are synchronized.` 
+        content: `Analyzing protocol... ${context}. Systems are verified and operational.` 
       };
       setMessages(prev => [...prev, assistantMsg]);
       setIsTyping(false);
-    }, 1500);
+    }, 1200);
   };
 
   return (
-    <div style={{ position: "fixed", bottom: "30px", right: "30px", zIndex: 10000 }}>
-      <AnimatePresence>
-        {isOpen && (
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          {/* Backdrop for focus */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsOpen(false)}
+            className="fixed inset-0 bg-black/20 backdrop-blur-sm z-[10000]"
+          />
+
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 40 }}
-            style={{
-              marginBottom: "20px",
-              width: "350px",
-              height: "500px",
-              backgroundColor: "rgba(10, 10, 15, 0.95)",
-              backdropFilter: "blur(20px)",
-              border: "1px solid rgba(255, 255, 255, 0.1)",
-              borderRadius: "28px",
-              overflow: "hidden",
-              display: "flex",
-              flexDirection: "column",
-              boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)"
-            }}
+            initial={{ opacity: 0, scale: 0.95, y: 40 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 40 }}
+            className="fixed inset-x-4 md:inset-x-0 bottom-24 md:bottom-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-full md:w-[600px] h-[600px] max-h-[80vh] glass-apple rounded-[2.5rem] shadow-float z-[10001] flex flex-col overflow-hidden border-white/20 dark:border-white/10"
           >
-            {/* Header */}
-            <div style={{ padding: "20px", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                <Sparkles size={18} color="#D97757" />
-                <span style={{ fontSize: "11px", fontWeight: "bold", color: "white", letterSpacing: "2px" }}>AIRA — {platform} CORE</span>
+            {/* Humanized Header */}
+            <div className="px-8 py-6 border-b border-border-fine flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center text-accent">
+                   <Sparkles size={20} className="animate-pulse" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs font-bold uppercase tracking-[0.2em] text-text-primary">Aira Intelligence</span>
+                  <span className="text-[9px] font-bold uppercase tracking-widest text-accent opacity-80">{platform} Node Registry</span>
+                </div>
               </div>
-              <X size={20} color="gray" style={{ cursor: "pointer" }} onClick={() => setIsOpen(false)} />
+              <button 
+                onClick={() => setIsOpen(false)}
+                className="w-10 h-10 rounded-full hover:bg-black/5 dark:hover:bg-white/5 flex items-center justify-center text-text-muted transition-colors"
+              >
+                <X size={20} />
+              </button>
             </div>
 
-            {/* Messages */}
-            <div style={{ flex: 1, overflowY: "auto", padding: "20px", display: "flex", flexDirection: "column", gap: "15px" }}>
+            {/* Chat Content */}
+            <div className="flex-1 overflow-y-auto p-10 flex flex-col gap-8 scrollbar-hide">
               {messages.map((msg, i) => (
-                <div key={i} style={{ alignSelf: msg.role === "user" ? "flex-end" : "flex-start", maxWidth: "80%" }}>
-                  <div style={{
-                    padding: "12px 16px",
-                    borderRadius: "15px",
-                    fontSize: "12px",
-                    lineHeight: "1.5",
-                    backgroundColor: msg.role === "user" ? "#D97757" : "rgba(255,255,255,0.05)",
-                    color: "white"
-                  }}>
+                <div 
+                  key={i} 
+                  className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+                >
+                  <div className={`max-w-[85%] rounded-[1.5rem] px-6 py-4 text-sm leading-relaxed shadow-sm ${
+                    msg.role === "user" 
+                      ? "bg-accent text-white font-medium" 
+                      : "bg-bg-elevated/60 text-text-secondary font-serif italic border border-border-fine"
+                  }`}>
                     {msg.content}
                   </div>
                 </div>
               ))}
-              {isTyping && <Loader2 size={16} color="gray" className="animate-spin" />}
+              {isTyping && (
+                <div className="flex justify-start">
+                  <div className="bg-bg-elevated/40 rounded-full px-4 py-3 flex items-center gap-2">
+                    <Loader2 size={14} className="animate-spin text-accent" />
+                    <span className="text-[10px] uppercase tracking-widest font-bold text-text-muted">Aira is thinking...</span>
+                  </div>
+                </div>
+              )}
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Input */}
-            <div style={{ padding: "20px", borderTop: "1px solid rgba(255,255,255,0.1)" }}>
-              <div style={{ position: "relative" }}>
+            {/* Premium Input Bridge */}
+            <div className="p-8 border-t border-border-fine bg-bg-base/30 backdrop-blur-md">
+              <div className="relative flex items-center">
                 <input 
-                  style={{
-                    width: "100%",
-                    padding: "12px 15px",
-                    borderRadius: "12px",
-                    backgroundColor: "rgba(255,255,255,0.05)",
-                    border: "1px solid rgba(255,255,255,0.1)",
-                    color: "white",
-                    fontSize: "12px"
-                  }}
-                  placeholder="Sync query..."
+                  autoFocus
+                  className="w-full bg-white dark:bg-black/20 border border-border-fine rounded-2xl px-6 py-4 text-sm text-text-primary placeholder:text-text-muted/50 focus:outline-none focus:border-accent/40 shadow-inner transition-colors"
+                  placeholder="Ask Aira anything about this platform..."
                   onKeyDown={(e) => e.key === "Enter" && handleSend()}
                   onChange={(e) => setInput(e.target.value)}
                   value={input}
                 />
-                <Send 
-                  size={16} 
-                  color="#D97757" 
-                  style={{ position: "absolute", right: "12px", top: "12px", cursor: "pointer" }} 
+                <button 
                   onClick={handleSend}
-                />
+                  className="absolute right-3 w-10 h-10 bg-accent text-white rounded-xl flex items-center justify-center hover:brightness-110 active:scale-95 transition-all shadow-md shadow-accent/20"
+                >
+                  <Send size={18} />
+                </button>
+              </div>
+              <div className="mt-4 flex justify-between px-2">
+                 <span className="text-[8px] font-bold uppercase tracking-widest text-text-muted opacity-40">Agent Arch v4.0.2</span>
+                 <span className="text-[8px] font-bold uppercase tracking-widest text-text-muted opacity-40">Secured Node Connection</span>
               </div>
             </div>
           </motion.div>
-        )}
-      </AnimatePresence>
-
-      <div 
-        onClick={() => setIsOpen(!isOpen)}
-        style={{
-          width: "60px",
-          height: "60px",
-          borderRadius: "18px",
-          backgroundColor: "#111",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          cursor: "pointer",
-          border: "1px solid rgba(255,255,255,0.1)",
-          boxShadow: "0 10px 30px rgba(0,0,0,0.5)"
-        }}
-      >
-        <MessageSquare size={24} color="white" />
-      </div>
-    </div>
+        </>
+      )}
+    </AnimatePresence>
   );
 }
+

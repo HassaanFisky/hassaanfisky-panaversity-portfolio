@@ -7,6 +7,7 @@ import { EcosystemNav } from "@/components/EcosystemNav";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { ActionDock } from "@/components/ActionDock";
+import { SnowOverlay } from "@/components/SnowOverlay";
 
 const inter = Inter({ 
   subsets: ["latin"], 
@@ -62,6 +63,7 @@ export default function RootLayout({
               {children}
             </main>
             <ActionDock />
+            <SnowOverlay />
             <EcosystemNav />
             <Footer />
           </ThemeProvider>

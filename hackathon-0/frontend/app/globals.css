@@ -8,38 +8,44 @@
 
 @layer base {
   :root {
-    /* Anthropic Warm Theme (LIGHT) — High Contrast Refresh */
+    /* Senior AI Architect — Warm Light (Anthropic Palette) */
     --bg-base: #FAF9F6;
-    --bg-surface: #F2EFE8;
-    --bg-elevated: #EBE5DB;
-    --text-primary: #1C1917;      /* Darker for absolute legibility */
-    --text-secondary: #44403C;
-    --text-muted: #78716C;
-    --accent: #D97757;
+    --bg-surface: #FFFFFF;
+    --bg-elevated: #F2EFE8;
+    --text-primary: #1C1917;      /* Humanist Onyx */
+    --text-secondary: #57534E;    /* Taupe Grey */
+    --text-muted: #8A817C;
+    --accent: #D97757;            /* Deep Terracotta */
     --accent-soft: rgba(217, 119, 87, 0.08);
-    --border-fine: #E7E2DA;
+    --border-fine: #EBE5DB;
+    --success: #3D9970;
     
     --font-lora: "Lora", serif;
     --font-inter: "Inter", sans-serif;
     
-    --shadow-card: 0 4px 16px -4px rgba(28, 25, 23, 0.1), 0 0 0 0.8px var(--border-fine);
-    --shadow-float: 0 20px 64px -12px rgba(28, 25, 23, 0.2), 0 0 0 0.8px var(--border-fine);
+    --shadow-card: 0 4px 16px -4px rgba(28, 25, 23, 0.08), 0 0 0 1px var(--border-fine);
+    --shadow-float: 0 24px 64px -12px rgba(28, 25, 23, 0.12), 0 0 0 1px var(--border-fine);
+    
+    --radius-sm: 0.75rem;
+    --radius-md: 1.25rem;
+    --radius-lg: 2rem;
   }
 
   .dark {
-    /* Senior Architect Theme (DARK) — Depth Refresh */
-    --bg-base: #0C0B0A;           /* Deeper Onyx */
-    --bg-surface: #171513;        /* Subtly lighter than base */
-    --bg-elevated: #1F1D1A;
-    --text-primary: #FAF9F6;      /* Pure readability */
-    --text-secondary: #D6D3D1;
-    --text-muted: #A8A29E;
-    --accent: #E58A6D;           /* Muted Glow Terracotta */
+    /* Senior AI Architect — Deep Slate (Onyx & Slate) */
+    --bg-base: #0A0A0A;           /* Absolute Deep */
+    --bg-surface: #141414;        /* Surface Elev */
+    --bg-elevated: #1F1F1F;
+    --text-primary: #FAF9F6;      /* Off-White */
+    --text-secondary: #D1D5DB;    /* Soft Platinum */
+    --text-muted: #9CA3AF;
+    --accent: #E58A6D;            /* Radiant Ochre */
     --accent-soft: rgba(229, 138, 109, 0.1);
-    --border-fine: #292524;      /* Deep Border */
+    --border-fine: #262626;       /* Stealth Border */
+    --success: #6EE7B7;
     
-    --shadow-card: 0 8px 32px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--border-fine);
-    --shadow-float: 0 32px 80px -16px rgba(0, 0, 0, 0.8), 0 0 0 1px var(--border-fine);
+    --shadow-card: 0 8px 32px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--border-fine);
+    --shadow-float: 0 32px 80px -16px rgba(0, 0, 0, 0.7), 0 0 0 1px var(--border-fine);
   }
 }
 
@@ -85,26 +91,19 @@ body::before {
 .card-humanist {
   background-color: var(--bg-surface);
   border: 1px solid var(--border-fine);
-  border-radius: 1.75rem;
+  border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);
   transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .dark .card-humanist {
-  background-color: var(--bg-elevated);
+  background-color: var(--bg-surface);
 }
 
 .card-humanist:hover {
   box-shadow: var(--shadow-float);
-  transform: translateY(-6px);
-  border-color: rgba(217, 119, 87, 0.2);
-  /* Explicit bg lock — prevents white-flash on hover in dark mode */
-  background-color: var(--bg-surface);
-}
-
-.dark .card-humanist:hover {
-  background-color: var(--bg-elevated);
-  border-color: rgba(229, 138, 109, 0.25);
+  transform: translateY(-8px);
+  border-color: var(--accent);
 }
 
 .btn-tactile {
@@ -118,6 +117,18 @@ body::before {
   transform: scale(0.96);
 }
 
+.glass-apple {
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  background-color: rgba(250, 249, 246, 0.75);
+  border: 1px solid rgba(235, 229, 219, 0.3);
+}
+
+.dark .glass-apple {
+  background-color: rgba(10, 10, 10, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
 .glass-nav {
   position: sticky;
   top: 1rem;
@@ -125,16 +136,16 @@ body::before {
   width: calc(100% - 2rem);
   max-width: 1200px;
   z-index: 100;
-  backdrop-filter: blur(28px);
-  -webkit-backdrop-filter: blur(28px);
-  background-color: rgba(var(--bg-base), 0.8);
+  backdrop-filter: blur(32px) saturate(150%);
+  -webkit-backdrop-filter: blur(32px) saturate(150%);
+  background-color: rgba(250, 249, 246, 0.8);
   border: 1px solid var(--border-fine);
-  border-radius: 2rem;
+  border-radius: var(--radius-lg);
   transition: all 0.5s ease;
 }
 
 .dark .glass-nav {
-  background-color: rgba(12, 11, 10, 0.85);
+  background-color: rgba(10, 10, 10, 0.85);
 }
 
 .transition-editorial {
