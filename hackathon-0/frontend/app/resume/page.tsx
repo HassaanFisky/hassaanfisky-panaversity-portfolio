@@ -99,15 +99,26 @@ function FallbackResume() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="space-y-4"
+            className="flex flex-col md:flex-row gap-8 lg:gap-12 items-start md:items-center"
           >
-            <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-accent/10 border border-accent/20 text-[10px] font-black uppercase tracking-[0.4em] text-accent">
-              Available for Collaboration
+            <div className="w-32 h-32 md:w-48 md:h-48 shrink-0 rounded-[2.5rem] overflow-hidden border border-white/5 shadow-float relative group bg-bg-surface">
+              <img 
+                src="/profile.jpeg" 
+                alt="Muhammad Hassaan" 
+                className="w-full h-full object-cover transition-all duration-[1.5s] group-hover:scale-105 filter grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100" 
+              />
+              <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-[2.5rem] pointer-events-none" />
             </div>
-            <h1 className="text-6xl md:text-8xl font-serif text-text-primary tracking-tighter leading-none glass-3d">
-              Professional <br />
-              <span className="italic text-accent">Trajectory</span>
-            </h1>
+            
+            <div className="space-y-4">
+              <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-accent/10 border border-accent/20 text-[10px] font-black uppercase tracking-[0.4em] text-accent">
+                Available for Collaboration
+              </div>
+              <h1 className="text-6xl md:text-7xl lg:text-8xl font-serif text-text-primary tracking-tighter leading-none glass-3d">
+                Muhammad <br />
+                <span className="italic text-accent">Hassaan.</span>
+              </h1>
+            </div>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
