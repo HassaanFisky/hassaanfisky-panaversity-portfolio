@@ -173,3 +173,11 @@
 ::-webkit-scrollbar-thumb { background: var(--border-muted); border-radius: 10px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 ::selection { background: var(--accent-soft); color: var(--accent); }
+
+/* Brute-Force Button Contrast Fix */
+.bg-accent, .btn-accent, button[class*="bg-accent"], [class*="bg-accent"], .button--primary {
+  color: #FFFFFF !important;
+}
+.bg-accent *, .btn-accent *, button[class*="bg-accent"] * {
+  color: #FFFFFF !important;
+}
