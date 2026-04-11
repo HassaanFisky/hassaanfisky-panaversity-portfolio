@@ -22,21 +22,33 @@ export const metadata: Metadata = {
   description: "AI-powered Python learning with real-time feedback and adaptive exercises.",
 };
 
+import { ActionDock } from "@/components/ActionDock";
+import { SnowOverlay } from "@/components/SnowOverlay";
+import { LanguageProvider } from "@/context/LanguageContext";
+import { AiraAssistant } from "@/components/AiraAssistant";
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${lora.variable}`}>
-      <body className="font-inter antialiased bg-bg-base text-text-primary min-h-screen">
-        <ThemeProvider attribute="class" defaultTheme="light" forcedTheme="light" enableSystem={false}>
-          {children}
-          <EcosystemNav />
-          <Toaster
-            position="bottom-right"
-            richColors
-            closeButton
-            theme="light"
-          />
-        </ThemeProvider>
-      </body>
-    </html>
+    <LanguageProvider>
+      <html lang="en" suppressHydrationWarning className={`${inter.variable} ${lora.variable}`}>
+        <body className="font-inter antialiased bg-bg-base text-text-primary min-h-screen">
+          <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+            {children}
+            <ActionDock />
+            <SnowOverlay />
+            <EcosystemNav />
+            <AiraAssistant 
+              platform="H3" 
+              context="LearnFlow is synchronized. Advancing the Python learning protocol." 
+            />
+            <Toaster
+              position="bottom-right"
+              richColors
+              closeButton
+            />
+          </ThemeProvider>
+        </body>
+      </html>
+    </LanguageProvider>
   );
 }

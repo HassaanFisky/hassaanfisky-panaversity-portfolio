@@ -1,74 +1,11 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { dictionaries } from "@/lib/i18n/dictionaries";
 
 const LanguageContext = createContext<any>(null);
 
-export const languages = {
-  en: {
-    name: "English",
-    short: "EN",
-    dir: "ltr",
-    ui: {
-      network: "Member Area",
-      uplink: "Connect Identity",
-      architect: "Verified Member",
-      terminate: "Sign Out",
-      ecosystem: "Project Hub",
-      status: "Status: Online",
-      production: "Active",
-      language: "Language",
-      snow: "Snow Mode",
-      companion: "AI Assistant",
-      notebook: "Notes",
-    },
-    auth: {
-      greeting: "Welcome to my portfolio. Please sign in to explore all projects and features.",
-    },
-  },
-  ur: {
-    name: "اردو",
-    short: "UR",
-    dir: "rtl",
-    ui: {
-      network: "ممبر ایریا",
-      uplink: "شناخت جوڑیں",
-      architect: "تصدیق شدہ ممبر",
-      terminate: "سائن آؤٹ",
-      ecosystem: "پروجیکٹ حب",
-      status: "اسٹیٹس: آن لائن",
-      production: "فعال",
-      language: "زبان",
-      snow: "برفانی موڈ",
-      companion: "اے آئی اسسٹنٹ",
-      notebook: "نوٹس",
-    },
-    auth: {
-      greeting: "میرے پورٹ فولیو میں خوش آمدید۔ تمام پروجیکٹس دیکھنے کے لیے لاگ ان کریں۔",
-    },
-  },
-  ro: {
-    name: "Roman Urdu",
-    short: "RO",
-    dir: "ltr",
-    ui: {
-      network: "Member Area",
-      uplink: "Identity Connect",
-      architect: "Verified Member",
-      terminate: "Sign Out",
-      ecosystem: "Project Hub",
-      status: "Status: Online",
-      production: "Active",
-      language: "Zubaan",
-      snow: "Snow Mode",
-      companion: "AI Assistant",
-      notebook: "Notes",
-    },
-    auth: {
-      greeting: "Welcome! Mere portfolio mein khush amdeed. Saare projects dekhne ke liye please sign-in karein.",
-    },
-  },
-};
+export const languages = dictionaries;
 
 export const LanguageProvider = ({ children }: { children: React.ReactNode }) => {
   const [lang, setLang] = useState("en");
@@ -76,7 +13,7 @@ export const LanguageProvider = ({ children }: { children: React.ReactNode }) =>
   useEffect(() => {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("app_lang");
-      if (saved && languages[saved as keyof typeof languages]) {
+      if (saved && (dictionaries as any)[saved]) {
         setLang(saved);
         applyLangAttributes(saved);
       } else {
@@ -87,7 +24,7 @@ export const LanguageProvider = ({ children }: { children: React.ReactNode }) =>
 
   const applyLangAttributes = (l: string) => {
     if (typeof document !== "undefined") {
-      const langConfig = languages[l as keyof typeof languages];
+      const langConfig = (dictionaries as any)[l];
       document.documentElement.dir = langConfig?.dir || "ltr";
       document.documentElement.lang = l;
       
@@ -105,7 +42,7 @@ export const LanguageProvider = ({ children }: { children: React.ReactNode }) =>
   };
 
   const changeLanguage = (newLang: string) => {
-    if (languages[newLang as keyof typeof languages]) {
+    if ((dictionaries as any)[newLang]) {
       setLang(newLang);
       applyLangAttributes(newLang);
       localStorage.setItem("app_lang", newLang);
@@ -113,7 +50,7 @@ export const LanguageProvider = ({ children }: { children: React.ReactNode }) =>
     }
   };
 
-  const t = languages[lang as keyof typeof languages];
+  const t = (dictionaries as any)[lang];
 
   return (
     <LanguageContext.Provider value={{ lang, changeLanguage, t, languages }}>
@@ -127,3 +64,4 @@ export const useLanguage = () => {
   if (!ctx) throw new Error("useLanguage must be used inside LanguageProvider");
   return ctx;
 };
+

@@ -156,7 +156,7 @@ export default function AiTutorPanel({ context, onClose }: AiTutorPanelProps) {
 
   return (
     <div className="flex flex-col h-full bg-bg-base border-l border-border-fine transition-editorial shadow-2xl">
-      <div className="h-24 flex items-center justify-between px-10 border-b border-border-fine bg-white/80 backdrop-blur-xl shrink-0 z-10">
+      <div className="h-24 flex items-center justify-between px-10 border-b border-border-fine bg-bg-base/80 backdrop-blur-xl shrink-0 z-10">
         <div className="flex items-center gap-5">
           <div className="w-12 h-12 rounded-2xl bg-bg-base flex items-center justify-center text-accent border border-border-fine shadow-sm relative overflow-hidden group">
             <div className="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -194,7 +194,7 @@ export default function AiTutorPanel({ context, onClose }: AiTutorPanelProps) {
                 "max-w-[92%] p-8 transition-editorial",
                 msg.role === 'user' 
                   ? 'bg-text-primary text-white rounded-[2rem] rounded-tr-none shadow-float' 
-                  : 'bg-white border border-border-fine rounded-[2rem] rounded-tl-none shadow-sm'
+                  : 'bg-bg-surface border border-border-fine rounded-[2rem] rounded-tl-none shadow-sm'
               )}>
                  <SpecialistResponse role={msg.role} content={msg.content} />
               </div>
@@ -226,7 +226,7 @@ export default function AiTutorPanel({ context, onClose }: AiTutorPanelProps) {
             animate={{ opacity: 1 }}
             className="flex flex-col items-start space-y-4"
           >
-            <div className="max-w-[150px] p-6 rounded-[2rem] bg-white border border-border-fine rounded-tl-none shadow-sm flex items-center justify-center gap-3">
+            <div className="max-w-[150px] p-6 rounded-[2rem] bg-bg-surface border border-border-fine rounded-tl-none shadow-sm flex items-center justify-center gap-3">
                <span className="w-1.5 h-1.5 rounded-full bg-accent animate-bounce" />
                <span className="w-1.5 h-1.5 rounded-full bg-accent animate-bounce [animation-delay:0.2s]" />
                <span className="w-1.5 h-1.5 rounded-full bg-accent animate-bounce [animation-delay:0.4s]" />
@@ -236,7 +236,7 @@ export default function AiTutorPanel({ context, onClose }: AiTutorPanelProps) {
         )}
       </div>
 
-      <div className="p-10 border-t border-border-fine bg-white/90 backdrop-blur-xl shrink-0">
+      <div className="p-10 border-t border-border-fine bg-bg-base/90 backdrop-blur-xl shrink-0">
         <div className="relative group max-w-2xl mx-auto">
           <textarea
             value={input}
@@ -289,7 +289,7 @@ function SpecialistDetail({ type, data, context }: { type: string, data: any, co
           </div>
           {data.code_example && (
             <div className="font-mono bg-bg-base p-8 rounded-2xl border border-border-fine text-text-primary text-xs leading-loose overflow-x-auto shadow-inner relative group">
-              <div className="absolute top-4 right-4 text-[9px] font-bold uppercase tracking-widest bg-white/50 px-2 py-1 rounded border border-border-fine opacity-0 group-hover:opacity-100 transition-opacity">Example Logic</div>
+              <div className="absolute top-4 right-4 text-[9px] font-bold uppercase tracking-widest bg-bg-elevated/50 px-2 py-1 rounded border border-border-fine opacity-0 group-hover:opacity-100 transition-opacity">Example Logic</div>
               <pre><code>{data.code_example}</code></pre>
             </div>
           )}
@@ -316,7 +316,7 @@ function SpecialistDetail({ type, data, context }: { type: string, data: any, co
           </div>
           <div className="grid gap-6">
             {data.issues?.slice(0,3).map((issue: any, i: number) => (
-               <div key={i} className="flex gap-4 items-start p-6 bg-white rounded-2xl border border-border-fine shadow-sm hover:shadow-md transition-editorial">
+               <div key={i} className="flex gap-4 items-start p-6 bg-bg-surface rounded-2xl border border-border-fine shadow-sm hover:shadow-md transition-editorial">
                   <div className={cn(
                     "w-2 h-2 rounded-full mt-2 shrink-0 animate-pulse",
                     issue.severity === 'error' ? 'bg-accent' : 'bg-[#579D84]'
@@ -396,11 +396,11 @@ function SpecialistDetail({ type, data, context }: { type: string, data: any, co
             <BarChart size={16} /> Mastery Progression Report
           </div>
           <div className="grid grid-cols-2 gap-4">
-             <div className="p-6 rounded-2xl bg-white border border-border-fine shadow-sm flex flex-col items-center">
+             <div className="p-6 rounded-2xl bg-bg-surface border border-border-fine shadow-sm flex flex-col items-center">
                 <span className="text-[9px] font-bold uppercase tracking-widest text-text-muted mb-2">Mastery</span>
                 <span className="text-3xl font-serif italic text-accent">{data.overall_mastery}%</span>
              </div>
-             <div className="p-6 rounded-2xl bg-white border border-border-fine shadow-sm flex flex-col items-center">
+             <div className="p-6 rounded-2xl bg-bg-surface border border-border-fine shadow-sm flex flex-col items-center">
                 <span className="text-[9px] font-bold uppercase tracking-widest text-text-muted mb-2">Nodes</span>
                 <span className="text-3xl font-serif italic text-text-primary">{data.modules_mastered}/{data.modules?.length || 0}</span>
              </div>

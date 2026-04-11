@@ -1,168 +1,217 @@
 @import "tailwindcss";
 
-/**
- * HASSAAN AI ARCHITECT — Portfolio Hub (H0)
- * Perfect Fidelity Theme System (v2.1)
- * Optimized for High-Contrast Accessibility & Semantic Visibility.
- */
+/* ═══════════════════════════════════════════════════════════════════
+   PANAVERSITY ECOSYSTEM — Master Design System v6.1
+   "High-Fidelity Humanist" — Hassaan AI Architect
+   
+   RULE: Perfect Contrast. Text ALWAYS opposite to background.
+         Button text ALWAYS high-contrast.
+═══════════════════════════════════════════════════════════════════ */
 
+/* ─── LIGHT MODE TOKENS ─── */
+:root, [data-theme='light'], .light {
+  --bg-base:       #FCFAF8;
+  --bg-surface:    #F2EBE0;
+  --bg-elevated:   #E8DDD0;
+
+  --border-fine:   #C8BFB5;
+  --border-muted:  #B8AFA5;
+  --border-active: #D97757;
+
+  --text-primary:  #1C1815;
+  --text-secondary:#3D3530;
+  --text-muted:    #6B6460;
+
+  --accent:        #D97757;
+  --accent-hover:  #C06644;
+  --accent-soft:   rgba(217, 119, 87, 0.10);
+  --accent-glow:   rgba(217, 119, 87, 0.20);
+  --accent-dim:    rgba(217, 119, 87, 0.08);
+
+  --success:       #2D7A55;
+  --error:         #C04040;
+
+  --shadow-card:   0 2px 8px -2px rgba(28, 24, 21, 0.10), 0 0 0 1px var(--border-fine);
+  --shadow-modal:  0 16px 48px -8px rgba(28, 24, 21, 0.16), 0 0 0 1px var(--border-fine);
+  --shadow-float:  0 20px 50px -12px rgba(28, 24, 21, 0.14), 0 0 0 1px var(--border-fine);
+
+  --glass-bg:      rgba(252, 250, 248, 0.88);
+  --glass-border:  rgba(200, 191, 181, 0.70);
+
+  /* Button text — absolute requirements */
+  --btn-text-on-accent:  #FFFFFF;
+  --btn-text-on-surface: #1C1815;
+}
+
+/* ─── DARK MODE TOKENS ─── */
+.dark, [data-theme='dark'] {
+  --bg-base:       #0D0C0B;
+  --bg-surface:    #1A1816;
+  --bg-elevated:   #252220;
+
+  --border-fine:   #3C3834;
+  --border-muted:  #504C48;
+  --border-active: #E58A6D;
+
+  --text-primary:  #F5F0EB;
+  --text-secondary:#C8C0B8;
+  --text-muted:    #8A8480;
+
+  --accent:        #E58A6D;
+  --accent-hover:  #F09A7D;
+  --accent-soft:   rgba(229, 138, 109, 0.12);
+  --accent-glow:   rgba(229, 138, 109, 0.22);
+  --accent-dim:    rgba(229, 138, 109, 0.10);
+
+  --success:       #5DBF94;
+  --error:         #EF5555;
+
+  --shadow-card:   0 4px 16px -4px rgba(0, 0, 0, 0.50), 0 0 0 1px var(--border-fine);
+  --shadow-modal:  0 24px 64px -12px rgba(0, 0, 0, 0.70), 0 0 0 1px var(--border-fine);
+  --shadow-float:  0 30px 60px -12px rgba(0, 0, 0, 0.60), 0 0 0 1px var(--border-fine);
+
+  --glass-bg:      rgba(13, 12, 11, 0.90);
+  --glass-border:  rgba(255, 255, 255, 0.10);
+
+  --btn-text-on-accent:  #0D0C0B; /* Dark background = dark text on accent for high contrast? No, usually light text is better. Let's stick to white on accent. */
+  --btn-text-on-accent:  #FFFFFF;
+  --btn-text-on-surface: #F5F0EB;
+}
+
+/* ─── BASE ─── */
 @layer base {
-  :root {
-    /* Senior AI Architect — Warm Light (Anthropic Palette) */
-    --bg-base: #FAF9F6;
-    --bg-surface: #FFFFFF;
-    --bg-elevated: #F2EFE8;
-    --text-primary: #1C1917;      /* Humanist Onyx */
-    --text-secondary: #57534E;    /* Taupe Grey */
-    --text-muted: #8A817C;
-    --accent: #D97757;            /* Deep Terracotta */
-    --accent-soft: rgba(217, 119, 87, 0.08);
-    --border-fine: #EBE5DB;
-    --success: #3D9970;
-    
-    --font-lora: "Lora", serif;
-    --font-inter: "Inter", sans-serif;
-    
-    --shadow-card: 0 4px 16px -4px rgba(28, 25, 23, 0.08), 0 0 0 1px var(--border-fine);
-    --shadow-float: 0 24px 64px -12px rgba(28, 25, 23, 0.12), 0 0 0 1px var(--border-fine);
-    
-    --radius-sm: 0.75rem;
-    --radius-md: 1.25rem;
-    --radius-lg: 2rem;
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px;
   }
 
-  .dark {
-    /* Senior AI Architect — Deep Slate (Onyx & Slate) */
-    --bg-base: #0A0A0A;           /* Absolute Deep */
-    --bg-surface: #141414;        /* Surface Elev */
-    --bg-elevated: #1F1F1F;
-    --text-primary: #FAF9F6;      /* Off-White */
-    --text-secondary: #D1D5DB;    /* Soft Platinum */
-    --text-muted: #9CA3AF;
-    --accent: #E58A6D;            /* Radiant Ochre */
-    --accent-soft: rgba(229, 138, 109, 0.1);
-    --border-fine: #262626;       /* Stealth Border */
-    --success: #6EE7B7;
-    
-    --shadow-card: 0 8px 32px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--border-fine);
-    --shadow-float: 0 32px 80px -16px rgba(0, 0, 0, 0.7), 0 0 0 1px var(--border-fine);
+  body {
+    background-color: var(--bg-base);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+    transition: background-color 0.35s cubic-bezier(0.16, 1, 0.3, 1), color 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    background-image: radial-gradient(rgba(28, 24, 21, 0.05) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  .dark body {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
   }
 }
 
-body {
-  background-color: var(--bg-base);
+/* ─── COMPONENTS ─── */
+@layer components {
+  .card-humanist {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-fine);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .card-humanist:hover {
+    border-color: var(--accent);
+    box-shadow: var(--shadow-modal);
+    transform: translateY(-4px);
+  }
+
+  /* Button Contrast Implementation — CRITICAL */
+  .bg-accent, .btn-accent {
+    background-color: var(--accent) !important;
+    color: var(--btn-text-on-accent) !important;
+  }
+  
+  .btn-tactile {
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn-tactile:active {
+    transform: scale(0.96);
+  }
+
+  /* Force opposite colors for all interactive elements in light mode */
+  :root .bg-text-primary {
+    background-color: var(--text-primary);
+    color: var(--bg-base);
+  }
+}
+
+/* ─── UTILITIES ─── */
+@layer utilities {
+  .glass-apple {
+    backdrop-filter: blur(40px) saturate(150%);
+    -webkit-backdrop-filter: blur(40px) saturate(150%);
+    background-color: var(--glass-bg);
+    border: 1px solid var(--border-fine);
+  }
+
+  .shadow-float {
+    box-shadow: var(--shadow-float);
+  }
+
+  .transition-editorial {
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+/* ─── WEATHER ANIMATIONS ─── */
+
+/* Snow */
+.snowflake {
+  position: absolute;
+  top: -15px;
+  animation: snowfall linear infinite;
   color: var(--text-primary);
-  font-family: var(--font-inter);
-  -webkit-font-smoothing: antialiased;
-  background-image: 
-    linear-gradient(var(--border-fine) 1px, transparent 1px),
-    linear-gradient(90deg, var(--border-fine) 1px, transparent 1px);
-  background-size: 40px 40px;
-  background-position: center center;
-  line-height: 1.6;
-  transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
-              color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  overflow-x: hidden;
-}
-
-/* Subtle background grain / pulse */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: radial-gradient(rgba(217, 119, 87, 0.05) 1.5px, transparent 1.5px);
-  background-size: 80px 80px;
+  opacity: 0.2;
+  user-select: none;
   pointer-events: none;
-  z-index: -1;
-  transition: opacity 0.5s ease;
+}
+@keyframes snowfall {
+  0%   { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(110vh) rotate(360deg); }
 }
 
-.dark body::before {
-  background-image: radial-gradient(rgba(229, 138, 109, 0.08) 1.8px, transparent 1.8px);
-  opacity: 0.3;
+/* Rain */
+.raindrop {
+  position: absolute;
+  top: -25px;
+  width: 1.5px;
+  background: linear-gradient(to bottom, transparent, var(--accent));
+  animation: rainfall linear infinite;
+  transform: rotate(15deg);
+  pointer-events: none;
+}
+@keyframes rainfall {
+  0%   { transform: translateY(0) rotate(15deg); }
+  100% { transform: translateY(110vh) rotate(15deg); }
 }
 
-.prose-editorial {
-  font-family: var(--font-lora);
-  line-height: 1.65;
-  color: var(--text-secondary);
+/* Storm */
+.lightning-flash {
+  animation: flash 5s infinite;
+}
+@keyframes flash {
+  0%, 90%, 95%, 100% { opacity: 0; }
+  92%, 97% { opacity: 1; }
 }
 
-.card-humanist {
-  background-color: var(--bg-surface);
-  border: 1px solid var(--border-fine);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+/* Cloudy */
+@keyframes drift {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100vw); }
 }
 
-.dark .card-humanist {
-  background-color: var(--bg-surface);
+/* ─── BUTTON CONTRAST FIXES (BRUTE FORCE) ─── */
+:root button:not(.bg-accent) {
+  color: var(--text-primary);
 }
-
-.card-humanist:hover {
-  box-shadow: var(--shadow-float);
-  transform: translateY(-8px);
-  border-color: var(--accent);
+.bg-accent button, .bg-accent span, .bg-accent div {
+  color: #FFFFFF !important;
 }
-
-.btn-tactile {
-  position: relative;
-  overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  cursor: pointer;
+:root .bg-accent {
+  color: #FFFFFF !important;
 }
-
-.btn-tactile:active {
-  transform: scale(0.96);
-}
-
-.glass-apple {
-  backdrop-filter: blur(28px) saturate(180%);
-  -webkit-backdrop-filter: blur(28px) saturate(180%);
-  background-color: rgba(250, 249, 246, 0.75);
-  border: 1px solid rgba(235, 229, 219, 0.3);
-}
-
-.dark .glass-apple {
-  background-color: rgba(10, 10, 10, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.glass-nav {
-  position: sticky;
-  top: 1rem;
-  margin-inline: auto;
-  width: calc(100% - 2rem);
-  max-width: 1200px;
-  z-index: 100;
-  backdrop-filter: blur(32px) saturate(150%);
-  -webkit-backdrop-filter: blur(32px) saturate(150%);
-  background-color: rgba(250, 249, 246, 0.8);
-  border: 1px solid var(--border-fine);
-  border-radius: var(--radius-lg);
-  transition: all 0.5s ease;
-}
-
-.dark .glass-nav {
-  background-color: rgba(10, 10, 10, 0.85);
-}
-
-.transition-editorial {
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Custom scrollbar matching tokens */
-::-webkit-scrollbar {
-  width: 5px;
-}
-::-webkit-scrollbar-track {
-  background: var(--bg-base);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--border-fine);
-  border-radius: 10px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--accent);
+.dark .bg-accent {
+  color: #000000 !important; /* High contrast for dark mode accent? No, usually white is better. Let's keep white. */
+  color: #FFFFFF !important;
 }

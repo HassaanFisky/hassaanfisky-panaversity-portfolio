@@ -21,6 +21,9 @@ export const metadata: Metadata = {
   icons: { icon: "/favicon.ico" },
 };
 
+import { ActionDock } from "@/components/ActionDock";
+import { SnowOverlay } from "@/components/SnowOverlay";
+import { LanguageProvider } from "@/context/LanguageContext";
 import { EcosystemNav } from "@/components/EcosystemNav";
 import { AiraAssistant } from "@/components/AiraAssistant";
 
@@ -28,32 +31,36 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${lora.variable}`}>
-      <body className="font-inter antialiased bg-bg-base text-text-primary min-h-screen">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light" // CHANGED: Switched to light mode
-          forcedTheme="light"  // CHANGED: Forced light mode for humanist aesthetic
-          enableSystem={false}
-          disableTransitionOnChange
-        >
-          {children}
-          <EcosystemNav />
-          <AiraAssistant 
-            platform="H2" 
-            context="Your task stack is optimized. Syncing with the global learning protocol." 
-          />
-          <Toaster 
-            richColors 
-            position="top-right" 
-            closeButton 
-            toastOptions={{
-              className: 'border-fine shadow-card font-inter text-[13px]',
-            }}
-          />
-        </ThemeProvider>
-      </body>
-    </html>
+    <LanguageProvider>
+      <html lang="en" suppressHydrationWarning className={`${inter.variable} ${lora.variable}`}>
+        <body className="font-inter antialiased bg-bg-base text-text-primary min-h-screen">
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+            <ActionDock />
+            <SnowOverlay />
+            <EcosystemNav />
+            <AiraAssistant 
+              platform="H2" 
+              context="Your task stack is optimized. Syncing with the global learning protocol." 
+            />
+            <Toaster 
+              richColors 
+              position="top-right" 
+              closeButton 
+              toastOptions={{
+                className: 'border-fine shadow-card font-inter text-[13px]',
+              }}
+            />
+          </ThemeProvider>
+        </body>
+      </html>
+    </LanguageProvider>
   );
 }
+
 

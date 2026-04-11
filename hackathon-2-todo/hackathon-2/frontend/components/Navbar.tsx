@@ -28,10 +28,6 @@ export function Navbar() {
         <div className="flex items-center gap-10">
           <Link href="/" className="flex items-center gap-3 transition-opacity hover:opacity-80">
             <Logo />
-            <div className="flex flex-col">
-              <span className="text-sm font-serif font-bold tracking-[0.1em] text-text-primary uppercase">HASSAAN</span>
-              <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-accent">AI ARCHITECT</span>
-            </div>
           </Link>
 
           <div className="hidden md:flex items-center gap-8">
@@ -69,7 +65,7 @@ export function Navbar() {
           {session ? (
             <button
               onClick={handleSignOut}
-              className="btn-tactile flex items-center gap-2 border border-border-fine bg-white text-text-muted font-bold text-[10px] uppercase tracking-widest px-4 py-2 rounded-xl hover:border-red-300 hover:text-red-500 hover:bg-red-50 transition-editorial"
+              className="btn-tactile flex items-center gap-2 border border-[var(--border-fine)] bg-[var(--bg-surface)] text-[var(--text-muted)] font-bold text-[10px] uppercase tracking-widest px-4 py-2 rounded-xl hover:border-red-300 hover:text-red-500 transition-all"
             >
               <LogOut className="h-3.5 w-3.5" />
               <span className="hidden sm:inline">Sign Out</span>

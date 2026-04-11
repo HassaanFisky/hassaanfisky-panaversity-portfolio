@@ -2,21 +2,20 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { useLanguage } from "../context/LanguageContext";
+import { useLanguage } from "@/context/LanguageContext";
 import { Globe, User, LogOut, LogIn } from "lucide-react";
 import { useSession, signOut } from "@/lib/auth-client";
 
 /**
- * HASSAAN AI ARCHITECT — Ecosystem Hub Node
- * v3.0: Project Hub & Identity Sync.
- * Re-engineered for spatial harmony with ActionDock.
+ * HASSAAN AI ARCHITECT — Ecosystem & Identity Navigation
+ * Human-readable labels. No jargon, no system terminology.
  */
 const ECOSYSTEM_APPS = [
-  { name: "Portfolio Hub", image: "/blueprint-footer.png", url: "/", id: "H0" },
+  { name: "Portfolio Hub", image: "/blueprint-footer.png", url: "https://panaversity-h0-portfolio.vercel.app", id: "H0" },
   { name: "Physical AI & Robotics", image: "/h1-thumb.png", url: "https://hackathon-1-robotics.vercel.app", id: "H1" },
-  { name: "Evolution of Todo", image: "/h2-thumb.png", url: "https://evolution-of-todo.vercel.app", id: "H2" },
+  { name: "Evolution of To-Do", image: "/h2-thumb.png", url: "https://evolution-of-todo.vercel.app", id: "H2" },
   { name: "LearnFlow Engine", image: "/h3-thumb.png", url: "https://learnflow-platform-h3.vercel.app", id: "H3" },
-  { name: "Companion FTE", image: "/h4-thumb.png", url: "https://hassaanfisky-aira-digital-fte.vercel.app", id: "H4" },
+  { name: "AI Companion FTE", image: "/h4-thumb.png", url: "https://hassaanfisky-aira-digital-fte.vercel.app", id: "H4" },
 ];
 
 export function EcosystemNav() {
@@ -27,26 +26,32 @@ export function EcosystemNav() {
   const user = session?.user ?? null;
 
   const handleSignIn = () => {
-    if (typeof window !== 'undefined') {
-       window.location.href = "/sign-in";
+    if (typeof window !== "undefined") {
+      window.location.href = "/sign-in";
     }
   };
 
   const handleSignOut = async () => {
     await signOut();
+    setIsAuthOpen(false);
   };
 
   return (
     <>
-      {/* Identity Node — Positioned top-right/left for spatial balance */}
-      <div className={`fixed top-24 z-[10000] ${lang === 'ur' ? 'left-6' : 'right-6'}`}>
+      {/* ── User identity button — top right ── */}
+      <div className={`fixed top-24 z-[10000] ${lang === "ur" ? "left-6" : "right-6"}`}>
         <div className="relative">
           <button 
+            id="user-identity-btn"
             onClick={() => setIsAuthOpen(!isAuthOpen)}
-            className="w-12 h-12 glass-apple rounded-full shadow-float flex items-center justify-center text-text-secondary hover:text-accent border-white/20 transition-all hover:scale-110 active:scale-90 group"
+            className="w-12 h-12 glass-apple rounded-full shadow-float flex items-center justify-center text-text-secondary hover:text-accent border-white/20 transition-all hover:scale-110 active:scale-90"
+            aria-label={user ? "My account" : "Sign in"}
+            title={user ? "My account" : "Sign in"}
           >
             <User size={20} className={user ? "text-accent" : ""} />
-            {user && <div className="absolute top-0 right-0 w-3 h-3 bg-success rounded-full border-2 border-bg-base shadow-sm animate-pulse" />}
+            {user && (
+              <div className="absolute top-0 right-0 w-3 h-3 bg-emerald-500 rounded-full border-2 border-bg-base shadow-sm animate-pulse" />
+            )}
           </button>
           
           <AnimatePresence>
@@ -55,32 +60,47 @@ export function EcosystemNav() {
                 initial={{ opacity: 0, y: -10, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                className={`absolute top-14 w-72 glass-apple rounded-2xl shadow-float overflow-hidden p-2 origin-top-right border-white/20 ${lang === 'ur' ? 'left-0' : 'right-0'}`}
+                transition={{ duration: 0.2 }}
+                className={`absolute top-14 w-72 glass-apple rounded-2xl shadow-float overflow-hidden p-2 origin-top-right border-white/20 ${lang === "ur" ? "left-0" : "right-0"}`}
                 dir={t.dir}
               >
+                {/* CHANGED: "Network Identity" → "My Account" */}
                 <div className="px-4 py-2 text-[9px] font-bold uppercase tracking-[0.3em] text-accent border-b border-white/10 mb-2">
-                  {t.ui.network}
+                  My Account
                 </div>
+
                 {user ? (
                   <div className="flex flex-col gap-1">
                     <div className="px-3 py-3 bg-bg-base/40 rounded-xl mb-1 border border-white/5 shadow-inner flex flex-col items-center text-center">
-                       <div className="w-10 h-10 bg-accent/10 rounded-full mb-2 flex items-center justify-center text-accent">
-                         <User size={18} />
-                       </div>
-                       <span className="text-[11px] font-bold text-text-primary truncate max-w-full">{user.email}</span>
-                       <span className="text-[9px] text-success uppercase tracking-widest block mt-1 font-serif italic">{t.ui.architect}</span>
+                      <div className="w-10 h-10 bg-accent/10 rounded-full mb-2 flex items-center justify-center text-accent">
+                        <User size={18} />
+                      </div>
+                      <span className="text-[11px] font-bold text-text-primary truncate max-w-full">{user.email}</span>
+                      {/* CHANGED: "Verified Architect Node" → "Verified Member" */}
+                      <span className="text-[9px] text-emerald-500 uppercase tracking-widest block mt-1 font-serif italic">Verified Member</span>
                     </div>
-                    <button onClick={handleSignOut} className="flex flex-row-reverse justify-center items-center gap-3 px-3 py-3 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-500 transition-all text-[10px] font-bold w-full mt-1 border border-red-500/20 uppercase tracking-widest">
-                      {t.ui.terminate} <LogOut size={14} />
+                    {/* CHANGED: "Terminate Session" → "Sign Out" */}
+                    <button
+                      onClick={handleSignOut}
+                      className="flex justify-center items-center gap-3 px-3 py-3 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-500 transition-all text-[10px] font-bold w-full mt-1 border border-red-500/20 uppercase tracking-widest"
+                    >
+                      <LogOut size={14} />{t.ui.terminate}
                     </button>
                   </div>
                 ) : (
                   <div className="flex flex-col gap-2 p-1">
                     <div className="text-center py-4">
-                       <p className="text-[11px] font-medium text-text-secondary leading-relaxed px-2 font-serif italic">{t.auth.greeting}</p>
+                      {/* CHANGED: long system message → clean, human prompt */}
+                      <p className="text-[11px] font-medium text-text-secondary leading-relaxed px-2 font-serif italic">
+                        Sign in to continue
+                      </p>
                     </div>
-                    <button onClick={handleSignIn} className="flex justify-center items-center gap-2 px-3 py-3 rounded-xl bg-accent text-white transition-all text-[10px] font-bold w-full shadow-lg shadow-accent/20 uppercase tracking-widest">
-                      {t.ui.uplink} <LogIn size={15} />
+                    {/* CHANGED: "Initialize Uplink" → "Sign In" */}
+                    <button
+                      onClick={handleSignIn}
+                      className="flex justify-center items-center gap-2 px-3 py-3 rounded-xl bg-accent text-white transition-all text-[10px] font-bold w-full shadow-lg shadow-accent/20 uppercase tracking-widest hover:brightness-110"
+                    >
+                      <LogIn size={15} /> Sign In
                     </button>
                   </div>
                 )}
@@ -90,26 +110,30 @@ export function EcosystemNav() {
         </div>
       </div>
 
-      {/* Project Hub Hub — Positioned bottom-left/right */}
-      <div className={`fixed bottom-10 z-[10000] ${lang === 'ur' ? 'right-10' : 'left-10'}`}>
+      {/* ── Ecosystem grid — bottom left ── */}
+      <div className={`fixed bottom-10 z-[10000] ${lang === "ur" ? "right-10" : "left-10"}`}>
         <AnimatePresence>
           {isOpen && (
             <motion.div
               initial={{ opacity: 0, y: 20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 20, scale: 0.95 }}
-              className={`absolute bottom-16 w-80 glass-apple rounded-2xl shadow-float overflow-hidden p-2 border-white/20 ${lang === 'ur' ? 'right-0 origin-bottom-right' : 'left-0 origin-bottom-left'}`}
+              transition={{ duration: 0.25 }}
+              className={`absolute bottom-16 w-80 glass-apple rounded-2xl shadow-float overflow-hidden p-2 border-white/20 ${lang === "ur" ? "right-0 origin-bottom-right" : "left-0 origin-bottom-left"}`}
               dir={t.dir}
             >
+              {/* CHANGED: "Ecosystem Grid" → "Project Hub" | "Status: WIRED" → "All Live" */}
               <div className="px-4 py-2 text-[9px] font-bold uppercase tracking-[0.3em] text-accent border-b border-white/10 mb-2 flex items-center justify-between">
                 <span>{t.ui.ecosystem}</span>
-                <span className="text-[8px] opacity-60">{t.ui.status}</span>
+                <span className="text-[8px] opacity-60 text-emerald-400">● All Live</span>
               </div>
               <div className="space-y-1">
                 {ECOSYSTEM_APPS.map((app) => (
                   <a
                     key={app.id}
                     href={app.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flex items-center gap-4 px-3 py-3 rounded-xl hover:bg-white/10 transition-all group border border-transparent hover:border-white/10"
                   >
                     <div className="relative w-11 h-11 rounded-lg bg-black/20 border border-white/10 flex items-center justify-center overflow-hidden transition-all shadow-inner">
@@ -117,11 +141,15 @@ export function EcosystemNav() {
                         src={app.image} 
                         alt={app.name}
                         className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-90 group-hover:opacity-100"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = "/blueprint-footer.png";
+                        }}
                       />
                     </div>
                     <div className="flex flex-col flex-1">
                       <span className="text-[11px] font-bold text-text-primary group-hover:text-accent transition-colors uppercase tracking-wider">{app.name}</span>
-                      <span className="text-[8px] text-text-muted uppercase tracking-widest font-serif italic mt-0.5">{app.id} &bull; {t.ui.production}</span>
+                      {/* CHANGED: "{id} Node • Production" → "{id} • Live" */}
+                      <span className="text-[8px] text-text-muted uppercase tracking-widest font-serif italic mt-0.5">{app.id} &bull; Live</span>
                     </div>
                   </a>
                 ))}
@@ -131,8 +159,11 @@ export function EcosystemNav() {
         </AnimatePresence>
 
         <button
+          id="ecosystem-toggle-btn"
           onClick={() => setIsOpen(!isOpen)}
           className="w-16 h-16 glass-apple border-white/20 rounded-full shadow-float flex items-center justify-center text-text-primary hover:text-accent group relative transition-all active:scale-95 hover:scale-110"
+          title={t.ui.ecosystem}
+          aria-label={t.ui.ecosystem}
         >
           <Globe size={24} className={isOpen ? "rotate-90" : "animate-[spin_30s_linear_infinite]"} strokeWidth={1.5} />
           <div className="absolute top-1 right-1 w-3.5 h-3.5 bg-accent rounded-full border-2 border-bg-base shadow-sm animate-pulse" />
@@ -143,4 +174,3 @@ export function EcosystemNav() {
 }
 
 export default EcosystemNav;
-

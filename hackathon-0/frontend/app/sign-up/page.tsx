@@ -3,26 +3,26 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Loader2, ArrowRight, Shield, Database, Cpu } from "lucide-react";
+import { Loader2, ArrowRight, UserPlus } from "lucide-react";
 import { signUp } from "@/lib/auth-client";
 import { motion } from "framer-motion";
 
 /**
- * Panaversity H0 — Portfolio Hub — Unified Sign-Up
- * High-Fidelity Blueprint / Wired aesthetic.
+ * Panaversity H0 — Portfolio Hub — Create Account Page
+ * Clean, human-readable design. No jargon terminology.
  */
 export default function SignUpPage() {
   const router = useRouter();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [name,     setName]     = useState("");
+  const [email,    setEmail]    = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [loading,  setLoading]  = useState(false);
+  const [error,    setError]    = useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (password.length < 8) {
-      setError("System requirement: Password must be at least 8 characters");
+      setError("Password must be at least 8 characters.");
       return;
     }
     setLoading(true);
@@ -30,142 +30,159 @@ export default function SignUpPage() {
     try {
       const res = await signUp.email({ name, email, password });
       if (res.error) throw new Error(res.error.message);
-      router.push("/");
+      router.push("/dashboard");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Initialization sequence failure");
+      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <div className="min-h-screen bg-black text-white selection:bg-[#22d3ee]/20 flex flex-col font-sans">
-      {/* Blueprint Grid Overlay */}
-      <div className="fixed inset-0 z-0 pointer-events-none opacity-20" 
-           style={{ backgroundImage: "linear-gradient(#1e293b 1px, transparent 1px), linear-gradient(90deg, #1e293b 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
-      
-      {/* Cyan Scanning Effect */}
-      <div className="fixed inset-0 z-0 pointer-events-none bg-gradient-to-b from-transparent via-[#22d3ee]/5 to-transparent h-[100vh] animate-[scan_8s_linear_infinite]" />
+    <div className="min-h-screen bg-bg-base flex flex-col font-sans relative overflow-hidden">
+      {/* Ambient glow */}
+      <div className="fixed inset-0 z-0 pointer-events-none bg-[radial-gradient(circle_at_50%_30%,var(--accent-dim),transparent_60%)]" />
 
-      <style jsx global>{`
-        @keyframes scan {
-          0% { transform: translateY(-100vh); }
-          100% { transform: translateY(100vh); }
-        }
-      `}</style>
+      {/* Dot grid */}
+      <div
+        className="fixed inset-0 z-0 pointer-events-none opacity-[0.04]"
+        style={{
+          backgroundImage: "radial-gradient(var(--text-primary) 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }}
+      />
 
       {/* Header */}
-      <header className="fixed top-0 w-full z-50 border-b border-[#1e293b] bg-black/80 backdrop-blur-md px-12 h-20 flex items-center justify-between">
+      <header className="fixed top-0 w-full z-50 border-b border-border-fine bg-bg-base/80 backdrop-blur-md px-8 h-20 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 group">
-          <div className="w-8 h-8 border border-[#22d3ee] flex items-center justify-center font-mono text-[10px] text-[#22d3ee] group-hover:bg-[#22d3ee]/10 transition-all">P</div>
-          <span className="font-mono text-xs tracking-[0.4em] uppercase font-bold text-[#64748b]">Portfolio Hub</span>
+          <div className="w-8 h-8 border border-accent flex items-center justify-center font-serif text-[13px] text-accent group-hover:bg-accent/10 transition-all rounded-lg">
+            H
+          </div>
+          <span className="font-serif text-sm tracking-[0.2em] uppercase font-bold text-text-primary">Portfolio Hub</span>
         </Link>
-        <Link href="/sign-in" className="font-mono text-[9px] uppercase tracking-widest text-[#22d3ee] border border-[#22d3ee]/30 px-6 py-2 hover:bg-[#22d3ee]/10 transition-all">Access Root</Link>
+        {/* CHANGED: "Access Root" → "Sign In" */}
+        <Link
+          href="/sign-in"
+          className="text-[10px] font-bold uppercase tracking-widest text-accent border border-accent/30 px-6 py-2 rounded-full hover:bg-accent/10 transition-all"
+        >
+          Sign In
+        </Link>
       </header>
 
       {/* Content */}
       <main className="flex-1 flex items-center justify-center px-6 pt-32 pb-20 relative z-10">
-        <div className="w-full max-w-md">
-          {/* System Identity */}
-          <div className="mb-12 space-y-4">
-            <div className="inline-flex items-center gap-3 px-3 py-1 border border-[#22d3ee]/30 bg-[#22d3ee]/5 rounded-full">
-              <Shield size={12} className="text-[#22d3ee]" />
-              <span className="font-mono text-[9px] font-bold uppercase tracking-[0.3em] text-[#22d3ee]">Unified Node Integration v1.0</span>
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="w-full max-w-md"
+        >
+          {/* Heading */}
+          <div className="mb-10 space-y-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 border border-accent/30 bg-accent/5 rounded-full">
+              <UserPlus size={12} className="text-accent" />
+              {/* CHANGED: "Unified Node Integration v1.0" → "Create your account" */}
+              <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-accent">Create your account</span>
             </div>
-            <h1 className="text-4xl font-mono tracking-tight text-white leading-none uppercase">
-              Initialize <span className="text-[#22d3ee]">Uplink</span>
+            {/* CHANGED: "Initialize Uplink" → "Get started" */}
+            <h1 className="text-4xl font-serif tracking-tight text-text-primary leading-none">
+              Get started
             </h1>
-            <p className="text-sm font-medium text-[#64748b] font-mono leading-relaxed max-w-sm">
-              Connecting H0 Portfolio to the centralized Panaversity Database.
+            <p className="text-sm font-medium text-text-muted leading-relaxed max-w-sm">
+              Join the Panaversity Fellowship ecosystem. Access all projects and your personal dashboard.
             </p>
           </div>
 
-          {/* Blueprint Card */}
-          <div className="border border-[#1e293b] bg-[#0f172a]/50 p-10 space-y-8 relative overflow-hidden backdrop-blur-xl">
-             {/* Corner Accents */}
-            <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-[#22d3ee]" />
-            <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-[#22d3ee]" />
-            <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-[#22d3ee]" />
-            <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-[#22d3ee]" />
-
+          {/* Form Card */}
+          <div className="glass-apple rounded-3xl p-10 space-y-8 border border-border-fine shadow-float">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
-                <label className="block font-mono text-[9px] font-bold uppercase tracking-[0.3em] text-[#64748b]">System.Identity.Name</label>
+                {/* CHANGED: "System.Identity.Name" → "Full Name" */}
+                <label className="block text-[10px] font-bold uppercase tracking-[0.3em] text-text-muted">
+                  Full Name
+                </label>
                 <input
                   required
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full bg-black border border-[#1e293b] px-5 py-4 text-sm font-mono text-white focus:outline-none focus:border-[#22d3ee] focus:ring-1 focus:ring-[#22d3ee]/20 transition-all placeholder:text-[#1e293b]"
-                  placeholder="USERNAME_REQUIRED"
+                  className="w-full bg-bg-elevated border border-border-fine px-5 py-4 text-sm font-sans text-text-primary rounded-xl focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all placeholder:text-text-muted/40"
+                  placeholder="Muhammad Hassaan"
                 />
               </div>
 
               <div className="space-y-2">
-                <label className="block font-mono text-[9px] font-bold uppercase tracking-[0.3em] text-[#64748b]">System.Identity.Email</label>
+                {/* CHANGED: "System.Identity.Email" → "Email Address" */}
+                <label className="block text-[10px] font-bold uppercase tracking-[0.3em] text-text-muted">
+                  Email Address
+                </label>
                 <input
                   required
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-black border border-[#1e293b] px-5 py-4 text-sm font-mono text-white focus:outline-none focus:border-[#22d3ee] focus:ring-1 focus:ring-[#22d3ee]/20 transition-all placeholder:text-[#1e293b]"
-                  placeholder="EMAIL_ADDRESS_REQUIRED"
+                  className="w-full bg-bg-elevated border border-border-fine px-5 py-4 text-sm font-sans text-text-primary rounded-xl focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all placeholder:text-text-muted/40"
+                  placeholder="you@example.com"
                 />
               </div>
 
               <div className="space-y-2">
-                <label className="block font-mono text-[9px] font-bold uppercase tracking-[0.3em] text-[#64748b]">System.Identity.Key</label>
+                {/* CHANGED: "System.Identity.Key" → "Password" */}
+                <label className="block text-[10px] font-bold uppercase tracking-[0.3em] text-text-muted">
+                  Password
+                </label>
                 <input
                   required
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full bg-black border border-[#1e293b] px-5 py-4 text-sm font-mono text-white focus:outline-none focus:border-[#22d3ee] focus:ring-1 focus:ring-[#22d3ee]/20 transition-all placeholder:text-[#1e293b]"
-                  placeholder="PASSCODE_ENCRYPTED"
+                  className="w-full bg-bg-elevated border border-border-fine px-5 py-4 text-sm font-sans text-text-primary rounded-xl focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all placeholder:text-text-muted/40"
+                  placeholder="At least 8 characters"
                 />
               </div>
 
               {error && (
-                <div className="p-3 border border-red-500/30 bg-red-500/5 text-red-500 font-mono text-[10px] uppercase tracking-widest text-center">
-                  [!] {error}
+                <div className="p-3 border border-red-500/30 bg-red-500/5 text-red-500 text-[11px] rounded-xl text-center font-medium">
+                  {error}
                 </div>
               )}
 
+              {/* CHANGED: "BOOT_UP_SEQUENCE" → "Create Account" */}
               <button
+                id="sign-up-submit-btn"
                 type="submit"
                 disabled={loading}
-                className="w-full bg-[#22d3ee] hover:bg-[#22d3ee]/90 py-4 font-mono text-[11px] font-bold uppercase tracking-[0.3em] text-black transition-all disabled:opacity-50 flex items-center justify-center gap-3 relative overflow-hidden group active:scale-[0.98]"
+                className="w-full bg-accent hover:brightness-110 py-4 font-bold text-[12px] uppercase tracking-[0.3em] text-white transition-all disabled:opacity-50 flex items-center justify-center gap-3 rounded-2xl relative overflow-hidden group active:scale-[0.98] shadow-lg shadow-accent/20"
               >
                 {loading ? (
                   <Loader2 className="h-4 w-4 animate-spin" />
                 ) : (
                   <>
-                    BOOT_UP_SEQUENCE <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                    Create Account <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                   </>
                 )}
               </button>
             </form>
 
-            <div className="flex items-center gap-4 py-2">
-               <div className="flex-1 h-[0.5px] bg-[#1e293b]" />
-               <span className="font-mono text-[8px] text-[#64748b] tracking-[0.5em] uppercase px-2">Data Synchronized with H2</span>
-               <div className="flex-1 h-[0.5px] bg-[#1e293b]" />
+            <div className="flex items-center gap-4">
+              <div className="flex-1 h-[0.5px] bg-border-fine" />
+              <span className="text-[8px] text-text-muted tracking-[0.3em] uppercase px-2">or</span>
+              <div className="flex-1 h-[0.5px] bg-border-fine" />
             </div>
 
-            <p className="text-center font-mono text-[10px] tracking-wide text-[#64748b]">
-              EXISTING_SCHOLAR?{" "}
-              <Link href="/sign-in" className="text-[#22d3ee] border-b border-[#22d3ee]/30 hover:bg-[#22d3ee]/10 transition-all px-1 underline underline-offset-4">LOGIN_ARCHIVE</Link>
+            {/* CHANGED: "EXISTING_SCHOLAR? LOGIN_ARCHIVE" → clean text */}
+            <p className="text-center text-[11px] tracking-wide text-text-muted">
+              Already have an account?{" "}
+              <Link href="/sign-in" className="text-accent border-b border-accent/30 hover:border-accent transition-all px-0.5 font-bold">
+                Sign in
+              </Link>
             </p>
           </div>
 
-          <div className="mt-12 flex justify-between items-center opacity-40">
-            <div className="flex gap-4">
-              <Database size={12} className="text-[#64748b]" />
-              <Cpu size={12} className="text-[#64748b]" />
-            </div>
-            <div className="font-mono text-[8px] uppercase tracking-[0.5em] text-[#64748b]">Panaversity_Wired_Core</div>
-          </div>
-        </div>
+          <p className="text-center mt-8 text-[9px] uppercase tracking-[0.4em] text-text-muted/60">
+            Panaversity &bull; Hassaan AI Architect
+          </p>
+        </motion.div>
       </main>
     </div>
   );

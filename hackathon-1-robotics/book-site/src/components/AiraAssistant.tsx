@@ -2,11 +2,14 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageSquare, X, Send, Sparkles, Loader2 } from "lucide-react";
+import { X, Send, Sparkles, Loader2, Bookmark, MessageCircle, Bot, Eraser } from "lucide-react";
+// @ts-ignore (Docusaurus JS Context)
+import { useLanguage } from "../context/LanguageContext";
 
 interface Message {
   role: "user" | "assistant";
   content: string;
+  timestamp: string;
 }
 
 interface AiraAssistantProps {
@@ -14,144 +17,286 @@ interface AiraAssistantProps {
   context: string;
 }
 
-const cn = (...classes: any[]) => classes.filter(Boolean).join(" ");
-
+/**
+ * HASSAAN AI ARCHITECT — Aira Assistant
+ * Humanized interface for the Panaversity Ecosystem.
+ */
 export function AiraAssistant({ platform, context }: AiraAssistantProps) {
+  const { lang, t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
-  const [messages, setMessages] = useState<Message[]>([
-    { 
-      role: "assistant", 
-      content: `Greetings, Architect. I am Aira, your specialized assistant for the ${platform} platform. How can I facilitate your productivity today?` 
-    }
-  ]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [isTyping, setIsTyping] = useState(false);
+  const [activeTab, setActiveTab] = useState<"chat" | "notebook">("chat");
+  const [notes, setNotes] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
+  // Sync with Global Event Bus
+  useEffect(() => {
+    const handleToggle = () => setIsOpen(prev => !prev);
+    const handleNotebook = () => {
+      setIsOpen(true);
+      setActiveTab("notebook");
+    };
+    
+    window.addEventListener("toggle-chat", handleToggle);
+    window.addEventListener("toggle-aira", handleToggle);
+    window.addEventListener("toggle-notebook", handleNotebook);
+    
+    return () => {
+      window.removeEventListener("toggle-chat", handleToggle);
+      window.removeEventListener("toggle-aira", handleToggle);
+      window.removeEventListener("toggle-notebook", handleNotebook);
+    };
+  }, []);
+
+  // Persistence Logic
+  useEffect(() => {
+    const savedMessages = localStorage.getItem(`aira-session-${platform}`);
+    const savedNotes = localStorage.getItem(`aira-notes-${platform}`);
+    
+    if (savedMessages) {
+      setMessages(JSON.parse(savedMessages));
+    } else {
+      const greeting = lang === "ur" ? "Assalam-o-Alaikum! Main Aira hoon." : 
+                       lang === "ro" ? "Salam! Main Aira hoon." :
+                       `Hello! I am Aira, your assistant for the ${platform} platform. How can I help you today?`;
+      
+      setMessages([{ 
+        role: "assistant", 
+        content: greeting,
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      }]);
+    }
+
+    if (savedNotes) {
+      setNotes(savedNotes);
+    }
+  }, [platform, lang]);
 
   useEffect(() => {
-    scrollToBottom();
-  }, [messages, isTyping]);
+    if (messages.length > 0) {
+      localStorage.setItem(`aira-session-${platform}`, JSON.stringify(messages));
+    }
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, platform]);
+
+  useEffect(() => {
+    localStorage.setItem(`aira-notes-${platform}`, notes);
+  }, [notes, platform]);
 
   const handleSend = async () => {
     if (!input.trim() || isTyping) return;
 
-    const userMsg: Message = { role: "user", content: input };
+    const currentInput = input;
+    const userMsg: Message = { 
+      role: "user", 
+      content: currentInput,
+      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    };
+    
     setMessages(prev => [...prev, userMsg]);
     setInput("");
     setIsTyping(true);
 
-    setTimeout(() => {
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messages: [...messages, userMsg],
+          context: context,
+          platform: platform,
+          lang: lang
+        }),
+      });
+
+      const data = await response.json();
+
       const assistantMsg: Message = { 
         role: "assistant", 
-        content: `Analyzing ${platform} protocol... ${context}. Systems are synchronized.` 
+        content: data.error ? `Something went wrong: ${data.error}` : data.content,
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
+      
       setMessages(prev => [...prev, assistantMsg]);
+    } catch (error) {
+      setMessages(prev => [...prev, { 
+        role: "assistant", 
+        content: "I'm having trouble connecting right now. Please try again in a moment.",
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      }]);
+    } finally {
       setIsTyping(false);
-    }, 1500);
+    }
+  };
+
+  const clearSession = () => {
+    const greeting = lang === "ur" ? "Assalam-o-Alaikum! Main Aira hoon." : 
+                     lang === "ro" ? "Salam! Main Aira hoon." :
+                     `Hello! I am Aira, your assistant for the ${platform} platform.`;
+    
+    const defaultMsg: Message = { 
+      role: "assistant", 
+      content: greeting,
+      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    };
+    setMessages([defaultMsg]);
+    localStorage.removeItem(`aira-session-${platform}`);
   };
 
   return (
-    <div style={{ position: "fixed", bottom: "30px", right: "30px", zIndex: 10000 }}>
-      <AnimatePresence>
-        {isOpen && (
+    <AnimatePresence>
+      {isOpen && (
+        <div style={{ position: "fixed", inset: 0, zIndex: 10000 }}>
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsOpen(false)}
+            className="fixed inset-0 bg-black/40 backdrop-blur-sm"
+          />
+
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 40 }}
-            style={{
-              marginBottom: "20px",
-              width: "350px",
-              height: "500px",
-              backgroundColor: "rgba(10, 10, 15, 0.95)",
-              backdropFilter: "blur(20px)",
-              border: "1px solid rgba(255, 255, 255, 0.1)",
-              borderRadius: "28px",
-              overflow: "hidden",
-              display: "flex",
-              flexDirection: "column",
-              boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)"
-            }}
+            initial={{ opacity: 0, y: 40, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 40, scale: 0.95 }}
+            className="fixed inset-x-4 bottom-24 md:bottom-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-full md:w-[450px] h-[650px] max-h-[85vh] humanist-glass rounded-[2.5rem] flex flex-col overflow-hidden"
           >
             {/* Header */}
-            <div style={{ padding: "20px", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                <Sparkles size={18} color="#D97757" />
-                <span style={{ fontSize: "11px", fontWeight: "bold", color: "white", letterSpacing: "2px" }}>AIRA — {platform} CORE</span>
+            <div className="px-8 py-6 border-b border-border bg-bg-surface flex items-center justify-between">
+              <div className="flex flex-col">
+                <div className="flex items-center gap-2">
+                  <span className="text-[9px] font-bold tracking-[0.3em] text-accent uppercase font-mono">
+                    {platform} LIVE STATUS
+                  </span>
+                  <div className={`w-1.5 h-1.5 rounded-full animate-pulse ${isTyping ? 'bg-accent' : 'bg-emerald-500'}`} />
+                </div>
+                <h3 className="text-xl font-serif font-bold text-text-primary mt-0.5" style={{ margin: 0 }}>Aira Assistant</h3>
               </div>
-              <X size={20} color="gray" style={{ cursor: "pointer" }} onClick={() => setIsOpen(false)} />
+              <button 
+                onClick={() => setIsOpen(false)}
+                className="w-10 h-10 rounded-full bg-white/10 border border-border flex items-center justify-center text-text-muted hover:text-text-primary transition-all active:scale-90 cursor-pointer"
+              >
+                <X size={18} />
+              </button>
             </div>
 
-            {/* Messages */}
-            <div style={{ flex: 1, overflowY: "auto", padding: "20px", display: "flex", flexDirection: "column", gap: "15px" }}>
-              {messages.map((msg, i) => (
-                <div key={i} style={{ alignSelf: msg.role === "user" ? "flex-end" : "flex-start", maxWidth: "80%" }}>
-                  <div style={{
-                    padding: "12px 16px",
-                    borderRadius: "15px",
-                    fontSize: "12px",
-                    lineHeight: "1.5",
-                    backgroundColor: msg.role === "user" ? "#D97757" : "rgba(255,255,255,0.05)",
-                    color: "white"
-                  }}>
-                    {msg.content}
-                  </div>
+            {/* Navigation Tabs */}
+            <div className="mx-8 mt-4 flex border border-border rounded-2xl p-1 bg-bg-elevated">
+              <button 
+                onClick={() => setActiveTab('chat')}
+                className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all cursor-pointer ${
+                  activeTab === 'chat' ? 'bg-bg text-accent shadow-sm' : 'text-text-muted hover:text-text-primary'
+                }`}
+                style={{ border: "none" }}
+              >
+                <MessageCircle size={14} strokeWidth={2.4} /> Chat
+              </button>
+              <button 
+                onClick={() => setActiveTab('notebook')}
+                className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all cursor-pointer ${
+                  activeTab === 'notebook' ? 'bg-bg text-accent shadow-sm' : 'text-text-muted hover:text-text-primary'
+                }`}
+                style={{ border: "none" }}
+              >
+                <Bookmark size={14} strokeWidth={2.4} /> My Notes
+              </button>
+            </div>
+
+            {/* Content Area */}
+            <div className="flex-1 overflow-y-auto px-8 py-6 space-y-6 scrollbar-hide">
+              {activeTab === 'chat' ? (
+                <>
+                  {messages.map((msg, i) => (
+                    <motion.div 
+                      key={i} 
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}
+                    >
+                      <div className={`max-w-[85%] px-5 py-3.5 rounded-[22px] text-sm leading-relaxed ${
+                        msg.role === 'user' 
+                        ? 'bg-accent text-white rounded-tr-none shadow-sm' 
+                        : 'bg-bg-elevated border border-border text-text-secondary rounded-tl-none font-serif italic shadow-sm'
+                      }`}>
+                        {msg.content}
+                      </div>
+                      <span className="text-[8px] font-bold text-text-muted mt-2 tracking-widest uppercase opacity-60 px-1">{msg.timestamp}</span>
+                    </motion.div>
+                  ))}
+                  {isTyping && (
+                    <div className="flex items-center gap-2 text-text-muted font-serif italic text-[10px] animate-pulse">
+                      <Loader2 size={12} className="animate-spin text-accent" /> Aira is thinking...
+                    </div>
+                  )}
+                </>
+              ) : (
+                <div className="h-full flex flex-col space-y-4">
+                   <div className="flex items-center justify-between">
+                     <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 bg-bg-surface rounded-lg flex items-center justify-center text-accent shadow-sm border border-border">
+                          <Bot size={18} />
+                        </div>
+                        <h4 className="font-serif text-sm font-bold text-text-primary">Research Notes</h4>
+                     </div>
+                     <span className="text-[8px] font-bold text-text-muted uppercase tracking-widest bg-bg-elevated px-2 py-1 rounded">Syncing</span>
+                   </div>
+                   
+                   <textarea
+                    value={notes}
+                    onChange={(e) => setNotes(e.target.value)}
+                    placeholder="Capture your research findings, robotics architecture decisions, or module progress here..."
+                    className="flex-1 w-full bg-bg-elevated/40 border border-border rounded-2xl p-6 text-sm text-text-secondary leading-relaxed focus:outline-none focus:border-accent/40 resize-none font-serif italic scrollbar-hide"
+                    style={{ background: "rgba(0,0,0,0.03)", color: "var(--text-secondary)" }}
+                   />
+                   
+                   <div className="flex items-center gap-2 text-[9px] font-bold text-text-muted uppercase tracking-widest opacity-60 px-2 pb-2">
+                     <Sparkles size={10} className="text-accent" /> Notes are auto-synced to your local device.
+                   </div>
                 </div>
-              ))}
-              {isTyping && <Loader2 size={16} color="gray" className="animate-spin" />}
+              )}
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Input */}
-            <div style={{ padding: "20px", borderTop: "1px solid rgba(255,255,255,0.1)" }}>
-              <div style={{ position: "relative" }}>
+            {/* Input Footer */}
+            <div className="p-8 border-t border-border bg-bg-surface">
+              <div className="relative group">
                 <input 
-                  style={{
-                    width: "100%",
-                    padding: "12px 15px",
-                    borderRadius: "12px",
-                    backgroundColor: "rgba(255,255,255,0.05)",
-                    border: "1px solid rgba(255,255,255,0.1)",
-                    color: "white",
-                    fontSize: "12px"
-                  }}
-                  placeholder="Sync query..."
+                  type="text"
                   onKeyDown={(e) => e.key === "Enter" && handleSend()}
                   onChange={(e) => setInput(e.target.value)}
                   value={input}
+                  placeholder="Type a message..."
+                  className="w-full pl-6 pr-24 py-4 rounded-2xl bg-bg border border-border text-sm text-text-primary focus:outline-none focus:border-accent transition-all placeholder:text-text-muted/40"
+                  style={{ borderRadius: "1rem" }}
+                  disabled={isTyping}
                 />
-                <Send 
-                  size={16} 
-                  color="#D97757" 
-                  style={{ position: "absolute", right: "12px", top: "12px", cursor: "pointer" }} 
-                  onClick={handleSend}
-                />
+                
+                <div className="absolute right-2 top-2 bottom-2 flex items-center gap-2">
+                  <button 
+                    onClick={clearSession}
+                    title="Clear Chat History"
+                    className="w-10 h-full rounded-xl flex items-center justify-center text-text-muted hover:text-red-500 transition-all opacity-0 group-hover:opacity-100 cursor-pointer"
+                    style={{ background: "none", border: "none" }}
+                    disabled={isTyping}
+                  >
+                    <Eraser size={16} />
+                  </button>
+                  <button 
+                    onClick={handleSend}
+                    className={`px-4 h-full bg-accent text-white rounded-xl shadow-md hover:brightness-110 transition-all flex items-center justify-center active:scale-95 cursor-pointer ${isTyping ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    style={{ border: "none" }}
+                    disabled={isTyping}
+                  >
+                    {isTyping ? <Loader2 size={18} className="animate-spin" /> : <Send size={18} strokeWidth={2.4} />}
+                  </button>
+                </div>
               </div>
             </div>
           </motion.div>
-        )}
-      </AnimatePresence>
-
-      <div 
-        onClick={() => setIsOpen(!isOpen)}
-        style={{
-          width: "60px",
-          height: "60px",
-          borderRadius: "18px",
-          backgroundColor: "#111",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          cursor: "pointer",
-          border: "1px solid rgba(255,255,255,0.1)",
-          boxShadow: "0 10px 30px rgba(0,0,0,0.5)"
-        }}
-      >
-        <MessageSquare size={24} color="white" />
-      </div>
-    </div>
+        </div>
+      )}
+    </AnimatePresence>
   );
 }

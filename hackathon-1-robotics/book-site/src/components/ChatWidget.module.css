@@ -1,9 +1,0 @@
-/* ChatWidget.module.css
- * NOTE: ChatWidget.jsx uses plain global CSS classes defined in custom.css.
- * This file is intentionally kept minimal. Do NOT add chat widget styles here —
- * all widget styles live in custom.css to avoid specificity conflicts.
- *
- * This file exists only to satisfy any future modular usage.
- */
-
-/* placeholder — all real styles live in src/css/custom.css */

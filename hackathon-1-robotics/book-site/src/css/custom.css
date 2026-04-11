@@ -10,38 +10,38 @@
 
 /* ── DESIGN TOKENS ───────────────────────────────────────────────────────── */
 :root {
-  /* Palette — Warm Humanist */
-  --bg: #faf9f6;
-  --bg-surface: #f0ebe1;
-  --bg-elevated: #ede8df;
-  --text-primary: #2d2926;
-  --text-secondary: #5c564d;
-  --text-muted: #8a857d;
-  --border: #e5e0d8;
+  /* Palette — Warm Humanist (Master Sync) */
+  --bg: #FCFAF8;
+  --bg-surface: #F0EBE1;
+  --bg-elevated: #EBE5D8;
+  --text-primary: #38312E;
+  --text-secondary: #57534E;
+  --text-muted: #8A857D;
+  --border: #E5E0D8;
   --border-fine: rgba(229, 224, 216, 0.7);
-  --accent: #d97757;
+  --accent: #D97757;
   --accent-hover: #c86444;
   --accent-soft: rgba(217, 119, 87, 0.08);
   --accent-glow: rgba(217, 119, 87, 0.18);
 
   /* Glass surfaces */
-  --glass-bg: rgba(250, 249, 246, 0.88);
+  --glass-bg: rgba(252, 250, 248, 0.88);
   --glass-border: rgba(229, 224, 216, 0.55);
-  --glass-blur: 18px;
+  --glass-blur: 24px;
 
   /* Shadows */
   --shadow-card:
-    0 2px 12px -4px rgba(45, 41, 38, 0.07), 0 0 0 0.8px var(--border);
+    0 4px 16px -4px rgba(56, 49, 46, 0.08), 0 0 0 1px var(--border);
   --shadow-card-hover:
-    0 16px 40px -8px rgba(45, 41, 38, 0.12), 0 0 0 0.8px var(--accent);
+    0 16px 40px -8px rgba(56, 49, 46, 0.12), 0 0 0 1px var(--accent);
   --shadow-widget:
-    0 24px 56px -12px rgba(45, 41, 38, 0.14), 0 0 0 0.8px var(--border-fine);
+    0 24px 56px -12px rgba(56, 49, 46, 0.14), 0 0 0 1px var(--border-fine);
 
   /* Radii */
-  --radius-sm: 6px;
-  --radius-md: 12px;
-  --radius-lg: 20px;
-  --radius-xl: 28px;
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
 
   /* Custom Glows */
   --shadow-glow: 0 0 20px -5px var(--accent-glow), 0 0 40px -10px var(--accent-soft);
@@ -66,26 +66,69 @@
 }
 
 [data-theme="dark"] {
-  --bg: #141210;
-  --bg-surface: #1c1a17;
-  --bg-elevated: #232018;
-  --text-primary: #f2ede7;
-  --text-secondary: #c4bcb4;
-  --text-muted: #9c948a;
-  --border: #2e2b27;
-  --border-fine: rgba(46, 43, 39, 0.7);
-  --accent: #e58a6d;
+  --bg: #0A0A0A;
+  --bg-surface: #141414;
+  --bg-elevated: #1F1F1F;
+  --text-primary: #FAF9F6;
+  --text-secondary: #D1D5DB;
+  --text-muted: #9CA3AF;
+  --border: #262626;
+  --border-fine: #333333;
+  --accent: #E58A6D;
   --accent-hover: #f09a80;
   --accent-soft: rgba(229, 138, 109, 0.1);
   --accent-glow: rgba(229, 138, 109, 0.2);
-  --glass-bg: rgba(20, 18, 16, 0.9);
-  --glass-border: rgba(46, 43, 39, 0.6);
-  --shadow-card: 0 2px 12px -4px rgba(0, 0, 0, 0.3), 0 0 0 0.8px var(--border);
+  --glass-bg: rgba(10, 10, 10, 0.9);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --shadow-card: 0 8px 32px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--border);
   --shadow-card-hover:
-    0 16px 40px -8px rgba(0, 0, 0, 0.4), 0 0 0 0.8px var(--accent);
+    0 16px 40px -8px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--accent);
   --shadow-widget:
-    0 24px 56px -12px rgba(0, 0, 0, 0.5), 0 0 0 0.8px var(--border-fine);
+    0 24px 56px -12px rgba(0, 0, 0, 0.7), 0 0 0 1px var(--border-fine);
+  --snow-color: rgba(255, 255, 255, 1);
 }
+
+/* ── TAILWIND SHIMS ── */
+.fixed { position: fixed; }
+.inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+.inset-x-4 { left: 1rem; right: 1rem; }
+.bottom-24 { bottom: 6rem; }
+.z-\[10000\] { z-index: 10000; }
+.z-\[10001\] { z-index: 10001; }
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.justify-center { justify-content: center; }
+.gap-2 { gap: 0.5rem; }
+.gap-4 { gap: 1rem; }
+.w-full { width: 100%; }
+.h-full { height: 100%; }
+.md\:w-\[450px\] { width: 450px; }
+.h-\[650px\] { height: 650px; }
+.max-h-\[85vh\] { max-height: 85vh; }
+.rounded-full { border-radius: 9999px; }
+.rounded-2xl { border-radius: 1rem; }
+.rounded-\[2\.5rem\] { border-radius: 2.5rem; }
+.px-8 { padding-left: 2rem; padding-right: 2rem; }
+.py-6 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+.border-b { border-bottom: 1px solid var(--border); }
+.bg-bg-base { background-color: var(--bg); }
+.bg-bg-surface { background-color: var(--bg-surface); }
+.text-text-primary { color: var(--text-primary); }
+.text-text-secondary { color: var(--text-secondary); }
+.text-text-muted { color: var(--text-muted); }
+.text-accent { color: var(--accent); }
+.font-serif { font-family: var(--ifm-heading-font-family); }
+.font-mono { font-family: var(--font-mono); }
+.font-bold { font-weight: 700; }
+.uppercase { text-transform: uppercase; }
+.tracking-\[0\.3em\] { letter-spacing: 0.3em; }
+.animate-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
+.backdrop-blur-sm { backdrop-filter: blur(4px); }
+.overflow-hidden { overflow: hidden; }
+
 
 /* ── TEXT SELECTION ──────────────────────────────────────────────────────── */
 ::selection {
@@ -114,9 +157,14 @@ body {
   font-family: var(--ifm-font-family-base);
   background-color: var(--bg);
   color: var(--text-primary);
-  /* Single dot-grid texture — applied once, on body only */
-  background-image: radial-gradient(var(--border-fine) 1px, transparent 1px);
-  background-size: 28px 28px;
+  /* Denser grid for higher fidelity */
+  background-image: radial-gradient(var(--border) 0.8px, transparent 0.8px);
+  background-size: 24px 24px;
+}
+
+[data-theme='dark'] body {
+  /* High contrast grid for dark mode visibility */
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
 }
 
 /* ── TYPOGRAPHY ──────────────────────────────────────────────────────────── */

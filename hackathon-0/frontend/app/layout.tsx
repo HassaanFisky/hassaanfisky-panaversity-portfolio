@@ -8,6 +8,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { ActionDock } from "@/components/ActionDock";
 import { SnowOverlay } from "@/components/SnowOverlay";
+import { WeatherToggle } from "@/components/WeatherToggle";
 
 const inter = Inter({ 
   subsets: ["latin"], 
@@ -23,14 +24,14 @@ const lora = Lora({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://panaversity-h0-portfolio.vercel.app"),
-  title: "HASSAAN AI ARCHITECT",
-  description: "Senior AI Agent Architect specializing in Digital FTEs, robotics, and cloud-native AI systems. Exploring the future of GenAI through the Panaversity Fellowship.",
-  keywords: ["AI Agent", "Architect", "Panaversity", "Hackathon", "Digital FTE", "Next.js", "Robotics", "HASSAAN AI ARCHITECT"],
+  title: "Hassaan AI Architect — Portfolio Hub",
+  description: "Muhammad Hassaan Aslam — AI Architect building Digital FTEs, autonomous agents, and cloud-native AI systems through the Panaversity Fellowship.",
+  keywords: ["AI Agent", "AI Architect", "Panaversity", "Hackathon", "Digital FTE", "Next.js", "Robotics", "Hassaan"],
   openGraph: {
-    title: "HASSAAN AI ARCHITECT",
-    description: "Welcome to my Panaversity Hackathon Portfolio Hub. Exploration of GenAI-native systems and architecture.",
+    title: "Hassaan AI Architect — Portfolio Hub",
+    description: "Five live projects exploring autonomous AI systems, robotics, and human-AI collaboration.",
     url: "https://panaversity-h0-portfolio.vercel.app",
-    siteName: "Hassan AI Architect",
+    siteName: "Hassaan AI Architect",
     images: [
       {
         url: "/og-image.png",
@@ -62,9 +63,17 @@ export default function RootLayout({
             <main className="relative flex flex-col pt-16">
               {children}
             </main>
-            <ActionDock />
+
+            {/* Weather toggle (top-right, above user identity) */}
+            <WeatherToggle />
+
+            {/* Legacy snow canvas — now controlled by WeatherToggle events */}
             <SnowOverlay />
+
+            {/* Bottom docks */}
+            <ActionDock isPortfolio={true} />
             <EcosystemNav />
+
             <Footer />
           </ThemeProvider>
         </body>

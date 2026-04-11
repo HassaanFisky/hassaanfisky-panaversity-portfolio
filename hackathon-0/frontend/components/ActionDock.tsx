@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Languages, Snowflake, MessageSquare, BookOpen } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
@@ -8,26 +8,36 @@ import { useTheme } from "next-themes";
 
 /**
  * HASSAAN AI ARCHITECT — ActionDock Node
- * v3.0: High-fidelity dock with Apple Glass aesthetics.
- * Synchronized with SnowOverlay and Dark Mode protocols.
+ * v4.0: Unified High-fidelity dock with Humanist aesthetics.
  */
-export function ActionDock() {
+export function ActionDock({ isPortfolio = false }: { isPortfolio?: boolean }) {
   const { lang, changeLanguage, t, languages } = useLanguage();
   const [showLanguage, setShowLanguage] = useState(false);
   const [isSnowing, setIsSnowing] = useState(false);
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
+  
+  const dockRef = useRef<HTMLDivElement>(null);
+  const languageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const savedSnow = localStorage.getItem("h1_snow_enabled") === "true";
     setIsSnowing(savedSnow);
-  }, []);
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (showLanguage && languageRef.current && !languageRef.current.contains(event.target as Node)) {
+        setShowLanguage(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [showLanguage]);
 
   const toggleSnow = () => {
     const newState = !isSnowing;
     setIsSnowing(newState);
     localStorage.setItem("h1_snow_enabled", newState.toString());
     
-    // Auto-toggle dark mode when snow is enabled (if currently light)
     if (newState && resolvedTheme === "light") {
       setTheme("dark");
     }
@@ -45,7 +55,7 @@ export function ActionDock() {
     },
     { 
       id: "snow", 
-      icon: <Snowflake size={20} className={isSnowing ? "text-cyan-400 animate-spin-slow" : ""} />, 
+      icon: <Snowflake size={20} className={isSnowing ? "text-accent animate-spin-slow" : ""} />, 
       label: t.ui.snow, 
       action: toggleSnow,
       active: isSnowing 
@@ -57,20 +67,21 @@ export function ActionDock() {
       action: () => window.dispatchEvent(new CustomEvent("toggle-chat")),
       active: false 
     },
-    { 
+    ...(!isPortfolio ? [{ 
       id: "notebook", 
       icon: <BookOpen size={20} />, 
       label: t.ui.notebook, 
       action: () => window.dispatchEvent(new CustomEvent("toggle-notebook")),
       active: false 
-    }
+    }] : [])
   ];
 
   return (
-    <div className={`fixed bottom-10 z-[9999] flex flex-col items-center gap-4 ${lang === 'ur' ? 'left-10' : 'right-10'}`}>
+    <div ref={dockRef} className={`fixed bottom-10 z-[9999] flex flex-col items-center gap-4 ${lang === 'ur' ? 'left-10' : 'right-10'}`}>
       <AnimatePresence>
         {showLanguage && (
           <motion.div
+            ref={languageRef}
             initial={{ opacity: 0, scale: 0.9, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 10 }}
@@ -89,7 +100,7 @@ export function ActionDock() {
                     : "text-text-secondary hover:bg-bg-base hover:text-accent"
                 }`}
               >
-                {languages[l].name}
+                {(languages as any)[l].name}
               </button>
             ))}
           </motion.div>
@@ -109,7 +120,7 @@ export function ActionDock() {
             title={item.label}
           >
             {item.icon}
-            <div className={`absolute ${lang === 'ur' ? 'left-full ml-4' : 'right-full mr-4'} px-3 py-1.5 bg-text-primary text-bg-base text-[9px] rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none uppercase tracking-[0.2em] font-bold shadow-xl border border-white/10`}>
+            <div className={`absolute ${lang === 'ur' ? 'left-full ml-4' : 'right-full mr-4'} px-3 py-1.5 bg-text-primary text-bg-base text-[9px] rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none uppercase tracking-[0.2em] font-bold shadow-xl border border-white/20`}>
               {item.label}
             </div>
           </button>
@@ -118,4 +129,6 @@ export function ActionDock() {
     </div>
   );
 }
+
+
 

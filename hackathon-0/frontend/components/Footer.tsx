@@ -2,29 +2,21 @@
 "use client";
 
 import Link from "next/link";
-import {
-  GitBranch,
-  Send,
-  Globe,
-  Binary,
-} from "lucide-react";
+import { GitBranch, Send, Globe } from "lucide-react";
 import { Logo } from "./Logo";
 
 /**
- * HASSAAN AI ARCHITECT — Portfolio Footer Node
- * v2.1: Re-engineered for maximum accessibility and high-contrast visibility.
+ * HASSAAN AI ARCHITECT — Portfolio Footer
+ * Human-readable links. No jargon terminology.
  */
 export function Footer() {
   return (
     <footer className="backdrop-blur-xl bg-bg-surface/90 border-t border-border-fine shadow-[0_-8px_48px_rgba(0,0,0,0.04)] py-32 transition-colors duration-500 relative z-10">
       <div className="max-w-7xl mx-auto px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-20 mb-32">
-          {/* Brand/Identity Column */}
+          {/* Brand Column */}
           <div className="md:col-span-2 space-y-12">
-            <Link
-              href="/"
-              className="hover:opacity-80 transition-editorial block group"
-            >
+            <Link href="/" className="hover:opacity-80 transition-editorial block group">
               <Logo />
               <div className="mt-6 flex flex-col">
                 <span className="text-xl font-serif font-bold tracking-[0.1em] text-text-primary uppercase">HASSAAN</span>
@@ -32,21 +24,13 @@ export function Footer() {
               </div>
             </Link>
             <p className="prose-editorial text-xl md:text-2xl max-w-md leading-relaxed text-text-secondary font-serif italic opacity-95">
-               Architecting high-fidelity <span className="text-text-primary font-bold not-italic">Digital FTEs</span> — 
-               engineered for deep reasoning and zero-fatigue operation in the age of autonomy.
+              Building high-fidelity <span className="text-text-primary font-bold not-italic">AI Systems</span> — 
+              designed for deep reasoning, full autonomy, and real-world impact.
             </p>
             <div className="flex items-center gap-6">
               {[
-                {
-                  icon: <GitBranch size={20} />,
-                  href: "https://github.com/Hassaanfisky",
-                  label: "GitHub"
-                },
-                {
-                  icon: <Globe size={20} />,
-                  href: "https://www.facebook.com/panaversity/",
-                  label: "Panaversity"
-                },
+                { icon: <GitBranch size={20} />, href: "https://github.com/Hassaanfisky", label: "GitHub" },
+                { icon: <Globe size={20} />, href: "https://www.facebook.com/panaversity/", label: "Panaversity" },
                 { icon: <Send size={20} />, href: "mailto:hassaanfisky@gmail.com", label: "Email" },
               ].map((social, i) => (
                 <a
@@ -63,52 +47,50 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Core Protocol Links */}
+          {/* Quick Links */}
           <div className="space-y-12">
+            {/* CHANGED: "Core Protocol" → "Quick Links" */}
             <h4 className="text-[11px] font-bold uppercase tracking-[0.4em] text-accent">
-              Core Protocol
+              Quick Links
             </h4>
             <ul className="space-y-8 text-[13px] font-bold uppercase tracking-[0.2em] text-text-primary">
-              <FooterLink href="#hackathon-grid" label="Architecture" />
-              <FooterLink href="https://github.com/HassaanFisky" label="Skill Library" />
-              <FooterLink href="https://learnflow-platform-h3.vercel.app" label="Node Registry" />
-              <FooterLink href="https://panaversity.org/hackathons" label="Ethical Framework" />
+              {/* CHANGED: "Architecture" → "Projects", "Skill Library" → "GitHub", etc. */}
+              <FooterLink href="#hackathon-grid" label="Projects" />
+              <FooterLink href="https://github.com/HassaanFisky" label="GitHub" />
+              <FooterLink href="https://learnflow-platform-h3.vercel.app" label="LearnFlow" />
+              <FooterLink href="https://panaversity.org/hackathons" label="Panaversity" />
             </ul>
           </div>
 
-          {/* Strategic Links */}
+          {/* Get in Touch */}
           <div className="space-y-12">
+            {/* CHANGED: "Strategic" → "Get in Touch" */}
             <h4 className="text-[11px] font-bold uppercase tracking-[0.4em] text-accent">
-              Strategic
+              Get in Touch
             </h4>
             <ul className="space-y-8 text-[13px] font-bold uppercase tracking-[0.2em] text-text-primary">
-              <FooterLink href="#hackathon-grid" label="Philosophy" />
+              {/* CHANGED: all jargon replaced with real labels */}
+              <FooterLink href="#hackathon-grid" label="About Me" />
               <FooterLink href="#hackathon-grid" label="Case Studies" />
-              <FooterLink href="https://github.com/HassaanFisky" label="The Blueprint" />
-              <FooterLink href="mailto:hassaanfisky@gmail.com" label="Intelligence Hub" />
+              <FooterLink href="https://github.com/HassaanFisky" label="Open Source" />
+              <FooterLink href="mailto:hassaanfisky@gmail.com" label="Hire Me" />
             </ul>
           </div>
         </div>
 
-        {/* System Meta-data Section */}
+        {/* Bottom bar */}
         <div className="pt-20 border-t border-border-fine/60 flex flex-col md:flex-row items-center justify-between gap-12">
           <div className="flex flex-col md:flex-row items-center gap-12">
             <div className="text-[11px] font-bold uppercase tracking-[0.3em] text-text-muted">
               &copy; 2026 Muhammad Hassaan Aslam &bull; All Rights Reserved.
             </div>
-            <div className="flex items-center gap-8 opacity-60 select-none">
-              <Binary size={16} className="text-text-muted" />
-              <div className="h-[1px] w-12 bg-border-fine" />
-              <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-text-muted">
-                High-Fidelity Humanist
-              </span>
-            </div>
           </div>
 
+          {/* CHANGED: "Node Registry: Operational" → "All Systems Online" */}
           <div className="flex items-center gap-5 px-8 py-3 bg-bg-base/80 backdrop-blur-md border border-border-fine rounded-full shadow-soft group hover:border-accent/30 transition-all">
-            <div className="w-2 h-2 rounded-full bg-success animate-pulse shadow-success/40" />
+            <div className="w-2 h-2 rounded-full bg-[var(--success)] animate-pulse" />
             <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-text-muted group-hover:text-text-primary transition-colors">
-              Node Registry: Operational
+              All Systems Online
             </span>
           </div>
         </div>

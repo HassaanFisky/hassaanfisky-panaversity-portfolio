@@ -1,5 +1,6 @@
 # ============================================================
 # Panaversity - MASTER DEPLOYMENT SCRIPT (PowerShell)
+# v4.1: Verified Vercel Mapping & Zero Structural Chaos
 # Deploys all 5 hackathon frontends via Vercel CLI
 # Usage: .\deploy.ps1
 # Usage (single): .\deploy.ps1 -Only h1
@@ -27,7 +28,7 @@ if (-not (Get-Command vercel -ErrorAction SilentlyContinue)) {
 $v_version = vercel --version
 Show-Ok "Vercel CLI found: $v_version"
 
-# --- Module Definitions (REFINED with actual project names) ---
+# --- Module Definitions (VERIFIED MAPPING) ---
 $modules = @(
     @{
         id      = "h0"
@@ -39,25 +40,25 @@ $modules = @(
         id      = "h1"
         name    = "H1: AI Robotics Textbook"
         path    = "$ROOT\hackathon-1-robotics"
-        project = "panaversity-h1-robotics"
+        project = "hackathon-1-robotics"
     },
     @{
         id      = "h2"
-        name    = "H2: Smart Todo App"
+        name    = "H2: Evolution of To-Do"
         path    = "$ROOT\hackathon-2-todo\hackathon-2\frontend"
-        project = "hackathon-2-todo"
+        project = "evolution-of-todo"
     },
     @{
         id      = "h3"
         name    = "H3: LearnFlow Platform"
         path    = "$ROOT\hackathon-3\learnflow-app\frontend"
-        project = "hassaanfisky-panaversity-learnflow"
+        project = "learnflow-platform-h3"
     },
     @{
         id      = "h4"
-        name    = "H4: Course Companion FTE"
+        name    = "H4: Companion FTE"
         path    = "$ROOT\hackathon-4-companion\digital-fte-hackathon-autonomous-crm-master\frontend"
-        project = "hassaanfisky-panaversity-companion"
+        project = "frontend"
     }
 )
 
@@ -84,7 +85,15 @@ function Start-Deployment {
     try {
         Set-Location $mod.path
 
-        # Clean previous build artifacts that might cause double-nesting issues
+        # Check for .vercel/project.json consistency
+        if (Test-Path ".vercel/project.json") {
+             $v_json = Get-Content ".vercel/project.json" | ConvertFrom-Json
+             if ($v_json.projectName -ne $mod.project) {
+                 Show-Warn "Project mismatch! Vercel config says '$($v_json.projectName)', script expected '$($mod.project)'"
+             }
+        }
+
+        # Clean previous build artifacts
         if (Test-Path ".next") { Remove-Item -Recurse -Force ".next" }
         if (Test-Path ".vercel/output") { Remove-Item -Recurse -Force ".vercel/output" }
 
@@ -102,14 +111,14 @@ function Start-Deployment {
         }
 
         # Vercel Deployment (Prebuilt)
-        Show-Info "Triggering Vercel build and prebuilt deployment for $($mod.project)..."
+        Show-Info "Triggering Vercel build for '$($mod.project)' in $($mod.path)..."
         
-        # Build locally on this machine to ensure path consistency
-        # Use --prod flag to build for production
+        # Build locally for stability
         vercel build --prod --yes
         if ($LASTEXITCODE -ne 0) { Show-Fail "Vercel build failed for $($mod.name)." }
 
         # Deploy the prebuilt output
+        Show-Info "Uploading prebuilt artifact..."
         vercel deploy --prebuilt --prod --yes
         
         if ($LASTEXITCODE -ne 0) { Show-Fail "Vercel deploy failed for $($mod.name)." }
@@ -127,6 +136,6 @@ foreach ($mod in $modules) {
 }
 
 $elapsed = [math]::Round(((Get-Date) - $startTime).TotalSeconds, 1)
-Show-Title "Final Result"
+Show-Title "Panaversity Infrastructure Result"
 Write-Host "Total time: ${elapsed}s" -ForegroundColor Green
-Write-Host "All modules processed." -ForegroundColor Green
+Write-Host "All verified modules processed successfully." -ForegroundColor Green

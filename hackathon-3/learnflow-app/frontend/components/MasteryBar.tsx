@@ -70,7 +70,7 @@ export default function MasteryBar({
       </div>
 
       {isMastered && (
-         <div className="absolute -top-3 -right-3 bg-white text-accent p-2 rounded-xl border border-fine shadow-float scale-110">
+         <div className="absolute -top-3 -right-3 bg-bg-surface text-accent p-2 rounded-xl border border-border-fine shadow-float scale-110">
             <Sparkles size={18} className="animate-pulse" />
          </div>
       )}

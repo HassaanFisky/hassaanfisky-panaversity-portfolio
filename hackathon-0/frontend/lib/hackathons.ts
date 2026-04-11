@@ -13,64 +13,63 @@ export interface Hackathon {
 }
 
 /**
- * HASSAAN AI ARCHITECT — Hackathon Ecosystem Registry
- * Corrected production aliases and 'Perfect Fidelity' assets.
- * 194th Turn Update: Mapping high-fidelity generated thumbnails.
+ * HASSAAN AI ARCHITECT — Project Portfolio
+ * Humanized labels and professional project descriptions.
  */
 export const hackathons: Hackathon[] = [
   { 
     id: 0, 
-    title: "Personal AI Employee — Building Autonomous FTEs", 
+    title: "Personal AI Assistant — Building Autonomous Agents", 
     category: "Phase I",
-    tech: ["Claude Code", "Obsidian"],
-    description: "Build an autonomous Digital FTE that proactively manages your personal and business affairs 24/7 using Claude Code and Obsidian. Gmail, WhatsApp, bank transactions, and tasks — all on autopilot.",
+    tech: ["AI Automation", "Productivity System"],
+    description: "Creating a personal AI-driven workflow that manages daily operations and communications. This system acts as a proactive digital partner, handling tasks and business affairs automatically.",
     status: "live", 
     url: "https://panaversity-h0-portfolio.vercel.app/", 
     imageUrl: "/blueprint-footer.png",
-    points: "1600 points" 
+    points: "1,600 Achievement Points" 
   },
   { 
     id: 1, 
-    title: "Physical AI & Humanoid Robotics Textbook",
+    title: "AI & Robotics Educational Roadmap",
     category: "Phase II",
-    tech: ["Docusaurus", "FastAPI", "OpenAI Agents SDK", "Qdrant", "RAG"],
-    description: "Create an AI-native textbook with Docusaurus and build an embedded RAG chatbot using OpenAI Agents SDK, FastAPI, and Qdrant for interactive, personalised learning.",
+    tech: ["Interactive Learning", "AI Search", "Smart Documentation"],
+    description: "A next-generation digital textbook designed for future robotics engineers. It features an integrated smart assistant that helps users learn through interactive dialogue and knowledge retrieval.",
     status: "live", 
     url: "https://hackathon-1-robotics.vercel.app", 
     imageUrl: "/h1-thumb.png",
-    points: "1200 + 300 bonus" 
+    points: "1,500 Achievement Points" 
   },
   { 
     id: 2, 
-    title: "The Evolution of Todo — Spec-Driven Mastery",
+    title: "Advanced Task Ecosystem — Modern Architecture",
     category: "Phase III",
-    tech: ["Next.js", "Supabase", "Kafka", "Dapr", "Kubernetes"],
-    description: "Master spec-driven development through a 5-phase journey: console app → full-stack web → AI chatbot → local Kubernetes → cloud deployment with Kafka and Dapr.",
+    tech: ["Scalable Systems", "Cloud Deployment", "Database Architecture"],
+    description: "A comprehensive journey from building basic applications to deploying complex, cloud-native systems. This project demonstrates high-performance message processing and resilient infrastructure.",
     status: "live", 
     url: "https://evolution-of-todo.vercel.app", 
-    imageUrl: "https://evolution-of-todo.vercel.app/h2-thumb.png",
-    points: "1000 + 600 bonus" 
+    imageUrl: "/h2-thumb.png",
+    points: "1,600 Achievement Points" 
   },
   { 
     id: 3, 
-    title: "Reusable Intelligence — LearnFlow Ecosystem",
+    title: "Reusable Intelligence — Learning Flow Platform",
     category: "Phase IV",
-    tech: ["MCP", "Agent Skills", "Claude Code", "Goose"],
-    description: "Build agentic infrastructure with MCP Code Execution and Agent Skills. Create a LearnFlow platform using Claude Code and Goose — the Skills are the product.",
+    tech: ["Agentic Infrastructure", "AI Capabilities", "System Skills"],
+    description: "Building the core intelligence layer where AI agents can share capabilities and skills. The focus is on creating a modular system where skills are independent, reusable assets.",
     status: "live", 
     url: "https://learnflow-platform-h3.vercel.app", 
-    imageUrl: "https://learnflow-platform-h3.vercel.app/h3-thumb.png",
-    points: "1000 + 400 bonus" 
+    imageUrl: "/h3-thumb.png",
+    points: "1,400 Achievement Points" 
   },
   { 
     id: 4, 
-    title: "Companion FTE — HASSAAN AI ARCHITECT CRM",
+    title: "Project AIRA — Intelligent AI Architect CRM",
     category: "Phase V",
-    tech: ["Agent Factory", "Next.js", "AI Tutors", "Groq"],
-    description: "Build a Digital FTE educational tutor with dual-frontend architecture (ChatGPT App + standalone Web App). A 24/7 AI tutor at 99% cost reduction using Agent Factory Architecture.",
+    tech: ["AI Management", "Custom Agent Design", "Automated Tutors"],
+    description: "A state-of-the-art AI management platform that provides 24/7 intelligent tutoring and support. It utilizes custom agent factories to deliver high-performance AI services at scale.",
     status: "live", 
     url: "https://hassaanfisky-aira-digital-fte.vercel.app", 
-    imageUrl: "https://hassaanfisky-aira-digital-fte.vercel.app/h4-thumb.png",
-    points: "1000 + 500 bonus" 
+    imageUrl: "/h4-thumb.png",
+    points: "1,500 Achievement Points" 
   }
 ];

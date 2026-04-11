@@ -7,8 +7,7 @@ import { ThemeToggle } from "./ThemeToggle";
 
 /**
  * HASSAAN AI ARCHITECT — Portfolio Hub Navbar
- * Re-engineered with high-fidelity theme switching and premium z-index.
- * z-index set to 100 to ensure 100% interactivity over all Hero elements.
+ * Human-readable navigation labels.
  */
 export function Navbar() {
   return (
@@ -22,37 +21,47 @@ export function Navbar() {
           </div>
         </Link>
 
-        {/* Desktop Navigation Protocol */}
+        {/* Navigation links */}
         <div className="hidden md:flex items-center gap-10">
-          <Link href="#hackathon-grid" className="text-[10px] font-bold uppercase tracking-[0.4em] text-text-muted hover:text-accent transition-colors">
-            Blueprint
-          </Link>
-          <Link href="https://github.com/Hassaanfisky" target="_blank" className="text-[10px] font-bold uppercase tracking-[0.4em] text-text-muted hover:text-accent transition-colors flex items-center gap-2">
+          {/* CHANGED: "Blueprint" → "Projects" */}
+          <a
+            href="#hackathon-grid"
+            className="text-[10px] font-bold uppercase tracking-[0.4em] text-text-muted hover:text-accent transition-colors"
+          >
+            Projects
+          </a>
+          <Link
+            href="https://github.com/Hassaanfisky"
+            target="_blank"
+            className="text-[10px] font-bold uppercase tracking-[0.4em] text-text-muted hover:text-accent transition-colors flex items-center gap-2"
+          >
             <GitBranch size={12} className="opacity-50" />
-            Ecosystem
+            GitHub
           </Link>
         </div>
 
         <div className="flex items-center gap-6">
           <div className="relative z-[110]">
-             <ThemeToggle />
+            <ThemeToggle />
           </div>
           
+          {/* CHANGED: "Dossier" → "Resume" */}
           <Link 
             href="/resume.pdf" 
             target="_blank"
             className="hidden sm:flex items-center gap-2 px-6 py-2.5 bg-bg-surface border border-border-fine text-text-primary rounded-full font-bold text-[10px] uppercase tracking-widest hover:border-accent/40 hover:bg-bg-elevated dark:hover:bg-bg-base transition-all duration-300 shadow-sm"
           >
             <FileText size={14} className="text-accent" />
-            Dossier
+            Resume
           </Link>
           
+          {/* CHANGED: "Launch CRM" → "AI Platform" */}
           <Link 
-            href="https://digital-fte-crm.vercel.app"
+            href="https://hassaanfisky-aira-digital-fte.vercel.app"
             target="_blank"
             className="px-6 py-2.5 bg-accent text-white rounded-full font-bold text-[10px] uppercase tracking-widest shadow-lg shadow-accent/10 hover:brightness-110 active:scale-95 transition-all duration-300"
           >
-            Launch CRM
+            AI Platform
           </Link>
         </div>
       </div>

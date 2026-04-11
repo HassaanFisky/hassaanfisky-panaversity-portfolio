@@ -1,168 +1,159 @@
-// src/components/ActionDock/ActionDock.jsx
-// HASSAAN AI ARCHITECT — ActionDock v3.0
-// 3-Button Layout: Language | Snow | AI Chatbot
-// Fixes: Dark-mode white bg, Snow toggle, Language 3-option, ChatWidget integration
+import React, { useState, useEffect, useRef } from "react";
+import BrowserOnly from "@docusaurus/BrowserOnly";
+import { Languages, Snowflake, MessageSquare, BookOpen } from "lucide-react";
+import { useLanguage } from "../../context/LanguageContext";
+import { useColorMode } from "@docusaurus/theme-common";
 
-import React, { useState, useEffect } from 'react';
-import { useLanguage, languages } from '../../context/LanguageContext';
-import ChatWidget from '../ChatWidget';
-import Notebook from '../Notebook/Notebook';
-import styles from './ActionDock.module.css';
-
-const ActionDock = () => {
-  const { lang, changeLanguage, t } = useLanguage();
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [showLangMenu, setShowLangMenu] = useState(false);
-  const [isChatOpen, setIsChatOpen] = useState(false);
-  const [isNotebookOpen, setIsNotebookOpen] = useState(false);
-  const [isSnowActive, setIsSnowActive] = useState(false);
+function ActionDockContent() {
+  const { lang, changeLanguage, t, languages } = useLanguage();
+  const [showLanguage, setShowLanguage] = useState(false);
+  const [isSnowing, setIsSnowing] = useState(false);
+  const { colorMode, setColorMode } = useColorMode();
+  
+  const dockRef = useRef(null);
+  const languageRef = useRef(null);
 
   useEffect(() => {
-    // Load persisted snow state
-    const savedSnow = localStorage.getItem('let_it_snow') === '1';
-    setIsSnowActive(savedSnow);
+    const savedSnow = localStorage.getItem("h1_snow_enabled") === "true";
+    setIsSnowing(savedSnow);
 
-    // Staggered magnetic entrance animation
-    const timer = setTimeout(() => setIsLoaded(true), 200);
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Close lang menu on outside click
-  useEffect(() => {
-    if (!showLangMenu) return;
-    const handler = (e) => {
-      if (!e.target.closest('[data-lang-dock]')) {
-        setShowLangMenu(false);
+    const handleClickOutside = (event) => {
+      if (showLanguage && languageRef.current && !languageRef.current.contains(event.target)) {
+        setShowLanguage(false);
       }
     };
-    document.addEventListener('mousedown', handler);
-    return () => document.removeEventListener('mousedown', handler);
-  }, [showLangMenu]);
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [showLanguage]);
 
   const toggleSnow = () => {
-    const newState = !isSnowActive;
-    setIsSnowActive(newState);
-    localStorage.setItem('let_it_snow', newState ? '1' : '0');
-    window.dispatchEvent(new CustomEvent('snow-toggle', { detail: { active: newState } }));
+    const newState = !isSnowing;
+    setIsSnowing(newState);
+    localStorage.setItem("h1_snow_enabled", newState.toString());
+    
+    if (newState && colorMode === "light") {
+      setColorMode("dark");
+    }
+    
+    window.dispatchEvent(new CustomEvent("toggle-snow", { detail: { enabled: newState } }));
   };
 
-  const handleLangSelect = (key) => {
-    changeLanguage(key);
-    setShowLangMenu(false);
-  };
+  const navItems = [
+    { 
+      id: "lang", 
+      icon: <Languages size={20} />, 
+      label: t.ui.language, 
+      action: () => setShowLanguage(!showLanguage),
+      active: showLanguage 
+    },
+    { 
+      id: "snow", 
+      icon: <Snowflake size={20} className={isSnowing ? "text-accent animate-spin-slow" : ""} />, 
+      label: t.ui.snow, 
+      action: toggleSnow,
+      active: isSnowing 
+    },
+    { 
+      id: "chat", 
+      icon: <MessageSquare size={20} />, 
+      label: t.ui.companion, 
+      action: () => window.dispatchEvent(new CustomEvent("toggle-chat")),
+      active: false 
+    },
+    { 
+      id: "notebook", 
+      icon: <BookOpen size={20} />, 
+      label: t.ui.notebook, 
+      action: () => window.dispatchEvent(new CustomEvent("toggle-notebook")),
+      active: false 
+    }
+  ];
 
   return (
-    <div className={`${styles.dockContainer} ${isLoaded ? styles.loaded : ''}`}>
-      
-      {/* ── BUTTON 1: Language Switch ─────────────────────────────────────── */}
-      <div className={styles.dockItem} style={{ '--idx': 1 }} data-lang-dock>
-        <button
-          className={`${styles.dockButton} ${showLangMenu ? styles.activeItem : ''}`}
-          onClick={() => setShowLangMenu(v => !v)}
-          title={t?.ui?.language || 'Language'}
-          aria-label="Select Language"
-          aria-expanded={showLangMenu}
+    <div ref={dockRef} className={`fixed bottom-10 z-[9999] flex flex-col items-center gap-4 ${lang === 'ur' ? 'left-10' : 'right-10'}`}>
+      {showLanguage && (
+        <div
+          ref={languageRef}
+          className="flex flex-col gap-2 humanist-glass p-2 rounded-2xl mb-2"
         >
-          {/* Globe icon */}
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="12" cy="12" r="10" />
-            <path d="M2 12h20" />
-            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-          </svg>
-          <span className={styles.langBadge}>{languages[lang]?.short || 'EN'}</span>
-        </button>
-
-        {/* Language Dropdown — 3 options only */}
-        <div className={`${styles.langDropdown} ${showLangMenu ? styles.showDropdown : ''}`} role="menu">
-          {Object.entries(languages).map(([key, value]) => (
+          {Object.keys(languages).map((l) => (
             <button
-              key={key}
-              role="menuitem"
-              className={`${styles.langOption} ${lang === key ? styles.activeLang : ''}`}
-              onClick={() => handleLangSelect(key)}
+              key={l}
+              onClick={() => {
+                changeLanguage(l);
+                setShowLanguage(false);
+              }}
+              style={{
+                background: lang === l ? 'var(--accent)' : 'transparent',
+                color: lang === l ? 'white' : 'var(--text-secondary)',
+                padding: '0.6rem 1.25rem',
+                borderRadius: '0.75rem',
+                fontSize: '11px',
+                fontWeight: 'bold',
+                textTransform: 'uppercase',
+                letterSpacing: '0.1em',
+                border: 'none',
+                cursor: 'pointer',
+                transition: 'all 0.2s'
+              }}
+              onMouseOver={(e) => {
+                if (lang !== l) e.currentTarget.style.color = 'var(--accent)';
+              }}
+              onMouseOut={(e) => {
+                if (lang !== l) e.currentTarget.style.color = 'var(--text-secondary)';
+              }}
             >
-              <span className={styles.langOptionFlag}>{value.short}</span>
-              <span>{value.name}</span>
+              {languages[l].name}
             </button>
           ))}
         </div>
-      </div>
+      )}
 
-      {/* ── BUTTON 2: Snow Toggle ─────────────────────────────────────────── */}
-      <div className={styles.dockItem} style={{ '--idx': 2 }}>
-        <button
-          className={`${styles.dockButton} ${isSnowActive ? styles.activeItem : ''}`}
-          onClick={toggleSnow}
-          title={isSnowActive ? (t?.snow?.disable || 'Stop Snow') : (t?.snow?.enable || 'Let it Snow')}
-          aria-label="Toggle Snow"
-          aria-pressed={isSnowActive}
-        >
-          {/* Snowflake icon */}
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="12" y1="2" x2="12" y2="22" />
-            <path d="m20 10-8-8-8 8" />
-            <path d="m20 14-8 8-8-8" />
-            <line x1="2" y1="12" x2="22" y2="12" />
-            <path d="m6 6 3 3-3 3" />
-            <path d="m18 6-3 3 3 3" />
-          </svg>
-          {isSnowActive && <span className={styles.activePulse} aria-hidden="true" />}
-        </button>
-      </div>
-
-      {/* ── BUTTON 3: AI Chatbot ─────────────────────────────────────────── */}
-      <div className={styles.dockItem} style={{ '--idx': 3 }}>
-        <button
-          className={`${styles.dockButton} ${styles.chatButton} ${isChatOpen ? styles.activeItem : ''}`}
-          onClick={() => {
-            setIsChatOpen(v => !v);
-            if (isNotebookOpen) setIsNotebookOpen(false);
-          }}
-          title={t?.ui?.companion || 'AI Companion'}
-          aria-label="Open AI Chatbot"
-          aria-pressed={isChatOpen}
-        >
-          {/* Lightning bolt / AI icon */}
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-            style={{ transform: isChatOpen ? 'rotate(15deg)' : 'none', transition: '0.4s cubic-bezier(0.16, 1, 0.3, 1)' }}
+      <div 
+        className="flex flex-col gap-3 humanist-glass p-2.5 rounded-full shadow-glow"
+        style={{
+          border: '0.8px solid var(--border-fine)'
+        }}
+      >
+        {navItems.map((item) => (
+          <button
+            key={item.id}
+            onClick={item.action}
+            className={`w-14 h-14 rounded-full flex items-center justify-center transition-all relative group ${
+              item.active 
+                ? "bg-accent text-white shadow-lg" 
+                : "bg-transparent text-text-secondary hover:bg-bg-elevated hover:text-accent hover:shadow-md"
+            }`}
+            style={{ 
+              border: item.active ? 'none' : '0.8px solid transparent',
+              cursor: 'pointer',
+              background: item.active ? 'var(--accent)' : 'transparent'
+            }}
+            title={item.label}
           >
-            <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
-          </svg>
-          {/* Lightning Glass shimmer ring */}
-          <span className={`${styles.glassRing} ${isChatOpen ? styles.glassRingActive : ''}`} aria-hidden="true" />
-        </button>
-
-        {/* Chat panel rendered adjacent to dock */}
-        <ChatWidget inDock={true} forcedOpen={isChatOpen} onToggle={setIsChatOpen} />
-      </div>
-
-      {/* ── BUTTON 4: Study Notebook ─────────────────────────────────────── */}
-      <div className={styles.dockItem} style={{ '--idx': 4 }}>
-        <button
-          className={`${styles.dockButton} ${isNotebookOpen ? styles.activeItem : ''}`}
-          onClick={() => {
-            setIsNotebookOpen(v => !v);
-            if (isChatOpen) setIsChatOpen(false);
-          }}
-          title={t?.ui?.notebook || 'Study Notebook'}
-          aria-label="Open Study Notebook"
-          aria-pressed={isNotebookOpen}
-        >
-          {/* Book icon */}
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
-             style={{ transform: isNotebookOpen ? 'scale(1.1) rotate(-5deg)' : 'none', transition: '0.4s' }}
-          >
-            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
-          </svg>
-          <span className={`${styles.glassRing} ${isNotebookOpen ? styles.glassRingActive : ''}`} aria-hidden="true" />
-        </button>
-
-        {/* Notebook panel rendered adjacent to dock */}
-        <Notebook isOpen={isNotebookOpen} onClose={() => setIsNotebookOpen(false)} />
+            {item.icon}
+            <div 
+              className={`absolute ${lang === 'ur' ? 'left-full ml-4' : 'right-full mr-4'} px-3 py-1.5 bg-text-primary text-bg-base text-[9px] rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none uppercase tracking-[0.2em] font-bold shadow-xl`}
+              style={{
+                backgroundColor: 'var(--text-primary)',
+                color: 'var(--bg)',
+                border: '0.8px solid var(--border-fine)'
+              }}
+            >
+              {item.label}
+            </div>
+          </button>
+        ))}
       </div>
     </div>
   );
-};
+}
 
-export default ActionDock;
+export function ActionDock() {
+  return (
+    <BrowserOnly>
+      {() => <ActionDockContent />}
+    </BrowserOnly>
+  );
+}
