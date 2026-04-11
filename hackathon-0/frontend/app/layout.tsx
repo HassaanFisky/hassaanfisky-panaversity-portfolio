@@ -7,8 +7,7 @@ import { EcosystemNav } from "@/components/EcosystemNav";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { ActionDock } from "@/components/ActionDock";
-import { SnowOverlay } from "@/components/SnowOverlay";
-import { WeatherToggle } from "@/components/WeatherToggle";
+import { WeatherOverlay } from "@/components/WeatherOverlay";
 
 const inter = Inter({ 
   subsets: ["latin"], 
@@ -51,26 +50,23 @@ export default function RootLayout({
 }>) {
   return (
     <LanguageProvider>
-      <html lang="en" suppressHydrationWarning className={`${inter.variable} ${lora.variable}`}>
-        <body className="font-inter antialiased bg-bg-base text-text-primary min-h-screen">
+      <html lang="en" suppressHydrationWarning className={`${inter.variable} ${lora.variable}`} data-weather="clear">
+        <body className="font-inter antialiased bg-bg-base text-text-primary min-h-screen relative">
           <ThemeProvider
             attribute="class"
             defaultTheme="light"
             enableSystem
             disableTransitionOnChange
           >
+            {/* Immersive Weather Environment Engine */}
+            <WeatherOverlay />
+
             <Navbar />
             <main className="relative flex flex-col pt-16">
               {children}
             </main>
 
-            {/* Weather toggle (top-right, above user identity) */}
-            <WeatherToggle />
-
-            {/* Legacy snow canvas — now controlled by WeatherToggle events */}
-            <SnowOverlay />
-
-            {/* Bottom docks */}
+            {/* Bottom Unified Action Systems */}
             <ActionDock isPortfolio={true} />
             <EcosystemNav />
 

@@ -8,7 +8,7 @@ import { RobotPulse } from "./RobotPulse";
 
 /**
  * HASSAAN AI ARCHITECT — Portfolio Hero
- * High-Fidelity Humanist design with human-readable labels.
+ * High-Fidelity Humanist design with Glass-3D Typography.
  */
 export function Hero() {
   const completedPoints = hackathons
@@ -16,7 +16,7 @@ export function Hero() {
     .reduce((acc, h) => acc + parseInt(h.points.split(" ")[0]), 0);
 
   return (
-    <section className="relative min-h-[95vh] flex flex-col items-center justify-center pt-32 pb-24 md:pb-32 overflow-hidden bg-bg-base transition-colors duration-500">
+    <section className="relative min-h-[95vh] flex flex-col items-center justify-center pt-32 pb-24 md:pb-32 overflow-hidden bg-transparent transition-colors duration-500">
       
       {/* Background ambient elements */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
@@ -44,7 +44,7 @@ export function Hero() {
             All Projects Live &bull; Systems Ready
           </div>
           
-          <h1 className="text-7xl md:text-[11rem] font-serif text-text-primary tracking-tighter leading-[0.85] mb-12">
+          <h1 className="text-7xl md:text-[11rem] font-serif text-text-primary tracking-tighter leading-[0.85] mb-12 glass-3d">
             Muhammad
             <br />
             <span className="italic text-accent font-normal px-4">Hassaan</span>
@@ -59,7 +59,6 @@ export function Hero() {
         </MotionDiv>
 
         <MotionDiv variants={fadeUp} className="flex flex-col sm:flex-row items-center justify-center gap-12">
-          {/* CHANGED: "Explore Blueprint" → "View My Projects" */}
           <button 
             id="hero-view-projects-btn"
             onClick={() => document.getElementById("hackathon-grid")?.scrollIntoView({ behavior: "smooth" })}
@@ -83,7 +82,6 @@ export function Hero() {
             
             <div className="h-12 w-[1px] bg-border-fine/50" />
             
-            {/* CHANGED: "Registry Status" → "Projects Live" */}
             <div className="flex items-center gap-5 group">
               <div className="w-14 h-14 rounded-2xl bg-accent/5 border border-accent/10 flex items-center justify-center text-accent/70 shadow-sm transition-all group-hover:scale-110 group-hover:rotate-12">
                 <Layers size={28} strokeWidth={2.5} />

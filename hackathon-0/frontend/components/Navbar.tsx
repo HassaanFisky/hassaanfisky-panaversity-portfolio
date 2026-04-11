@@ -47,8 +47,7 @@ export function Navbar() {
           
           {/* CHANGED: "Dossier" → "Resume" */}
           <Link 
-            href="/resume.pdf" 
-            target="_blank"
+            href="/resume" 
             className="hidden sm:flex items-center gap-2 px-6 py-2.5 bg-bg-surface border border-border-fine text-text-primary rounded-full font-bold text-[10px] uppercase tracking-widest hover:border-accent/40 hover:bg-bg-elevated dark:hover:bg-bg-base transition-all duration-300 shadow-sm"
           >
             <FileText size={14} className="text-accent" />

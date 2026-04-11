@@ -1,7 +1,7 @@
-// e:/panaversity/hackathon-0/frontend/components/HackathonCard.tsx
+"use client";
 
 import Link from "next/link";
-import { ExternalLink, Clock, Sparkles } from "lucide-react";
+import { ExternalLink, Clock, Sparkles, ChevronRight } from "lucide-react";
 import { StatusBadge } from "./StatusBadge";
 import { Hackathon } from "@/lib/hackathons";
 import { MotionDiv, fadeUp } from "./motion";
@@ -11,69 +11,58 @@ interface HackathonCardProps {
 }
 
 /**
- * HASSAAN AI ARCHITECT — Project Card Component
- * Human-friendly labels. No jargon, no system terminology.
+ * HASSAAN AI ARCHITECT — Bento Project Card v3.0
+ * High-fidelity Humanist redesign with Apple-tier depth and tactility.
  */
 export function HackathonCard({ hackathon }: HackathonCardProps) {
   const isComingSoon = hackathon.status === "coming-soon";
-
   const phaseLabels = ["Phase I", "Phase II", "Phase III", "Phase IV", "Phase V"];
   const phaseLabel = phaseLabels[hackathon.id] ?? `Phase ${hackathon.id + 1}`;
 
   return (
     <MotionDiv variants={fadeUp} className="group h-full">
-      <div className="card-humanist p-10 flex flex-col h-full relative overflow-hidden group-hover:scale-[1.02] transition-editorial bg-bg-surface dark:bg-bg-elevated border-border-fine/50">
+      <div className="card-bento h-full flex flex-col group/card relative">
         
-        {/* Project Thumbnail */}
-        <div className="relative -mt-10 -mx-10 mb-10 h-72 overflow-hidden border-b border-border-fine/40 bg-bg-elevated/80 flex items-center justify-center p-4">
-          {/* Blurred background echo */}
-          <div className="absolute inset-0 opacity-[0.15] blur-xl grayscale">
-            <img src={hackathon.imageUrl} alt="" className="w-full h-full object-cover" />
-          </div>
+        {/* Visual Background Accent (Mesh Overlay) */}
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-1000 bg-[radial-gradient(circle_at_50%_0%,var(--accent),transparent_70%)]" />
 
+        {/* Project Image Container */}
+        <div className="relative h-64 -mt-4 -mx-4 mb-10 overflow-hidden rounded-[2rem] bg-bg-elevated/40 border border-white/5 transition-all duration-700 group-hover:scale-[1.02] group-hover:shadow-2xl">
           <img 
             src={hackathon.imageUrl} 
             alt={hackathon.title} 
-            className="relative z-10 w-full h-full object-contain transition-transform duration-[1.5s] group-hover:scale-105"
+            className="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110"
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-bg-surface via-transparent to-transparent opacity-60" />
           
-          {/* Branding Overlay */}
-          <div className="absolute top-6 left-6 flex flex-col items-start gap-1 z-20 drop-shadow-lg">
-            <div className="px-3 py-1 bg-black/40 backdrop-blur-md rounded-lg border border-white/10 flex flex-col">
-              <span className="text-[10px] font-serif font-bold tracking-[0.1em] text-white uppercase leading-none">HASSAAN</span>
-              <span className="text-[7px] font-bold uppercase tracking-[0.3em] text-white/80 leading-none mt-0.5">AI ARCHITECT</span>
-            </div>
+          {/* Status Overlay */}
+          <div className="absolute top-6 right-6 z-20">
+            <StatusBadge status={hackathon.status} />
           </div>
-
-          <div className="absolute inset-0 bg-gradient-to-t from-bg-base/30 via-transparent to-black/5 pointer-events-none" />
         </div>
-        
-        {/* Header */}
-        <div className="flex items-start justify-between mb-8">
-          <div className="space-y-3">
-            {/* CHANGED: "Protocol Phase" → clean Phase label */}
-            <div className="text-[9px] font-bold tracking-[0.4em] uppercase text-accent opacity-80">
+
+        {/* Content Section */}
+        <div className="flex-grow space-y-6 relative z-10">
+          <div className="space-y-2">
+            <div className="inline-flex items-center gap-2 text-[9px] font-black tracking-[0.4em] uppercase text-accent/80">
+              <span className="w-8 h-[1px] bg-accent/40" />
               {phaseLabel}
             </div>
-            <h3 className="text-2xl md:text-3xl font-serif text-text-primary group-hover:text-accent transition-colors duration-500 leading-[1.2] tracking-tight">
+            <h3 className="text-3xl font-serif text-text-primary group-hover:text-accent transition-colors duration-500 leading-tight">
               {hackathon.title}
             </h3>
           </div>
-          <StatusBadge status={hackathon.status} />
-        </div>
 
-        {/* Description */}
-        <div className="flex-grow mb-10">
-          <p className="prose-editorial text-[15px] line-clamp-4 leading-relaxed font-serif italic text-text-secondary opacity-90">
+          <p className="prose-editorial text-[14px] line-clamp-3 leading-relaxed font-serif italic text-text-secondary/80">
             {hackathon.description}
           </p>
 
-          {/* Tech Stack Chips */}
-          <div className="mt-8 flex flex-wrap gap-2.5">
+          {/* Tech Stack - Pill style */}
+          <div className="flex flex-wrap gap-2 pt-2">
             {hackathon.tech.map((tech) => (
               <span 
                 key={tech} 
-                className="px-4 py-1.5 rounded-full bg-bg-base/30 border border-border-fine/40 text-[9px] font-bold tracking-[0.1em] text-text-muted hover:text-accent hover:border-accent/30 transition-all cursor-crosshair"
+                className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[8px] font-bold uppercase tracking-widest text-text-muted group-hover:text-text-primary transition-colors"
               >
                 {tech}
               </span>
@@ -81,37 +70,34 @@ export function HackathonCard({ hackathon }: HackathonCardProps) {
           </div>
         </div>
 
-        {/* Points / Milestone */}
-        <div className="mb-12 p-6 rounded-2xl bg-bg-elevated/40 border border-border-fine/40 flex items-center justify-between group-hover:bg-accent-soft/30 transition-colors shadow-sm">
-          <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-xl bg-bg-base border border-border-fine/60 flex items-center justify-center text-accent/70 shadow-sm transition-transform group-hover:-rotate-6">
-              <Clock size={18} strokeWidth={2.5} />
+        {/* Achievement / Footer */}
+        <div className="mt-10 pt-6 border-t border-white/5 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center text-accent/80">
+              <Clock size={16} />
             </div>
-            {/* CHANGED: "Milestone pts" → "Achievement Points" */}
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-text-secondary/70">Achievement Points</span>
+            <div className="flex flex-col">
+              <span className="text-[10px] font-black uppercase tracking-tighter text-accent/60 leading-none">{hackathon.points}</span>
+              <span className="text-[7px] uppercase tracking-widest text-text-muted mt-1">Reward</span>
+            </div>
           </div>
-          <div className="flex items-center gap-2 text-accent font-bold">
-            <Sparkles size={16} className="opacity-40 animate-pulse" />
-            <span className="text-lg tracking-tight font-serif">{hackathon.points}</span>
-          </div>
+
+          <Link 
+            href={hackathon.url}
+            target="_blank"
+            className={`flex items-center gap-3 px-6 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all duration-300 ${
+              isComingSoon
+                ? "bg-white/5 text-text-muted cursor-not-allowed opacity-50"
+                : "bg-text-primary text-bg-base hover:bg-accent hover:text-white shadow-float group-hover:translate-x-1"
+            }`}
+          >
+            {isComingSoon ? "Lock" : "Launch"}
+            <ChevronRight size={14} className={isComingSoon ? "hidden" : "group-hover:translate-x-1 transition-transform"} />
+          </Link>
         </div>
 
-        {/* CTA Button — CHANGED: "Access Node Registry" → "View Project" / "Coming Soon" */}
-        <Link 
-          href={hackathon.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`btn-tactile w-full py-5 rounded-2xl flex items-center justify-center gap-3 font-bold text-[11px] uppercase tracking-[0.3em] transition-all duration-500 shadow-float border border-transparent ${
-            isComingSoon 
-              ? "bg-bg-elevated text-text-muted cursor-not-allowed grayscale pointer-events-none" 
-              : "bg-accent text-white shadow-accent/20 hover:shadow-accent/40 hover:-translate-y-0.5 active:translate-y-0"
-          }`}
-          aria-disabled={isComingSoon}
-          tabIndex={isComingSoon ? -1 : 0}
-        >
-          <span>{isComingSoon ? "Coming Soon" : "View Project"}</span>
-          {!isComingSoon && <ExternalLink size={14} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform stroke-[2.5]" />}
-        </Link>
+        {/* Interaction Glow */}
+        <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-accent/20 blur-[80px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
       </div>
     </MotionDiv>
   );
