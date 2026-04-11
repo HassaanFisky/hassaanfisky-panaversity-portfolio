@@ -122,7 +122,7 @@ function FallbackResume() {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <ContactItem icon={<Mail size={18} />} label="Email" value="hassaan@example.com" />
+            <ContactItem icon={<Mail size={18} />} label="Email" value="fiskyhere@gmail.com" />
             <ContactItem icon={<Github size={18} />} label="GitHub" value="github.com/Hassaanfisky" />
             <ContactItem icon={<Linkedin size={18} />} label="LinkedIn" value="linkedin.com/in/hassaan" />
             <ContactItem icon={<MapPin size={18} />} label="Location" value="Karachi, Pakistan" />
