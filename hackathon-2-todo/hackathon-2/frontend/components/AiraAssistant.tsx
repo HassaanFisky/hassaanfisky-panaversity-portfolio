@@ -189,7 +189,7 @@ export function AiraAssistant({ platform, context }: AiraAssistantProps) {
                   activeTab === 'chat' ? 'bg-bg-base text-accent shadow-sm' : 'text-text-muted hover:text-text-primary'
                 }`}
               >
-                <MessageCircle size={14} strokeWidth={2.4} strokeWidth={2.4} /> Chat
+                <MessageCircle size={14} strokeWidth={2.4} /> Chat
               </button>
               <button 
                 onClick={() => setActiveTab('notebook')}
