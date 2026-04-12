@@ -3,7 +3,7 @@ import { themes as prismThemes } from "prism-react-renderer";
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "HASSAAN AI ARCHITECT",
+  title: "PANAVERSITY | ROBOTICS",
   tagline: "The Future of Humanoid Robotics",
   favicon: "img/favicon.png",
   url: "https://h1robotics.vercel.app",
@@ -41,7 +41,7 @@ const config = {
     ({
       image: "img/social-card.png",
       navbar: {
-        title: "HASSAAN AI ARCHITECT",
+        title: "PANAVERSITY | ROBOTICS",
         logo: {
           alt: "Physical AI Logo",
           src: "img/app-logo.png",

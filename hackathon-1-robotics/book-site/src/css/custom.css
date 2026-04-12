@@ -104,9 +104,9 @@
 .gap-4 { gap: 1rem; }
 .w-full { width: 100%; }
 .h-full { height: 100%; }
-.md\:w-\[450px\] { width: 450px; }
-.h-\[650px\] { height: 650px; }
-.max-h-\[85vh\] { max-height: 85vh; }
+.md\:w-\[560px\] { width: 560px; }
+.md\:h-\[780px\] { height: 780px; }
+.max-h-\[92vh\] { max-height: 92vh; }
 .rounded-full { border-radius: 9999px; }
 .rounded-2xl { border-radius: 1rem; }
 .rounded-\[2\.5rem\] { border-radius: 2.5rem; }
@@ -149,7 +149,40 @@
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-muted);
+  background: var(--accent);
+}
+
+/* Scrollbar hide — used by AiraAssistant */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Globe / Earth button rotation ───────────────────────────────────────── */
+@keyframes globe-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.animate-globe-spin {
+  animation: globe-spin 18s linear infinite;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/* ── Glass Apple Upgrade ─────────────────────────────────────────────────── */
+.glass-apple {
+  backdrop-filter: blur(40px) saturate(150%);
+  -webkit-backdrop-filter: blur(40px) saturate(150%);
+  background: var(--glass-bg);
+  border: 1px solid var(--border-fine);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.shadow-float {
+  box-shadow: var(--shadow-widget) !important;
 }
 
 /* ── GLOBAL BODY ─────────────────────────────────────────────────────────── */

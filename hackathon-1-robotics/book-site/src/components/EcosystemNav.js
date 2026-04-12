@@ -4,11 +4,11 @@ import clsx from 'clsx';
 import { useSession, signOut } from '../lib/auth-client';
 
 const ECOSYSTEM_APPS = [
-  { name: "Portfolio Hub", image: "https://raw.githubusercontent.com/Hassaanfisky/hassaanfisky-panaversity-portfolio/main/public/blueprint-footer.png", url: "https://panaversity-h0-portfolio.vercel.app", id: "h0" },
-  { name: "Physical AI & Robotics", image: "https://panaversity-h1-robotics.vercel.app/h1-thumb.png", url: "https://panaversity-h1-robotics.vercel.app", id: "h1" },
-  { name: "Evolution of Todo", image: "https://hackathon-2-todo-iota.vercel.app/h2-thumb.png", url: "https://hackathon-2-todo-iota.vercel.app", id: "h2" },
-  { name: "LearnFlow Engine", image: "https://hassaanfisky-panaversity-learnflow.vercel.app/h2-thumb.png", url: "https://hassaanfisky-panaversity-learnflow.vercel.app", id: "h3" },
-  { name: "Companion FTE", image: "https://panaversity-h4-companion.vercel.app/h4-thumb.png", url: "https://panaversity-h4-companion.vercel.app", id: "h4" },
+  { name: "Portfolio Hub", image: "https://hassaanfisky-portfolio.vercel.app/blueprint-footer.png", url: "https://hassaanfisky-portfolio.vercel.app", id: "h0" },
+  { name: "Physical AI & Robotics", image: "https://physical-ai-humanoid-robots-textboo.vercel.app/h1-thumb.png", url: "https://physical-ai-humanoid-robots-textboo.vercel.app", id: "h1" },
+  { name: "Evolution of To-Do", image: "https://evolution-of-todo.vercel.app/h2-thumb.png", url: "https://evolution-of-todo.vercel.app", id: "h2" },
+  { name: "LearnFlow Engine", image: "https://hassaanfisky-learnflow-h3.vercel.app/h3-thumb.png", url: "https://hassaanfisky-learnflow-h3.vercel.app", id: "h3" },
+  { name: "Autonomous CRM", image: "https://hassaanfisky-aira-digital-fte.vercel.app/h4-thumb.png", url: "https://hassaanfisky-aira-digital-fte.vercel.app", id: "h4" },
 ];
 
 export default function EcosystemNav() {
@@ -25,7 +25,7 @@ export default function EcosystemNav() {
 
   const handleSignIn = () => {
     if (typeof window !== 'undefined') {
-       window.location.href = "https://hackathon-2-todo-iota.vercel.app/sign-in?redirect=" + encodeURIComponent(window.location.href);
+       window.location.href = "https://evolution-of-todo.vercel.app/sign-in?redirect=" + encodeURIComponent(window.location.href);
     }
   };
 

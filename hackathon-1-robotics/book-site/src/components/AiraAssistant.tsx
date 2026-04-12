@@ -161,14 +161,14 @@ export function AiraAssistant({ platform, context }: AiraAssistantProps) {
             initial={{ opacity: 0, y: 40, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 40, scale: 0.95 }}
-            className="fixed inset-x-4 bottom-24 md:bottom-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-full md:w-[450px] h-[650px] max-h-[85vh] humanist-glass rounded-[2.5rem] flex flex-col overflow-hidden"
+            className="fixed inset-x-4 bottom-24 md:bottom-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-full md:w-[560px] md:h-[780px] max-h-[92vh] humanist-glass rounded-[2.5rem] shadow-float z-[10001] flex flex-col overflow-hidden"
           >
             {/* Header */}
-            <div className="px-8 py-6 border-b border-border bg-bg-surface flex items-center justify-between">
+            <div className="px-7 py-4 border-b border-border bg-bg-base/40 flex items-center justify-between">
               <div className="flex flex-col">
                 <div className="flex items-center gap-2">
                   <span className="text-[9px] font-bold tracking-[0.3em] text-accent uppercase font-mono">
-                    {platform} LIVE STATUS
+                    {platform} NODE REGISTRY
                   </span>
                   <div className={`w-1.5 h-1.5 rounded-full animate-pulse ${isTyping ? 'bg-accent' : 'bg-emerald-500'}`} />
                 </div>
@@ -205,7 +205,7 @@ export function AiraAssistant({ platform, context }: AiraAssistantProps) {
             </div>
 
             {/* Content Area */}
-            <div className="flex-1 overflow-y-auto px-8 py-6 space-y-6 scrollbar-hide">
+            <div className="flex-1 overflow-y-auto px-7 py-4 space-y-5 scrollbar-hide">
               {activeTab === 'chat' ? (
                 <>
                   {messages.map((msg, i) => (
