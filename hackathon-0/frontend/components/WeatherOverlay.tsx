@@ -1,53 +1,57 @@
 "use client";
 
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useState, useRef, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 /**
- * HASSAAN AI ARCHITECT — Weather Environment Engine v5.0
- * Procedural Audio Synthesis (No external assets).
- * Hardware-accelerated 60 FPS particle systems (GPU composited via will-change).
+ * HASSAAN AI ARCHITECT — Weather Environment Engine v6.0
+ * Cinematic, GPU-accelerated atmospheric environments.
+ *
+ * Architecture:
+ *  Layer 1 (z-[2])     — Sky / Background atmosphere   → sits BELOW all page content
+ *  Layer 2 (z-[5000])  — Foreground particles / effects → floats IN FRONT of content
+ *
+ * The actual background colour/sky change is driven by CSS custom-property transitions
+ * on [data-weather] (see globals.css). Both layers are pointer-events-none.
  */
 
 type WeatherMode = "clear" | "snow" | "rain" | "storm" | "cloudy" | "sunny";
 
-// ─── PROCEDURAL AUDIO ENGINE ────────────────────────────────────────────────
+// ─── GPU ACCELERATION HELPER ─────────────────────────────────────────────────
+// Forces the browser to promote every animated element to its own GPU compositor
+// layer, eliminating main-thread paint work and achieving true 60 FPS.
+const GPU: React.CSSProperties = {
+  willChange: "transform, opacity",
+  transform: "translateZ(0)",
+};
+
+// ─── PROCEDURAL AUDIO ENGINE ─────────────────────────────────────────────────
 /**
  * Synthesizes ambient weather sounds natively via Web Audio API.
- *
- * Noise types:
- *  - Pink Noise  → 1/f spectrum via Voss-McCartney algorithm. Sounds like rain.
- *  - Brown Noise → Integrated white noise (Brownian motion). Sounds like wind/snow.
- *
- * AudioContext is deferred to the first user interaction to satisfy Apple/Safari
- * autoplay policy (and equivalent Chrome/Firefox restrictions).
+ * AudioContext is deferred to first user interaction to satisfy autoplay policy.
  */
 function useWeatherAudio(mode: WeatherMode) {
-  const audioCtxRef      = useRef<AudioContext | null>(null);
-  const gainNodeRef      = useRef<GainNode | null>(null);
-  const noiseSourceRef   = useRef<AudioBufferSourceNode | null>(null);
-  const filterNodeRef    = useRef<BiquadFilterNode | null>(null);
-  const interactedRef    = useRef(false);
+  const audioCtxRef    = useRef<AudioContext | null>(null);
+  const gainNodeRef    = useRef<GainNode | null>(null);
+  const noiseSourceRef = useRef<AudioBufferSourceNode | null>(null);
+  const filterNodeRef  = useRef<BiquadFilterNode | null>(null);
+  const interactedRef  = useRef(false);
 
-  // ── Step 1: Lazy AudioContext init (fires once after first click/touch) ──
   const initAudioCtx = useCallback(() => {
     if (interactedRef.current) return;
     interactedRef.current = true;
-
     const Ctor = window.AudioContext ?? (window as any).webkitAudioContext;
     if (!Ctor) return;
-
     const ctx  = new Ctor() as AudioContext;
     const gain = ctx.createGain();
     gain.gain.value = 0;
     gain.connect(ctx.destination);
-
-    audioCtxRef.current = ctx;
-    gainNodeRef.current = gain;
+    audioCtxRef.current  = ctx;
+    gainNodeRef.current  = gain;
   }, []);
 
   useEffect(() => {
-    window.addEventListener("click",     initAudioCtx, { once: true });
+    window.addEventListener("click",      initAudioCtx, { once: true });
     window.addEventListener("touchstart", initAudioCtx, { once: true });
     return () => {
       window.removeEventListener("click",      initAudioCtx);
@@ -55,7 +59,6 @@ function useWeatherAudio(mode: WeatherMode) {
     };
   }, [initAudioCtx]);
 
-  // Tear down context on unmount
   useEffect(() => {
     return () => {
       if (audioCtxRef.current && audioCtxRef.current.state !== "closed") {
@@ -65,17 +68,14 @@ function useWeatherAudio(mode: WeatherMode) {
     };
   }, []);
 
-  // ── Step 2: React to mode changes ──
   useEffect(() => {
     const ctx  = audioCtxRef.current;
     const gain = gainNodeRef.current;
     if (!ctx || !gain) return;
 
-    // Fade out current audio, then swap sources after the fade.
     gain.gain.setTargetAtTime(0, ctx.currentTime, 0.4);
 
     const swapTimeout = setTimeout(() => {
-      // Tear down previous nodes
       if (noiseSourceRef.current) {
         try { noiseSourceRef.current.stop(); } catch (_) {}
         noiseSourceRef.current.disconnect();
@@ -85,18 +85,14 @@ function useWeatherAudio(mode: WeatherMode) {
         filterNodeRef.current.disconnect();
         filterNodeRef.current = null;
       }
-
       if (mode === "clear" || mode === "sunny") return;
 
-      // ── Build noise buffer ──────────────────────────────────────────────
       const SR         = ctx.sampleRate;
-      const bufferSize = SR * 3; // 3-second seamless loop
+      const bufferSize = SR * 3;
       const buffer     = ctx.createBuffer(1, bufferSize, SR);
       const out        = buffer.getChannelData(0);
 
       if (mode === "rain" || mode === "storm") {
-        // ── Pink Noise: Voss-McCartney algorithm (1/f spectrum) ──────────
-        // Perceptually matches rainfall — dense mid-frequency energy.
         let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
         for (let i = 0; i < bufferSize; i++) {
           const w = Math.random() * 2 - 1;
@@ -105,63 +101,49 @@ function useWeatherAudio(mode: WeatherMode) {
           b2 = 0.96900 * b2 + w * 0.1538520;
           b3 = 0.86650 * b3 + w * 0.3104856;
           b4 = 0.55000 * b4 + w * 0.5329522;
-          b5 = -0.7616 * b5 - w * 0.0168980;
+          b5 = -0.7616  * b5 - w * 0.0168980;
           out[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + w * 0.5362) / 7.0;
           b6 = w * 0.115926;
         }
       } else {
-        // ── Brown Noise: integrated white noise (Brownian motion) ────────
-        // Low-frequency rumble — perceptually matches wind and muffled snow.
         let lastSample = 0;
         for (let i = 0; i < bufferSize; i++) {
-          const w   = Math.random() * 2 - 1;
+          const w    = Math.random() * 2 - 1;
           lastSample = (lastSample + 0.02 * w) / 1.02;
           out[i]     = Math.max(-1, Math.min(1, lastSample * 3.5));
         }
       }
 
-      // ── Biquad filter for spectral shaping ─────────────────────────────
-      const filter   = ctx.createBiquadFilter();
-      filter.type    = "lowpass";
-      // Rain: 1000 Hz — retains the "hiss" of impacting drops.
-      // Storm: 600 Hz  — heavier, more menacing.
-      // Snow/Cloudy: 300 Hz — deep wind muffle.
+      const filter         = ctx.createBiquadFilter();
+      filter.type          = "lowpass";
       filter.frequency.value =
-        mode === "storm" ? 600 :
-        mode === "rain"  ? 1000 :
-        300;
-      filter.Q.value = 0.7; // Butterworth-style rolloff — no ringing
+        mode === "storm" ? 600 : mode === "rain" ? 1000 : 300;
+      filter.Q.value       = 0.7;
 
-      const source        = ctx.createBufferSource();
-      source.buffer       = buffer;
-      source.loop         = true;
+      const source   = ctx.createBufferSource();
+      source.buffer  = buffer;
+      source.loop    = true;
       source.connect(filter);
       filter.connect(gain);
 
-      // Target volume per mode
       const targetVol =
         mode === "storm"  ? 0.30 :
         mode === "rain"   ? 0.15 :
-        mode === "snow"   ? 0.06 :
-        0.04; // cloudy
+        mode === "snow"   ? 0.06 : 0.04;
 
       noiseSourceRef.current = source;
       filterNodeRef.current  = filter;
-
       source.start();
-
-      // Smooth crossfade in (2-second time constant)
       gain.gain.setTargetAtTime(targetVol, ctx.currentTime, 2.0);
-    }, 500); // Wait for fade-out before swapping
+    }, 500);
 
     return () => clearTimeout(swapTimeout);
   }, [mode]);
 }
 
-// ─── MAIN OVERLAY COMPONENT ──────────────────────────────────────────────────
+// ─── MAIN OVERLAY ─────────────────────────────────────────────────────────────
 export function WeatherOverlay() {
   const [mode, setMode] = useState<WeatherMode>("clear");
-
   useWeatherAudio(mode);
 
   useEffect(() => {
@@ -170,41 +152,362 @@ export function WeatherOverlay() {
       setMode(newMode);
       document.documentElement.setAttribute("data-weather", newMode);
     };
-
     window.addEventListener("weather-change", handleWeatherChange);
-
     const saved = localStorage.getItem("weather_mode") as WeatherMode | null;
     if (saved) {
       setMode(saved);
       document.documentElement.setAttribute("data-weather", saved);
     }
-
     return () => window.removeEventListener("weather-change", handleWeatherChange);
   }, []);
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-[5000] overflow-hidden">
-      <AnimatePresence mode="wait">
-        {mode === "snow"   && <SnowEnvironment   key="snow"   />}
-        {mode === "rain"   && <RainEnvironment   key="rain"   />}
-        {mode === "storm"  && <StormEnvironment  key="storm"  />}
-        {mode === "cloudy" && <CloudyEnvironment key="cloudy" />}
-        {mode === "sunny"  && <SunnyEnvironment  key="sunny"  />}
-      </AnimatePresence>
-    </div>
+    <>
+      {/* ── LAYER 1: Sky / Background (z-2) ─────────────────────────────────
+           Sits BELOW all page content. Creates the atmospheric "sky" —
+           pitch-black for storm, deep navy for rain, golden amber for desert.
+           The <main> element and Hero section (z-10) sit above this layer.
+      ─────────────────────────────────────────────────────────────────────── */}
+      <div className="fixed inset-0 pointer-events-none z-[2] overflow-hidden">
+        <AnimatePresence mode="wait">
+          {mode === "sunny"  && <DesertSky   key="sky-sunny"  />}
+          {mode === "rain"   && <TwilightSky key="sky-rain"   />}
+          {mode === "storm"  && <StormSky    key="sky-storm"  />}
+          {mode === "cloudy" && <CloudySky   key="sky-cloudy" />}
+          {mode === "snow"   && <SnowSky     key="sky-snow"   />}
+        </AnimatePresence>
+      </div>
+
+      {/* ── LAYER 2: Particles / Effects (z-5000) ───────────────────────────
+           Floats IN FRONT of all content — rain streaks fall past text,
+           sand particles drift over the UI, lightning illuminates the scene.
+           pointer-events-none ensures zero interaction blocking.
+      ─────────────────────────────────────────────────────────────────────── */}
+      <div className="fixed inset-0 pointer-events-none z-[5000] overflow-hidden">
+        <AnimatePresence mode="wait">
+          {mode === "snow"   && <SnowParticles   key="fx-snow"   />}
+          {mode === "rain"   && <RainParticles   key="fx-rain"   />}
+          {mode === "storm"  && <StormParticles  key="fx-storm"  />}
+          {mode === "sunny"  && <DesertParticles key="fx-sunny"  />}
+        </AnimatePresence>
+      </div>
+    </>
   );
 }
 
-// ─── GPU ACCELERATION HELPERS ────────────────────────────────────────────────
-// Applied to every animated element so the browser promotes each to its own
-// GPU compositor layer — eliminates main-thread paint and achieves true 60 FPS.
-const GPU_STYLE: React.CSSProperties = {
-  willChange: "transform, opacity",
-  transform: "translateZ(0)", // Force layer promotion on Safari
-};
+// ══════════════════════════════════════════════════════════════════════════════
+//  LAYER 1 — SKY BACKGROUNDS
+// ══════════════════════════════════════════════════════════════════════════════
 
-// ─── SNOW: Multi-layered Parallax ─────────────────────────────────────────────
-function SnowEnvironment() {
+// ─── DESERT SKY — Registan Golden Hour ───────────────────────────────────────
+function DesertSky() {
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 3, ease: [0.16, 1, 0.3, 1] }}
+      className="absolute inset-0"
+      style={GPU}
+    >
+      {/* Layered golden-hour sky gradient */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(180deg," +
+            "  #0d0500 0%," +
+            "  #2a0e00 18%," +
+            "  #6b2700 38%," +
+            "  #b84f0a 58%," +
+            "  #e07818 78%," +
+            "  #f5b832 100%)",
+          opacity: 0.88,
+          ...GPU,
+        }}
+      />
+
+      {/* Horizon haze band */}
+      <div
+        className="absolute bottom-0 left-0 right-0"
+        style={{
+          height: "45%",
+          background:
+            "radial-gradient(ellipse at 50% 100%," +
+            "  rgba(255,160,40,0.35) 0%," +
+            "  rgba(200,80,10,0.18) 45%," +
+            "  transparent 75%)",
+          ...GPU,
+        }}
+      />
+
+      {/* Animated sun disk — upper-right, away from the hero name */}
+      <motion.div
+        animate={{ scale: [1, 1.035, 1], opacity: [0.88, 1, 0.88] }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        style={{
+          position: "absolute",
+          top: "7%",
+          right: "11%",
+          width: "110px",
+          height: "110px",
+          borderRadius: "50%",
+          background:
+            "radial-gradient(circle," +
+            "  rgba(255,255,200,1) 0%," +
+            "  rgba(255,195,60,0.95) 28%," +
+            "  rgba(255,130,20,0.55) 65%," +
+            "  transparent 100%)",
+          boxShadow:
+            "0 0 90px 45px rgba(255,168,30,0.50)," +
+            "0 0 180px 90px rgba(255,100,10,0.22)",
+          ...GPU,
+        }}
+      />
+
+      {/* Heat shimmer at ground level */}
+      <motion.div
+        animate={{ opacity: [0.05, 0.20, 0.05], scaleY: [1, 1.06, 1] }}
+        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: "28%",
+          background:
+            "linear-gradient(to top, rgba(230,140,40,0.18), transparent)",
+          backdropFilter: "blur(1.5px)",
+          ...GPU,
+        }}
+      />
+    </motion.div>
+  );
+}
+
+// ─── TWILIGHT RAIN SKY — Deep Navy Evening ────────────────────────────────────
+function TwilightSky() {
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 2.5, ease: [0.16, 1, 0.3, 1] }}
+      className="absolute inset-0"
+      style={GPU}
+    >
+      {/* Deep twilight gradient */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(180deg," +
+            "  #010308 0%," +
+            "  #040c1e 30%," +
+            "  #071728 60%," +
+            "  #0b2040 100%)",
+          opacity: 0.90,
+          ...GPU,
+        }}
+      />
+
+      {/* Distant city wet-glow on the horizon */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: "22%",
+          background:
+            "radial-gradient(ellipse at 50% 100%," +
+            "  rgba(30,55,130,0.25) 0%," +
+            "  rgba(15,30,80,0.12) 50%," +
+            "  transparent 75%)",
+          ...GPU,
+        }}
+      />
+    </motion.div>
+  );
+}
+
+// ─── STORM SKY — Pitch-Black Night with Moving Clouds ─────────────────────────
+function StormSky() {
+  // Memoised so we pay the random-generation cost only once
+  const clouds = useMemo(
+    () =>
+      Array.from({ length: 8 }, (_, i) => ({
+        id: i,
+        w:     400 + Math.random() * 550,
+        h:     130 + Math.random() * 170,
+        top:   Math.random() * 60,
+        dur:   38 + Math.random() * 42,
+        startX: -45 - Math.random() * 25,
+        endX:   135 + Math.random() * 25,
+        op:    0.50 + Math.random() * 0.35,
+      })),
+    []
+  );
+
+  const stars = useMemo(
+    () =>
+      Array.from({ length: 110 }, (_, i) => ({
+        id:    i,
+        x:     Math.random() * 100,
+        y:     Math.random() * 65,
+        size:  0.5 + Math.random() * 1.6,
+        baseOp: 0.08 + Math.random() * 0.55,
+        dur:   2 + Math.random() * 4.5,
+        delay: Math.random() * 6,
+      })),
+    []
+  );
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 3.5, ease: [0.16, 1, 0.3, 1] }}
+      className="absolute inset-0"
+      style={GPU}
+    >
+      {/* Ink-black sky base */}
+      <div
+        className="absolute inset-0"
+        style={{ background: "rgba(0,0,0,0.92)", ...GPU }}
+      />
+
+      {/* Star field — faint, twinkling */}
+      {stars.map((s) => (
+        <motion.div
+          key={`star-${s.id}`}
+          animate={{
+            opacity: [s.baseOp * 0.25, s.baseOp, s.baseOp * 0.25],
+          }}
+          transition={{
+            duration: s.dur,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: s.delay,
+          }}
+          style={{
+            position: "absolute",
+            left:     `${s.x}%`,
+            top:      `${s.y}%`,
+            width:    `${s.size}px`,
+            height:   `${s.size}px`,
+            borderRadius: "50%",
+            backgroundColor: "white",
+            willChange: "opacity",
+          }}
+        />
+      ))}
+
+      {/* Moving dark storm clouds */}
+      {clouds.map((c) => (
+        <motion.div
+          key={`cloud-${c.id}`}
+          animate={{ x: [`${c.startX}%`, `${c.endX}%`] }}
+          transition={{
+            duration: c.dur,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+          style={{
+            position: "absolute",
+            top:    `${c.top}%`,
+            width:  `${c.w}px`,
+            height: `${c.h}px`,
+            background: `radial-gradient(ellipse,` +
+              `rgba(14,14,22,${c.op}) 0%,` +
+              `rgba(8,8,16,${c.op * 0.55}) 55%,` +
+              `transparent 82%)`,
+            filter: "blur(38px)",
+            willChange: "transform",
+          }}
+        />
+      ))}
+    </motion.div>
+  );
+}
+
+// ─── CLOUDY SKY ───────────────────────────────────────────────────────────────
+function CloudySky() {
+  const cloudBlobs = useMemo(
+    () =>
+      Array.from({ length: 7 }, (_, i) => ({
+        id: i,
+        w:   550 + Math.random() * 380,
+        h:   260 + Math.random() * 180,
+        top: Math.random() * 90,
+        dur: 42 + Math.random() * 38,
+        op:  0.08 + Math.random() * 0.08,
+      })),
+    []
+  );
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 3 }}
+      className="absolute inset-0"
+      style={{ backdropFilter: "blur(1px)", ...GPU }}
+    >
+      <div className="absolute inset-0 bg-slate-900/15" style={GPU} />
+      {cloudBlobs.map((c) => (
+        <motion.div
+          key={c.id}
+          animate={{ x: ["-22%", "122%"] }}
+          transition={{ duration: c.dur, repeat: Infinity, ease: "linear" }}
+          className="absolute bg-white rounded-full"
+          style={{
+            width:  c.w,
+            height: c.h,
+            top:    `${c.top}%`,
+            left:   "-15%",
+            filter: "blur(110px)",
+            opacity: c.op,
+            ...GPU,
+          }}
+        />
+      ))}
+    </motion.div>
+  );
+}
+
+// ─── SNOW SKY ─────────────────────────────────────────────────────────────────
+function SnowSky() {
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 2 }}
+      className="absolute inset-0"
+      style={GPU}
+    >
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(180deg, #0a0d14 0%, #111828 40%, #1a2540 100%)",
+          opacity: 0.70,
+          ...GPU,
+        }}
+      />
+    </motion.div>
+  );
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+//  LAYER 2 — FOREGROUND PARTICLES & EFFECTS
+// ══════════════════════════════════════════════════════════════════════════════
+
+// ─── SNOW PARTICLES — Multi-layer Parallax ────────────────────────────────────
+function SnowParticles() {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -212,7 +515,7 @@ function SnowEnvironment() {
       exit={{ opacity: 0 }}
       transition={{ duration: 1.5 }}
       className="absolute inset-0"
-      style={GPU_STYLE}
+      style={GPU}
     >
       {[1, 2, 3].map((layer) => (
         <div key={layer} className={`absolute inset-0 snow-layer-${layer}`}>
@@ -232,10 +535,7 @@ function SnowEnvironment() {
                 delay: Math.random() * 10,
               }}
               className="absolute text-white/50 pointer-events-none select-none drop-shadow-md"
-              style={{
-                fontSize: `${5 + Math.random() * 10}px`,
-                ...GPU_STYLE,
-              }}
+              style={{ fontSize: `${5 + Math.random() * 10}px`, ...GPU }}
             >
               ❄
             </motion.div>
@@ -246,50 +546,89 @@ function SnowEnvironment() {
   );
 }
 
-// ─── RAIN: High-frame-rate Streaks & Ripples ──────────────────────────────────
-function RainEnvironment() {
+// ─── RAIN PARTICLES — Evening Downpour ────────────────────────────────────────
+function RainParticles() {
+  const drops = useMemo(
+    () =>
+      Array.from({ length: 145 }, (_, i) => ({
+        id:    i,
+        x:     Math.random() * 115 - 5,
+        h:     14 + Math.random() * 38,
+        op:    0.12 + Math.random() * 0.38,
+        dur:   0.28 + Math.random() * 0.22,
+        delay: Math.random() * 2.2,
+        angle: -9 + Math.random() * 6,
+      })),
+    []
+  );
+
+  const splashes = useMemo(
+    () =>
+      Array.from({ length: 20 }, (_, i) => ({
+        id:    i,
+        x:     Math.random() * 100,
+        y:     70 + Math.random() * 24,
+        size:  18 + Math.random() * 40,
+        delay: Math.random() * 3.5,
+        dur:   1.1 + Math.random() * 0.9,
+      })),
+    []
+  );
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 1.5 }}
+      transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
       className="absolute inset-0"
-      style={GPU_STYLE}
+      style={GPU}
     >
-      {/* Rain Streaks — GPU composited individually */}
-      {Array.from({ length: 120 }).map((_, i) => (
+      {/* Rain streaks */}
+      {drops.map((d) => (
         <motion.div
-          key={i}
-          initial={{ y: -100, x: Math.random() * 110 + "%" }}
-          animate={{ y: "110vh", x: `calc(${Math.random() * 110}% - 20px)` }}
+          key={d.id}
+          initial={{ y: "-5vh" }}
+          animate={{ y: "108vh" }}
           transition={{
-            duration: 0.4 + Math.random() * 0.3,
+            duration: d.dur,
             repeat: Infinity,
             ease: "linear",
-            delay: Math.random() * 2,
+            delay: d.delay,
           }}
-          className="rain-streak"
           style={{
-            height: `${20 + Math.random() * 40}px`,
-            opacity: 0.15 + Math.random() * 0.3,
-            ...GPU_STYLE,
+            position: "absolute",
+            left:     `${d.x}%`,
+            top:      0,
+            width:    "1.5px",
+            height:   `${d.h}px`,
+            background:
+              "linear-gradient(to bottom," +
+              "  transparent 0%," +
+              "  rgba(160,205,255,0.72) 45%," +
+              "  rgba(200,228,255,0.38) 100%)",
+            opacity:         d.op,
+            transform:       `translateZ(0) rotate(${d.angle}deg)`,
+            transformOrigin: "top center",
+            willChange:      "transform, opacity",
           }}
         />
       ))}
 
-      {/* Glass Ripples */}
-      {Array.from({ length: 15 }).map((_, i) => (
+      {/* Splash ripples — bottom third of screen */}
+      {splashes.map((s) => (
         <div
-          key={i}
-          className="glass-ripple"
+          key={s.id}
+          className="rain-splash-ripple"
           style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            animationDelay: `${Math.random() * 5}s`,
-            width: `${50 + Math.random() * 50}px`,
-            height: `${50 + Math.random() * 50}px`,
-            ...GPU_STYLE,
+            position:  "absolute",
+            left:      `${s.x}%`,
+            top:       `${s.y}%`,
+            width:     `${s.size}px`,
+            height:    `${s.size * 0.28}px`,
+            animationDelay:    `${s.delay}s`,
+            animationDuration: `${s.dur}s`,
+            ...GPU,
           }}
         />
       ))}
@@ -297,114 +636,283 @@ function RainEnvironment() {
   );
 }
 
-// ─── STORM: Heavy Rain & Lightning Flashes ────────────────────────────────────
-function StormEnvironment() {
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 2 }}
-      className="absolute inset-0"
-      style={GPU_STYLE}
-    >
-      <RainEnvironment />
-      <div
-        className="absolute inset-0 bg-slate-900/60 mix-blend-multiply"
-        style={{ ...GPU_STYLE, willChange: "opacity" }}
-      />
-      {/* Lightning flash — GPU layer so it doesn't trigger a full repaint */}
-      <div
-        className="storm-flash animate-flash"
-        style={{ ...GPU_STYLE, willChange: "opacity" }}
-      />
-    </motion.div>
-  );
-}
+// ─── STORM PARTICLES — Heavy Rain + State-Driven Lightning ───────────────────
+function StormParticles() {
+  const [flash, setFlash] = useState<{ on: boolean; color: string }>({
+    on: false,
+    color: "rgba(255,255,255,0.88)",
+  });
 
-// ─── CLOUDY: Overcast Volumetric Clouds ──────────────────────────────────────
-/**
- * Each cloud blob is a large blurred div animated only via `transform: translateX`
- * (a compositor-only property). No width/height or filter changes during animation
- * means zero layout repaints — the blur is applied once at layer-promotion time.
- */
-function CloudyEnvironment() {
+  // Randomised double-strike lightning
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout>;
+
+    const BOLT_COLORS = [
+      "rgba(255,255,255,0.88)",
+      "rgba(210,195,255,0.92)",
+      "rgba(165,190,255,0.95)",
+    ];
+
+    const strike = () => {
+      const color = BOLT_COLORS[Math.floor(Math.random() * BOLT_COLORS.length)];
+
+      // Primary strike
+      setFlash({ on: true, color });
+      setTimeout(() => setFlash((s) => ({ ...s, on: false })), 85);
+
+      // Echo strike (double-flash realism)
+      setTimeout(() => setFlash({ on: true, color }), 175);
+      setTimeout(() => setFlash((s) => ({ ...s, on: false })), 310);
+
+      // Schedule next bolt
+      timer = setTimeout(strike, 3200 + Math.random() * 8500);
+    };
+
+    timer = setTimeout(strike, 1400 + Math.random() * 2800);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const heavyDrops = useMemo(
+    () =>
+      Array.from({ length: 185 }, (_, i) => ({
+        id:    i,
+        x:     Math.random() * 122 - 11,
+        h:     20 + Math.random() * 48,
+        op:    0.18 + Math.random() * 0.44,
+        dur:   0.18 + Math.random() * 0.17,
+        delay: Math.random() * 1.5,
+        angle: -15 + Math.random() * 10,
+      })),
+    []
+  );
+
+  const splashes = useMemo(
+    () =>
+      Array.from({ length: 24 }, (_, i) => ({
+        id:    i,
+        x:     Math.random() * 100,
+        y:     68 + Math.random() * 26,
+        size:  22 + Math.random() * 44,
+        delay: Math.random() * 2.5,
+        dur:   0.9 + Math.random() * 0.7,
+      })),
+    []
+  );
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 3 }}
-      className="absolute inset-0 bg-slate-900/20"
-      style={{ backdropFilter: "blur(1px)", ...GPU_STYLE }}
+      transition={{ duration: 2.5, ease: [0.16, 1, 0.3, 1] }}
+      className="absolute inset-0"
+      style={GPU}
     >
-      {Array.from({ length: 8 }).map((_, i) => {
-        const width  = 600 + Math.random() * 400;
-        const height = 300 + Math.random() * 200;
-        return (
+      {/* Heavy angled rain */}
+      {heavyDrops.map((d) => (
+        <motion.div
+          key={d.id}
+          initial={{ y: "-5vh" }}
+          animate={{ y: "108vh" }}
+          transition={{
+            duration: d.dur,
+            repeat: Infinity,
+            ease: "linear",
+            delay: d.delay,
+          }}
+          style={{
+            position: "absolute",
+            left:     `${d.x}%`,
+            top:      0,
+            width:    "1.5px",
+            height:   `${d.h}px`,
+            background:
+              "linear-gradient(to bottom," +
+              "  transparent 0%," +
+              "  rgba(140,175,225,0.80) 45%," +
+              "  rgba(180,210,248,0.42) 100%)",
+            opacity:         d.op,
+            transform:       `translateZ(0) rotate(${d.angle}deg)`,
+            transformOrigin: "top center",
+            willChange:      "transform, opacity",
+          }}
+        />
+      ))}
+
+      {/* Splash ripples at bottom */}
+      {splashes.map((s) => (
+        <div
+          key={s.id}
+          className="rain-splash-ripple"
+          style={{
+            position:  "absolute",
+            left:      `${s.x}%`,
+            top:       `${s.y}%`,
+            width:     `${s.size}px`,
+            height:    `${s.size * 0.28}px`,
+            animationDelay:    `${s.delay}s`,
+            animationDuration: `${s.dur}s`,
+            ...GPU,
+          }}
+        />
+      ))}
+
+      {/* ── LIGHTNING FLASH ──────────────────────────────────────────────── */}
+      <AnimatePresence>
+        {flash.on && (
           <motion.div
-            key={i}
-            // Animate ONLY translateX — compositor-thread only, no repaint.
-            animate={{ x: ["-20%", "120%"] }}
-            transition={{
-              duration: 40 + Math.random() * 40,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            className="absolute bg-white/10 rounded-full"
+            key="lightning"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.04, ease: "linear" }}
             style={{
-              width,
-              height,
-              top: `${Math.random() * 100}%`,
-              left: `${-20 + Math.random() * 40}%`,
-              filter: "blur(120px)",  // Applied once at paint time — static.
-              ...GPU_STYLE,
+              position:        "fixed",
+              inset:           0,
+              backgroundColor: flash.color,
+              // 'screen' blend mode: lightens everything it touches —
+              // correct for lightning illuminating a pitch-black scene.
+              mixBlendMode:    "screen",
+              willChange:      "opacity",
+              pointerEvents:   "none",
             }}
           />
-        );
-      })}
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }
 
-// ─── SUNNY: Lens Flares & Golden Hour ─────────────────────────────────────────
-function SunnyEnvironment() {
+// ─── DESERT PARTICLES — Falling Sand & Drifting Dust Clods ───────────────────
+/**
+ * Three particle types:
+ *  1. Fine sand   — tiny dots (1–3 px) falling with a rightward wind drift.
+ *  2. Dust clods  — larger, blurred ellipses; slower, tumbling.
+ *  3. Haze band   — subtle animated blur at screen bottom to suggest hot earth.
+ *
+ * Scroll parallax is achieved naturally: since this layer is `position: fixed`,
+ * the particles stay still while page content scrolls beneath them — creating
+ * genuine Z-depth without any scroll-event listeners.
+ */
+function DesertParticles() {
+  const sand = useMemo(
+    () =>
+      Array.from({ length: 72 }, (_, i) => ({
+        id:    i,
+        x:     Math.random() * 112 - 6,
+        size:  1 + Math.random() * 3,
+        op:    0.22 + Math.random() * 0.48,
+        dur:   7 + Math.random() * 13,
+        delay: Math.random() * 12,
+        // Wind imparts a rightward + slight downward curve
+        driftX: 20 + Math.random() * 80,
+        // Warm sand colour palette: hsl 24–48°, 60–85% S, 55–75% L
+        hue:   24 + Math.floor(Math.random() * 24),
+        sat:   60 + Math.floor(Math.random() * 25),
+        lit:   55 + Math.floor(Math.random() * 20),
+      })),
+    []
+  );
+
+  const clods = useMemo(
+    () =>
+      Array.from({ length: 14 }, (_, i) => ({
+        id:    i,
+        x:     Math.random() * 108 - 6,
+        w:     5 + Math.random() * 14,
+        h:     3 + Math.random() * 7,
+        op:    0.14 + Math.random() * 0.24,
+        dur:   14 + Math.random() * 20,
+        delay: Math.random() * 14,
+        driftX: 30 + Math.random() * 100,
+        rotate0: Math.random() * 360,
+      })),
+    []
+  );
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 2 }}
-      className="absolute inset-0 pointer-events-none mix-blend-screen"
-      style={GPU_STYLE}
+      transition={{ duration: 2.5, ease: [0.16, 1, 0.3, 1] }}
+      className="absolute inset-0"
+      style={GPU}
     >
-      {/* Golden Hour Bloom */}
-      <div className="absolute inset-0 bg-orange-500/10" />
+      {/* Fine sand particles */}
+      {sand.map((p) => (
+        <motion.div
+          key={`sand-${p.id}`}
+          initial={{ y: "-2vh", x: `${p.x}%`, opacity: 0 }}
+          animate={{
+            y:       "106vh",
+            x:       [`${p.x}%`, `${p.x + p.driftX * 0.45}%`, `${p.x + p.driftX}%`],
+            opacity: [0, p.op, p.op, 0],
+          }}
+          transition={{
+            duration: p.dur,
+            repeat: Infinity,
+            ease: "linear",
+            delay: p.delay,
+            times: [0, 0.08, 0.92, 1],
+          }}
+          style={{
+            position:        "absolute",
+            top:             0,
+            width:           `${p.size}px`,
+            height:          `${p.size * 1.6}px`,
+            borderRadius:    "50%",
+            backgroundColor: `hsl(${p.hue},${p.sat}%,${p.lit}%)`,
+            willChange:      "transform, opacity",
+          }}
+        />
+      ))}
 
-      {/* Dynamic Lens Flare — animates only transform+opacity, no repaints */}
+      {/* Dust clods — larger blurred ellipses, slow tumble */}
+      {clods.map((c) => (
+        <motion.div
+          key={`clod-${c.id}`}
+          initial={{ y: "-2vh", x: `${c.x}%`, opacity: 0, rotate: c.rotate0 }}
+          animate={{
+            y:       "106vh",
+            x:       [`${c.x}%`, `${c.x + c.driftX * 0.5}%`, `${c.x + c.driftX}%`],
+            rotate:  [c.rotate0, c.rotate0 + 200, c.rotate0 + 360],
+            opacity: [0, c.op, c.op, 0],
+          }}
+          transition={{
+            duration: c.dur,
+            repeat: Infinity,
+            ease: "easeIn",
+            delay: c.delay,
+            times: [0, 0.1, 0.9, 1],
+          }}
+          style={{
+            position:        "absolute",
+            top:             0,
+            width:           `${c.w}px`,
+            height:          `${c.h}px`,
+            borderRadius:    "40%",
+            backgroundColor: "rgba(205,152,78,0.55)",
+            filter:          "blur(1.8px)",
+            willChange:      "transform, opacity",
+          }}
+        />
+      ))}
+
+      {/* Ambient warm haze at screen bottom */}
       <motion.div
-        animate={{
-          scale:   [1, 1.05, 1],
-          opacity: [0.3, 0.4, 0.3],
-          x:       [0, 20, 0],
-        }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-[-10%] right-[-10%] w-[800px] h-[800px] rounded-full"
+        animate={{ opacity: [0.06, 0.20, 0.06] }}
+        transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
         style={{
-          background: "radial-gradient(circle, rgba(255,200,100,0.3) 0%, transparent 70%)",
-          filter: "blur(10px)",
-          ...GPU_STYLE,
+          position:       "absolute",
+          bottom:         0,
+          left:           0,
+          right:          0,
+          height:         "22%",
+          background:     "linear-gradient(to top, rgba(240,148,30,0.14), transparent)",
+          backdropFilter: "blur(1px)",
+          ...GPU,
         }}
-      />
-
-      {/* Flare Orbs */}
-      <div
-        className="absolute top-[20%] right-[15%] w-24 h-24 bg-white/15 blur-2xl rounded-full"
-        style={GPU_STYLE}
-      />
-      <div
-        className="absolute top-[35%] right-[25%] w-12 h-12 bg-white/10 blur-xl rounded-full"
-        style={GPU_STYLE}
       />
     </motion.div>
   );

@@ -16,7 +16,7 @@ export function Hero() {
     .reduce((acc, h) => acc + parseInt(h.points.split(" ")[0]), 0);
 
   return (
-    <section className="relative min-h-[95vh] flex flex-col items-center justify-center pt-32 pb-24 md:pb-32 overflow-hidden bg-transparent transition-colors duration-500">
+    <section className="weather-hero min-h-[95vh] flex flex-col items-center justify-center pt-32 pb-24 md:pb-32 overflow-hidden bg-transparent transition-colors duration-500">
       
       {/* Background ambient elements */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">

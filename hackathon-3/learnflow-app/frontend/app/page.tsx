@@ -20,16 +20,20 @@ import { supabase } from "@/lib/supabase";
 import { AiraAssistant } from "@/components/AiraAssistant";
 import { cn } from "@/lib/utils";
 
+/**
+ * LearnFlow v2.5 — Humanized AI Academy
+ * Focus: Simplicity, speed, and real-world skills.
+ * Simplified for the final Panaversity ecosystem rollout.
+ */
 export default function LandingPage() {
   const [user, setUser] = useState<any>(null);
   const [modules, setModules] = useState<any[]>([]);
   const [progress, setProgress] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [uplink, setUplink] = useState("INITIALIZING...");
+  const [uplink, setUplink] = useState("SYNCING...");
 
   useEffect(() => {
-    // High-Fidelity Uplink Sequence
-    const timer = setTimeout(() => setUplink("WIRED (KOYEB)"), 2400);
+    const timer = setTimeout(() => setUplink("ONLINE (KOYEB)"), 1800);
     return () => clearTimeout(timer);
   }, []);
 
@@ -39,7 +43,6 @@ export default function LandingPage() {
       setUser(session?.user ?? null);
 
       try {
-        // Fetch Modules
         const modRes = await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/modules?select=*&order=order.asc`, {
           headers: {
             apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "",
@@ -50,7 +53,6 @@ export default function LandingPage() {
         setModules(modData || []);
 
         if (session?.user) {
-          // Fetch Mastery Score / Progress
           const progRes = await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/progress?user_id=eq.${session.user.id}&select=*`, {
             headers: {
               apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "",
@@ -58,12 +60,10 @@ export default function LandingPage() {
             },
           });
           const progData = await progRes.json();
-          if (progData && progData.length > 0) {
-            setProgress(progData[0]);
-          }
+          if (progData && progData.length > 0) setProgress(progData[0]);
         }
       } catch (err) {
-        console.error("Data error:", err);
+        console.error("Connectivity issue:", err);
       } finally {
         setLoading(false);
       }
@@ -77,74 +77,79 @@ export default function LandingPage() {
       <Navbar />
 
       <main className="flex-1">
-        {/* PHASE 2: Landing — Simple, Visual, High-Conversion */}
-        <section className="relative pt-40 pb-20 overflow-hidden px-6">
+        {/* Simplified Hero Section */}
+        <section className="relative pt-44 pb-24 overflow-hidden px-6">
           <div className="max-w-7xl mx-auto relative z-10 text-center">
             <MotionDiv 
               variants={stagger}
               initial="initial"
               animate="animate"
-              className="flex flex-col items-center gap-8"
+              className="flex flex-col items-center gap-10"
             >
-              <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-accent-soft border border-accent/10 backdrop-blur-md">
-                <Sparkles size={14} className="text-accent animate-pulse" />
-                <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-accent">
-                  Learn AI Development • Simple & Fast
+              <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-accent-soft border border-accent/10 backdrop-blur-md">
+                <Sparkles size={14} className="text-accent" />
+                <span className="text-[10px] font-black uppercase tracking-[0.4em] text-accent">
+                  Hands-on AI. Zero Fluff.
                 </span>
               </div>
               
-              <h1 className="text-6xl md:text-8xl font-serif tracking-tighter text-text-primary max-w-4xl leading-[0.95]">
-                Master the Future of <br />
-                <span className="text-accent italic font-normal">Artificial intelligence.</span>
+              <h1 className="text-6xl md:text-9xl font-serif tracking-tighter text-text-primary max-w-5xl leading-[0.88] drop-shadow-sm">
+                Learn AI. <br />
+                <span className="text-accent italic font-normal">Simply.</span>
               </h1>
 
-              <p className="max-w-xl text-xl md:text-2xl font-serif italic text-text-secondary leading-relaxed opacity-80">
-                Go from zero to building autonomous agents. Beginner friendly, zero jargon, 100% functional.
+              <p className="max-w-2xl text-xl md:text-3xl font-serif italic text-text-secondary leading-relaxed opacity-70">
+                A simple blueprint for building autonomous systems. <br className="hidden md:block"/> No jargon. Just building.
               </p>
 
-              <div className="flex flex-col sm:flex-row items-center gap-6 mt-4">
+              <div className="flex flex-col sm:flex-row items-center gap-6 mt-6">
                 <Link
-                  href={user ? "/learn" : "https://panaversity-h0-portfolio.vercel.app/auth"}
-                  className="btn-tactile bg-text-primary text-white font-bold text-[14px] uppercase tracking-[0.25em] px-14 py-6 rounded-2xl shadow-float flex items-center gap-4 w-full sm:w-auto justify-center group"
+                  href={user ? "/learn" : "/sign-in"}
+                  className="btn-tactile bg-text-primary text-white font-bold text-[14px] uppercase tracking-[0.3em] px-16 py-7 rounded-[2.5rem] shadow-2xl flex items-center gap-4 transition-all hover:scale-105 active:scale-95 group"
                 >
-                  Start Learning <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                  Start Building <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                 </Link>
-                <div className="flex items-center gap-4 text-text-muted text-[11px] font-bold uppercase tracking-[0.2em] px-6">
-                   <CheckCircle2 size={16} className="text-emerald-500" /> Free Portfolio Node
+                <div className="flex items-center gap-4 text-text-muted text-[10px] font-bold uppercase tracking-[0.3em] px-8 py-3 bg-bg-surface rounded-full border border-border-fine">
+                   <Target size={14} className="text-accent" /> Unified Hub
                 </div>
               </div>
             </MotionDiv>
           </div>
+          
+          {/* Subtle Background Elements */}
+          <div className="absolute top-[20%] left-[-5%] w-[40%] h-[40%] bg-accent/5 blur-[120px] rounded-full pointer-events-none" />
+          <div className="absolute bottom-[10%] right-[-5%] w-[30%] h-[30%] bg-blue-500/5 blur-[100px] rounded-full pointer-events-none" />
         </section>
 
-        {/* PHASE 2: Student Dashboard (Wired to Progress) */}
+        {/* Personalized Progress Tracker */}
         {user && (
-          <section className="py-20 bg-bg-surface/30 px-6 border-y border-border-fine">
+          <section className="py-24 bg-bg-surface/40 backdrop-blur-sm px-6 border-y border-border-fine">
             <div className="max-w-7xl mx-auto">
               <MotionDiv
                 variants={fadeUp}
                 initial="initial"
-                animate="animate"
-                className="grid md:grid-cols-2 gap-12 items-center"
+                whileInView="animate"
+                viewport={{ once: true }}
+                className="grid md:grid-cols-2 gap-16 items-center"
               >
-                <div className="space-y-8">
-                  <div className="space-y-2">
-                    <h2 className="text-3xl font-serif text-text-primary tracking-tight">Welcome Back, Architect.</h2>
-                    <p className="text-text-secondary opacity-70">Pick up exactly where you left off in your mastery journey.</p>
+                <div className="space-y-10">
+                  <div className="space-y-3">
+                    <h2 className="text-4xl font-serif text-text-primary tracking-tight">Your Progress</h2>
+                    <p className="text-text-secondary text-lg italic font-serif leading-relaxed">Pick up where you left off. Every milestone matters.</p>
                   </div>
                   
-                  <div className="bg-white rounded-3xl p-10 border border-border-fine shadow-card space-y-8">
+                  <div className="bg-white rounded-[2.5rem] p-12 border border-border-fine shadow-card space-y-10">
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-4">
-                         <div className="w-12 h-12 rounded-2xl bg-accent-soft flex items-center justify-center text-accent shadow-sm">
-                           <Layout size={20} />
+                      <div className="flex items-center gap-6">
+                         <div className="w-14 h-14 rounded-2xl bg-accent-soft flex items-center justify-center text-accent shadow-float">
+                           <Layout size={24} />
                          </div>
                          <div>
-                            <span className="block text-[10px] font-bold uppercase tracking-widest text-text-muted">Mastery Progress</span>
-                            <span className="block text-2xl font-serif font-bold text-text-primary">{progress?.mastery_score || 0}%</span>
+                            <span className="block text-[10px] font-black uppercase tracking-[0.3em] text-text-muted">Mastery Level</span>
+                            <span className="block text-3xl font-serif font-black text-text-primary">{progress?.mastery_score || 0}%</span>
                          </div>
                       </div>
-                      <Link href="/progress" className="text-accent">
+                      <Link href="/progress" className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center text-accent hover:bg-accent hover:text-white transition-all">
                          <ArrowUpRight size={24} />
                       </Link>
                     </div>
@@ -156,37 +161,37 @@ export default function LandingPage() {
                       />
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-2 gap-6 pt-4">
                       <Link
                         href="/learn"
-                        className="btn-tactile bg-accent text-white font-bold text-[10px] uppercase tracking-[0.2em] w-full py-5 rounded-xl flex items-center justify-center gap-2 group"
+                        className="btn-tactile bg-accent text-white font-bold text-[11px] uppercase tracking-[0.25em] w-full py-5 rounded-2xl flex items-center justify-center gap-3 transition-transform hover:scale-105"
                       >
-                        <PlayCircle size={16} /> Continue
+                        <PlayCircle size={18} /> Continue
                       </Link>
                       <Link
                         href="/arena"
-                        className="btn-tactile bg-[#141210] text-[#E58A6D] border border-[#2E2B27] font-bold text-[10px] uppercase tracking-[0.2em] w-full py-5 rounded-xl flex items-center justify-center gap-2 group hover:border-[#E58A6D]"
+                        className="btn-tactile bg-[#141210] text-[#E58A6D] border border-[#2E2B27] font-bold text-[11px] uppercase tracking-[0.25em] w-full py-5 rounded-2xl flex items-center justify-center gap-3 hover:border-[#E58A6D] transition-all"
                       >
-                        <Target size={16} className="group-hover:animate-pulse" /> The Arena
+                        <Target size={18} /> The Arena
                       </Link>
                     </div>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-6">
-                  <StatCard icon={<Star size={18} />} label="Streak" value="5 Days" />
-                  <StatCard icon={<Clock size={18} />} label="Focus" value="12h" />
-                  <StatCard icon={<CheckCircle2 size={18} />} label="Modules" value={`${modules.length}`} />
-                  <StatCard icon={<Zap size={18} className={cn("transition-colors", uplink === "INITIALIZING..." ? "text-yellow-500 animate-pulse" : "text-emerald-500")} />} label="Uplink" value={uplink} />
+                <div className="grid grid-cols-2 gap-6 lg:gap-8">
+                  <SimpleStatCard icon={<Star size={20} />} label="Streak" value="5 Runs" />
+                  <SimpleStatCard icon={<Clock size={20} />} label="Focus" value="12h" />
+                  <SimpleStatCard icon={<CheckCircle2 size={20} />} label="Stages" value={`${modules.length}`} />
+                  <SimpleStatCard icon={<Zap size={20} className={cn("transition-colors", uplink === "SYNCING..." ? "text-yellow-500 animate-pulse" : "text-emerald-500")} />} label="Uplink" value={uplink} />
                 </div>
               </MotionDiv>
             </div>
           </section>
         )}
 
-        {/* PHASE 2: Modules Grid — Clean & Goal-Oriented */}
+        {/* Simplified Modules Grid */}
         <section className="py-32 px-6">
-          <div className="max-w-7xl mx-auto space-y-16">
+          <div className="max-w-7xl mx-auto space-y-20">
             <MotionDiv
               variants={fadeUp}
               initial="initial"
@@ -194,14 +199,14 @@ export default function LandingPage() {
               viewport={{ once: true }}
               className="text-center space-y-6"
             >
-              <h2 className="text-5xl font-serif text-text-primary tracking-tight">Mastery Modules</h2>
-              <p className="text-xl font-serif italic text-text-secondary opacity-70">Step-by-step blueprints for building the future.</p>
+              <h2 className="text-6xl font-serif text-text-primary tracking-tighter leading-tight">Skill Stages</h2>
+              <p className="text-xl md:text-2xl font-serif italic text-text-secondary opacity-60">Linear learning. Massive results.</p>
             </MotionDiv>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
               {loading ? (
                 Array.from({ length: 3 }).map((_, i) => (
-                  <div key={i} className="h-64 rounded-3xl bg-white border border-border-fine animate-pulse" />
+                  <div key={i} className="h-80 rounded-[2.5rem] bg-white border border-border-fine animate-pulse" />
                 ))
               ) : modules.map((module, i) => (
                 <MotionDiv
@@ -213,24 +218,24 @@ export default function LandingPage() {
                   transition={{ delay: i * 0.1 }}
                 >
                   <Link href={`/learn/${module.slug}`} className="group block h-full">
-                    <div className="h-full bg-white border border-border-fine rounded-3xl p-10 shadow-card hover:shadow-float transition-editorial group-hover:-translate-y-2 flex flex-col justify-between relative overflow-hidden">
-                       <div className="space-y-6">
+                    <div className="h-full bg-white border border-border-fine rounded-[2.5rem] p-12 shadow-card hover:shadow-float transition-editorial group-hover:-translate-y-3 flex flex-col justify-between relative overflow-hidden">
+                       <div className="space-y-8">
                           <div className="flex items-center justify-between">
-                            <div className="w-10 h-10 rounded-xl bg-bg-surface border border-border-fine flex items-center justify-center text-accent font-bold text-xs">
+                            <div className="w-12 h-12 rounded-2xl bg-bg-surface border border-border-fine flex items-center justify-center text-accent font-black text-xs">
                                0{i + 1}
                             </div>
                             {progress?.completed_modules?.includes(module.id) && (
-                              <CheckCircle2 size={20} className="text-emerald-500" />
+                              <div className="px-4 py-1.5 rounded-full bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 text-[9px] font-black tracking-widest uppercase">Mastered</div>
                             )}
                           </div>
-                          <div className="space-y-3">
-                             <h3 className="text-2xl font-serif font-bold text-text-primary group-hover:text-accent transition-colors">{module.name}</h3>
-                             <p className="text-sm prose-editorial text-text-secondary opacity-70 line-clamp-2">{module.description}</p>
+                          <div className="space-y-4">
+                             <h3 className="text-3xl font-serif font-bold text-text-primary group-hover:text-accent transition-colors tracking-tight">{module.name}</h3>
+                             <p className="text-base font-serif italic text-text-secondary opacity-70 leading-relaxed">{module.description}</p>
                           </div>
                        </div>
                        <div className="pt-10 flex items-center justify-between mt-10 border-t border-border-fine">
-                          <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-text-muted group-hover:text-accent">Start Module</span>
-                          <ArrowRight size={16} className="text-accent opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+                          <span className="text-[10px] font-black uppercase tracking-[0.35em] text-text-muted group-hover:text-accent">Open Blueprint</span>
+                          <ArrowRight size={18} className="text-accent opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
                        </div>
                     </div>
                   </Link>
@@ -240,31 +245,34 @@ export default function LandingPage() {
           </div>
         </section>
       </main>
-      <footer className="py-20 bg-bg-surface/50 border-t border-border-fine px-6">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10">
-          <div className="flex flex-col gap-2 scale-75 origin-left">
-             <span className="font-serif font-bold text-4xl">LearnFlow</span>
-             <span className="text-[10px] uppercase font-bold tracking-[0.5em] text-text-muted">Part of Panaversity</span>
+
+      <footer className="py-24 bg-bg-surface/50 border-t border-border-fine px-6">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12">
+          <div className="flex flex-col gap-3 scale-90 origin-left">
+             <span className="font-serif font-bold text-5xl tracking-tighter">LearnFlow</span>
+             <span className="text-[10px] uppercase font-black tracking-[0.5em] text-text-muted">Mastery Protocol v2.5</span>
           </div>
-          <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-text-muted opacity-40">Architected by Hassaan & AI • 2026</span>
+          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-text-muted opacity-40">
+            © 2026 Architected by Hassaan & AI
+          </p>
         </div>
       </footer>
 
       <AiraAssistant 
         platform="H3" 
-        context="Student mastery scoring is active. Arena matches are live. All microservices are healthy on Koyeb mesh." 
+        context="System simplified for deployment. All 5 Flux Mode mechanics are operational. Connectivity verified through Koyeb API mesh." 
       />
     </div>
   );
 }
 
-function StatCard({ icon, label, value }: { icon: any, label: string, value: string }) {
+function SimpleStatCard({ icon, label, value, className }: { icon: any, label: string, value: string, className?: string }) {
   return (
-    <div className="bg-white border border-border-fine rounded-2xl p-6 shadow-sm flex flex-col items-center text-center gap-3">
-      <div className="text-accent/50">{icon}</div>
+    <div className={cn("bg-white border border-border-fine rounded-3xl p-8 shadow-sm flex flex-col items-center text-center gap-4 hover:shadow-float transition-all group", className)}>
+      <div className="text-accent/40 group-hover:text-accent transition-colors">{icon}</div>
       <div>
-        <span className="block text-[9px] font-bold uppercase tracking-widest text-text-muted">{label}</span>
-        <span className="block text-xl font-serif text-text-primary">{value}</span>
+        <span className="block text-[9px] font-black uppercase tracking-[0.3em] text-text-muted mb-1">{label}</span>
+        <span className="block text-2xl font-serif font-black text-text-primary">{value}</span>
       </div>
     </div>
   );
