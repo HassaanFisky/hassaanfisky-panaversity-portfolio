@@ -12,11 +12,11 @@ import { useSession, signOut } from "@/lib/auth-client";
  * Standardized across all hackathon modules.
  */
 const ECOSYSTEM_APPS = [
-  { name: "Portfolio Hub", image: "https://panaversity-h0-portfolio.vercel.app/blueprint-footer.png", url: "https://panaversity-h0-portfolio.vercel.app", id: "H0" },
-  { name: "Physical AI & Robotics", image: "https://panaversity-h1-robotics.vercel.app/h1-thumb.png", url: "https://panaversity-h1-robotics.vercel.app", id: "H1" },
+  { name: "Portfolio Hub", image: "https://hassaanfisky-portfolio.vercel.app/blueprint-footer.png", url: "https://hassaanfisky-portfolio.vercel.app", id: "H0" },
+  { name: "Physical AI & Robotics", image: "https://physical-ai-humanoid-robots-textboo.vercel.app/h1-thumb.png", url: "https://physical-ai-humanoid-robots-textboo.vercel.app", id: "H1" },
   { name: "Evolution of To-Do", image: "https://evolution-of-todo.vercel.app/h2-thumb.png", url: "https://evolution-of-todo.vercel.app", id: "H2" },
-  { name: "LearnFlow Engine", image: "https://learnflow-platform-h3.vercel.app/h3-thumb.png", url: "https://learnflow-platform-h3.vercel.app", id: "H3" },
-  { name: "Companion FTE", image: "https://panaversity-h4-companion.vercel.app/h4-thumb.png", url: "https://panaversity-h4-companion.vercel.app", id: "H4" },
+  { name: "LearnFlow Engine", image: "https://hassaanfisky-learnflow-h3.vercel.app/h3-thumb.png", url: "https://hassaanfisky-learnflow-h3.vercel.app", id: "H3" },
+  { name: "Autonomous CRM", image: "https://hassaanfisky-aira-digital-fte.vercel.app/h4-thumb.png", url: "https://hassaanfisky-aira-digital-fte.vercel.app", id: "H4" },
 ];
 
 export function EcosystemNav() {

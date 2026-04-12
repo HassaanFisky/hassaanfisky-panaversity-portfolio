@@ -156,18 +156,18 @@ export function AiraAssistant({ platform, context }: AiraAssistantProps) {
             className="fixed inset-0 bg-black/20 backdrop-blur-sm z-[10000]"
           />
 
-          <motion.div
+            <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 40 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 40 }}
-            className="fixed inset-x-4 md:inset-x-0 bottom-24 md:bottom-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-full md:w-[450px] h-[650px] max-h-[85vh] glass-apple rounded-[2.5rem] shadow-float z-[10001] flex flex-col overflow-hidden border-white/20 dark:border-white/10"
+            className="fixed inset-x-4 md:inset-x-0 bottom-24 md:bottom-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-full md:w-[560px] md:h-[780px] max-h-[92vh] glass-apple rounded-[2.5rem] shadow-float z-[10001] flex flex-col overflow-hidden border-white/20 dark:border-white/10"
           >
             {/* Header */}
-            <div className="px-8 py-6 border-b border-border-fine bg-bg-base/40 flex items-center justify-between">
+            <div className="px-7 py-4 border-b border-border-fine bg-bg-base/40 flex items-center justify-between">
               <div className="flex flex-col">
                 <div className="flex items-center gap-2">
                   <span className="text-[9px] font-bold tracking-[0.3em] text-accent uppercase font-mono">
-                    {platform} LIVE STATUS
+                    {platform} NODE REGISTRY
                   </span>
                   <div className={`w-1.5 h-1.5 rounded-full animate-pulse ${isTyping ? 'bg-accent' : 'bg-emerald-500'}`} />
                 </div>
@@ -202,7 +202,7 @@ export function AiraAssistant({ platform, context }: AiraAssistantProps) {
             </div>
 
             {/* Content Area */}
-            <div className="flex-1 overflow-y-auto px-8 py-6 space-y-6 scrollbar-hide">
+            <div className="flex-1 overflow-y-auto px-7 py-4 space-y-5 scrollbar-hide">
               {activeTab === 'chat' ? (
                 <>
                   {messages.map((msg, i) => (

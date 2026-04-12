@@ -5,7 +5,7 @@ import { Logo } from "./Logo";
 import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useSession, authClient } from "@/lib/auth-client";
-import { MessageSquare, LayoutDashboard, LogOut } from "lucide-react";
+import { MessageSquare, LayoutDashboard, LogOut, Globe } from "lucide-react";
 
 const NAV_LINKS = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -54,8 +54,16 @@ export function Navbar() {
         </div>
 
         <div className="flex items-center gap-4">
+          <Link
+            href="https://panaversity-h0-portfolio.vercel.app"
+            className="navbar-cta-primary hidden md:flex items-center gap-2 px-6 py-2.5 bg-accent text-white rounded-full font-bold text-[10px] uppercase tracking-widest ring-1 ring-white/20 hover:brightness-110 hover:ring-white/40 active:scale-95 transition-all duration-300"
+          >
+            <Globe size={14} className="animate-globe-spin shrink-0" />
+            Portfolio Hub
+          </Link>
+          
           {session?.user && (
-            <div className="hidden md:flex items-center gap-3">
+            <div className="hidden md:flex items-center gap-3 ml-2">
               <div className="flex flex-col items-end">
                 <span className="text-[11px] font-bold text-text-primary leading-none">{session.user.name}</span>
                 <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-text-muted mt-0.5">{session.user.email}</span>
@@ -65,7 +73,7 @@ export function Navbar() {
           {session ? (
             <button
               onClick={handleSignOut}
-              className="btn-tactile flex items-center gap-2 border border-[var(--border-fine)] bg-[var(--bg-surface)] text-[var(--text-muted)] font-bold text-[10px] uppercase tracking-widest px-4 py-2 rounded-xl hover:border-red-300 hover:text-red-500 transition-all"
+              className="btn-tactile flex items-center gap-2 border border-border-fine bg-bg-surface text-text-muted font-bold text-[10px] uppercase tracking-widest px-4 py-2 rounded-xl hover:border-red-300 hover:text-red-500 transition-all"
             >
               <LogOut className="h-3.5 w-3.5" />
               <span className="hidden sm:inline">Sign Out</span>
@@ -73,7 +81,7 @@ export function Navbar() {
           ) : (
             <Link 
               href="/sign-in"
-              className="btn-tactile bg-text-primary text-white font-bold text-[11px] uppercase tracking-widest px-6 py-2.5 rounded-xl shadow-sm hover:shadow-md transition-editorial"
+              className="btn-tactile bg-text-primary text-bg-base font-bold text-[11px] uppercase tracking-widest px-6 py-2.5 rounded-xl shadow-sm hover:shadow-md transition-editorial"
             >
               Sign In
             </Link>

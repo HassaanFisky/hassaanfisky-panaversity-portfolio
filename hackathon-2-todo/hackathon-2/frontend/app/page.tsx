@@ -55,7 +55,7 @@ export default function LandingPage() {
             </h1>
 
             <p className="mx-auto max-w-2xl text-xl md:text-2xl text-text-muted font-medium leading-[1.6] mb-16">
-              A high-fidelity task management system designed for technical scholars. Built with Next.js 15, FastAPI, and accelerated by Groq LPU.
+              A high-fidelity task management system designed for technical scholars. Built with Next.js 15, FastAPI, and accelerated by Aira intelligence.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
@@ -67,7 +67,7 @@ export default function LandingPage() {
               </Link>
               <Link
                 href="/sign-in"
-                className="btn-tactile border border-fine bg-white text-text-primary px-10 py-4 font-bold text-[12px] uppercase tracking-widest rounded-lg hover:border-accent/40"
+                className="btn-tactile border border-border-fine bg-bg-surface text-text-primary px-10 py-4 font-bold text-[12px] uppercase tracking-widest rounded-lg hover:border-accent/40"
               >
                 Access Archive
               </Link>
@@ -76,7 +76,7 @@ export default function LandingPage() {
         </section>
 
         {/* Features Grids */}
-        <section className="relative z-10 py-32 border-t border-fine bg-white/50 backdrop-blur-sm">
+        <section className="relative z-10 py-32 border-t border-border-fine bg-bg-surface/30 backdrop-blur-md">
           <div className="container mx-auto px-6">
             <div className="flex items-center gap-6 mb-20">
               <h2 className="text-[11px] font-bold text-text-muted uppercase tracking-[0.3em] whitespace-nowrap">Core Capabilities</h2>
