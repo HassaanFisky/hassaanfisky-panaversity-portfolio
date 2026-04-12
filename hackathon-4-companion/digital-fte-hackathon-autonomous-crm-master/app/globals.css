@@ -163,9 +163,46 @@
   background: var(--accent);
 }
 
+/* Scrollbar hide — used by AiraAssistant */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 /* Selection Highlight */
 ::selection {
   background: var(--accent-dim);
   color: var(--accent);
+}
+
+/* ── Globe / Earth button rotation ───────────────────────────────────────── */
+@keyframes globe-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.animate-globe-spin {
+  animation: globe-spin 18s linear infinite;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/* ── Button visibility insurance ─────────────────────────────────────────── */
+button:not([class*='bg-accent']):not([class*='bg-text']):not([class*='bg-bg-elevated']):not([role='toolbar'] button) {
+  --btn-outline-alpha: 0.12;
+}
+[data-weather='snow'] button,
+[data-weather='cloudy'] button {
+  --btn-outline-alpha: 0.18;
+}
+
+/* ── "AI Platform" navbar button contrast ────────────────────────────────── */
+:root .navbar-cta-primary {
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.4), 0 4px 12px rgba(0,0,0,0.18);
+}
+.dark .navbar-cta-primary {
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.15), 0 4px 12px rgba(0,0,0,0.4);
 }
 
