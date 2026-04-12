@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import * as Lucide from "lucide-react";
+import { ArrowLeft, Download, Mail, Github, Linkedin, MapPin } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
