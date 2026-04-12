@@ -24,6 +24,7 @@
   --text-muted: #6B6460;
   
   --accent: #D97757;
+  --accent-dim: rgba(217, 119, 87, 0.18);
   --accent-soft: rgba(217, 119, 87, 0.12);
   --border-fine: rgba(28, 24, 21, 0.08);
   --border-active: #D97757;
@@ -51,6 +52,7 @@
   --text-muted: #8A8480;
   
   --accent: #E58A6D;
+  --accent-dim: rgba(229, 138, 109, 0.22);
   --accent-soft: rgba(229, 138, 109, 0.15);
   --border-fine: rgba(255, 255, 255, 0.08);
   --border-active: #E58A6D;
@@ -213,6 +215,76 @@
     background: radial-gradient(circle at center, var(--accent-soft) 0%, transparent 70%);
   }
   .card-bento:hover::after { @apply opacity-40; }
+
+  /* ── Elevation shadows — referenced throughout UI ─── */
+  /* Float: used on CTAs and stat chips — soft lift */
+  .shadow-float {
+    box-shadow:
+      0 4px 6px -2px rgba(0, 0, 0, 0.06),
+      0 12px 28px -6px rgba(0, 0, 0, 0.12),
+      0 0 0 1px rgba(255, 255, 255, 0.04);
+  }
+  /* Card: used on content cards — subtle depth */
+  .shadow-card {
+    box-shadow:
+      0 1px 3px -1px rgba(0, 0, 0, 0.06),
+      0 6px 16px -4px rgba(0, 0, 0, 0.09),
+      0 0 0 1px rgba(0, 0, 0, 0.03);
+  }
+  /* Dark-mode overrides for elevation */
+  .dark .shadow-float,
+  [data-theme='dark'] .shadow-float {
+    box-shadow:
+      0 4px 6px -2px rgba(0, 0, 0, 0.3),
+      0 12px 28px -6px rgba(0, 0, 0, 0.45),
+      0 0 0 1px rgba(255, 255, 255, 0.05);
+  }
+  .dark .shadow-card,
+  [data-theme='dark'] .shadow-card {
+    box-shadow:
+      0 1px 3px -1px rgba(0, 0, 0, 0.25),
+      0 6px 16px -4px rgba(0, 0, 0, 0.4),
+      0 0 0 1px rgba(255, 255, 255, 0.04);
+  }
+
+  /* ── Editorial prose — humanist reading typography ─── */
+  .prose-editorial {
+    font-family: var(--font-serif, Georgia, serif);
+    font-style: italic;
+    line-height: 1.65;
+    letter-spacing: 0.01em;
+    color: var(--text-secondary);
+  }
+
+  /* ── Hover transition shorthand ─── */
+  .transition-editorial {
+    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1),
+                box-shadow 0.5s cubic-bezier(0.23, 1, 0.32, 1),
+                color 0.3s ease;
+  }
+
+  /* ── Humanist Card — used in dashboard, milestones, detail pages ─── */
+  /* Same rounding as card-bento but no forced overflow:hidden so it
+     composes freely with backdrop-blur and inline bg/border overrides. */
+  .card-humanist {
+    border-radius: 2rem;
+    border: 1px solid var(--border-fine);
+    background-color: var(--bg-surface);
+    transition: box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+                transform   0.4s cubic-bezier(0.23, 1, 0.32, 1),
+                border-color 0.3s ease;
+    box-shadow:
+      0 1px 3px -1px rgba(0, 0, 0, 0.06),
+      0 6px 16px -4px rgba(0, 0, 0, 0.09),
+      0 0 0 1px rgba(255, 255, 255, 0.03);
+  }
+  .dark .card-humanist,
+  [data-theme='dark'] .card-humanist {
+    box-shadow:
+      0 1px 3px -1px rgba(0, 0, 0, 0.25),
+      0 8px 24px -6px rgba(0, 0, 0, 0.45),
+      0 0 0 1px rgba(255, 255, 255, 0.04);
+  }
 }
 
 /* ─── WEATHER PARTICLE EFFECTS ──────────────────────────────────────────────

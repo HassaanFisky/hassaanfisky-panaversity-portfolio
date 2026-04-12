@@ -51,15 +51,15 @@ function Start-Deployment {
 
         # Trigger Direct Production Push
         Show-Info "Pinging Vercel API for '$($mod.project)'..."
-        # We use --prod directly. Vercel will handle builds on their end.
-        vercel --prod --yes --force
-        
+        # Pipe to Out-Host so Vercel CLI stdout goes to console, not the return pipeline.
+        vercel --prod --yes --force | Out-Host
+
         if ($LASTEXITCODE -eq 0) {
             Show-Ok "$($mod.name) is successfully LIVE."
-            return "SUCCESS"
+            return [string]"SUCCESS"
         } else {
             Show-Fail "$($mod.name) deployment encountered a protocol error."
-            return "FAILED"
+            return [string]"FAILED"
         }
     } catch {
         Show-Fail "Unexpected exception in $($mod.name): $_"

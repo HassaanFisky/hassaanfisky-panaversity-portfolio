@@ -2,7 +2,7 @@
 
 import { notFound } from "next/navigation";
 import { hackathons } from "@/lib/hackathons";
-import { MoveLeft, Milestone, Layers, ExternalLink, ShieldCheck } from "lucide-react";
+import { MoveLeft, ExternalLink, ShieldCheck, Layers, Zap } from "lucide-react";
 import Link from "next/link";
 import { StatusBadge } from "@/components/StatusBadge";
 
@@ -10,6 +10,10 @@ interface PageProps {
   params: Promise<{ id: string }>;
 }
 
+/**
+ * HASSAAN AI ARCHITECT — Project Detail Page v2.0
+ * Humanist design system — consistent with Portfolio Hub globals.
+ */
 export default async function HackathonDetail({ params }: PageProps) {
   const { id } = await params;
   const hackathon = hackathons.find((h) => h.id === parseInt(id));
@@ -19,104 +23,167 @@ export default async function HackathonDetail({ params }: PageProps) {
   const isComingSoon = hackathon.status === "coming-soon";
 
   return (
-    <div className="min-h-screen bg-black pt-24 pb-32 px-4 selection:bg-cyan-400 selection:text-black">
-      <div className="max-w-5xl mx-auto space-y-12">
-        {/* Navigation */}
-        <Link 
-          href="/" 
-          className="inline-flex items-center space-x-2 text-sm font-bold text-slate-500 hover:text-cyan-400 transition-colors group"
+    <div className="min-h-screen bg-bg-base pt-28 pb-32 px-4 selection:bg-accent/10 transition-colors duration-500">
+      {/* Ambient background */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,var(--accent-dim),transparent_50%)] opacity-20" />
+      </div>
+
+      <div className="max-w-5xl mx-auto space-y-12 relative z-10">
+
+        {/* ── Back Navigation ── */}
+        <Link
+          href="/"
+          className="inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.3em] text-text-muted hover:text-accent transition-colors group"
         >
-          <MoveLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-          <span>Back to Hub</span>
+          <MoveLeft
+            size={14}
+            className="group-hover:-translate-x-1 transition-transform duration-300"
+          />
+          Back to Portfolio
         </Link>
 
-        {/* Feature Grid Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          {/* Main Info */}
-          <div className="lg:col-span-2 space-y-8 animate-in fade-in slide-in-from-left-8 duration-700">
-            <div className="space-y-4">
-              <div className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-400 font-mono">
-                Project Manifest / {hackathon.category}
-              </div>
-              <h1 className="text-4xl md:text-6xl font-black tracking-tighter text-white">
+        {/* ── Main Grid ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+
+          {/* Left — Primary Content */}
+          <div className="lg:col-span-2 space-y-10">
+            {/* Category label */}
+            <div className="inline-flex items-center gap-2 text-[9px] font-black tracking-[0.4em] uppercase text-accent/80">
+              <span className="w-8 h-[1px] bg-accent/40" />
+              {hackathon.category}
+            </div>
+
+            {/* Title */}
+            <div className="space-y-5">
+              <h1 className="text-4xl md:text-6xl font-serif text-text-primary tracking-tight leading-tight glass-3d">
                 {hackathon.title}
               </h1>
               <StatusBadge status={hackathon.status} />
             </div>
 
-            <p className="text-xl md:text-2xl text-slate-400 font-medium leading-relaxed max-w-2xl">
+            {/* Description */}
+            <p className="prose-editorial text-xl md:text-2xl font-serif italic text-text-secondary/80 leading-relaxed max-w-2xl">
               {hackathon.description}
             </p>
 
-            <div className="space-y-4">
-              <h3 className="text-sm font-bold uppercase tracking-widest text-white/40 font-mono">
+            {/* Tech Stack */}
+            <div className="space-y-5">
+              <div className="text-[9px] font-bold uppercase tracking-[0.4em] text-text-muted">
                 System Capabilities
-              </h3>
+              </div>
               <div className="flex flex-wrap gap-3">
                 {hackathon.tech.map((tech) => (
-                  <div key={tech} className="flex items-center space-x-2 px-4 py-2 rounded-2xl bg-[#0f172a] border border-[#1e293b] text-sm text-slate-300 font-bold">
-                    <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.6)]" />
-                    <span>{tech}</span>
+                  <div
+                    key={tech}
+                    className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-bg-surface border border-border-fine text-[11px] font-bold text-text-secondary hover:border-accent/30 hover:text-accent transition-all duration-300"
+                  >
+                    <div className="w-1.5 h-1.5 rounded-full bg-accent/60" />
+                    {tech}
                   </div>
                 ))}
               </div>
             </div>
+
+            {/* Feature highlights */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-4">
+              {[
+                {
+                  icon: <ShieldCheck size={18} />,
+                  title: "Verified Build",
+                  body: "Architecture audited and signed off by the Panaversity AI Agent.",
+                },
+                {
+                  icon: <Layers size={18} />,
+                  title: "Fullstack Compliance",
+                  body: "Strict adherence to Next.js 15 App Router spec and production standards.",
+                },
+                {
+                  icon: <Zap size={18} />,
+                  title: "Performance Optimized",
+                  body: "GPU-composited animations, lazy-loaded assets, and edge-ready API routes.",
+                },
+                {
+                  icon: <ExternalLink size={18} />,
+                  title: "Live on Vercel",
+                  body: "Deployed to production via Vercel with automatic CI/CD on every push.",
+                },
+              ].map((feat) => (
+                <div
+                  key={feat.title}
+                  className="card-humanist p-7 flex items-start gap-5 hover:-translate-y-1 transition-transform duration-300 bg-bg-surface/60"
+                >
+                  <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent flex-shrink-0 mt-0.5">
+                    {feat.icon}
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-text-primary mb-1">{feat.title}</h4>
+                    <p className="text-[12px] text-text-muted leading-relaxed">{feat.body}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
-          {/* Details Sidebar */}
-          <div className="lg:col-span-1 space-y-8 animate-in fade-in slide-in-from-right-8 duration-700">
-            <div className="p-8 rounded-[2rem] bg-[#0a0a0a] border border-[#1e293b] space-y-8 h-fit shadow-2xl">
+          {/* Right — Details Sidebar */}
+          <div className="lg:col-span-1">
+            <div className="card-humanist p-10 space-y-10 bg-bg-surface/70 backdrop-blur-xl sticky top-28">
+
+              {/* Points badge */}
               <div className="space-y-2">
-                <div className="text-xs font-bold text-slate-600 uppercase tracking-widest font-mono">Awarded Points</div>
-                <div className="text-3xl font-black text-cyan-400 font-mono tracking-tighter shadow-cyan-400/10 drop-shadow-sm">
+                <div className="text-[9px] font-bold text-text-muted uppercase tracking-widest">
+                  Achievement Points
+                </div>
+                <div className="text-3xl font-serif font-black text-accent tracking-tighter">
                   {hackathon.points}
                 </div>
               </div>
 
-              <div className="space-y-6">
-                <div className="flex items-start space-x-4">
-                  <div className="p-3 bg-cyan-400/10 rounded-2xl border border-cyan-400/20">
-                    <ShieldCheck className="w-5 h-5 text-cyan-400" />
-                  </div>
-                  <div>
-                    <h5 className="text-sm font-bold text-white">Verified Build</h5>
-                    <p className="text-xs text-slate-500 leading-relaxed mt-1">
-                      Architecture audited by Panaversity AI Agent.
-                    </p>
-                  </div>
-                </div>
+              <div className="w-full h-[1px] bg-border-fine" />
 
-                <div className="flex items-start space-x-4">
-                  <div className="p-3 bg-blue-400/10 rounded-2xl border border-blue-400/20">
-                    <Layers className="w-5 h-5 text-blue-400" />
-                  </div>
-                  <div>
-                    <h5 className="text-sm font-bold text-white">Fullstack Compliance</h5>
-                    <p className="text-xs text-slate-500 leading-relaxed mt-1">
-                      Strict adherence to Next.js 15 App Router spec.
-                    </p>
-                  </div>
+              {/* Status details */}
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-bold text-text-muted uppercase tracking-widest">Status</span>
+                  <StatusBadge status={hackathon.status} />
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-bold text-text-muted uppercase tracking-widest">Phase</span>
+                  <span className="text-[11px] font-bold text-text-primary">{hackathon.category}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-bold text-text-muted uppercase tracking-widest">Stack</span>
+                  <span className="text-[11px] font-bold text-text-primary">{hackathon.tech[0]}</span>
                 </div>
               </div>
 
-              <Link 
+              <div className="w-full h-[1px] bg-border-fine" />
+
+              {/* CTA */}
+              <Link
                 href={hackathon.url}
-                target={hackathon.url !== "#" ? "_blank" : "_self"}
-                className={`w-full py-4 rounded-2xl text-base font-bold flex items-center justify-center space-x-3 transition-all ${
-                  isComingSoon 
-                    ? "bg-[#0f172a] text-slate-600 border border-[#1e293b] cursor-not-allowed" 
-                    : "bg-white text-black hover:bg-cyan-400 active:scale-95 transition-all shadow-[0_0_30px_rgba(255,255,255,0.1)]"
+                target={isComingSoon ? "_self" : "_blank"}
+                rel="noopener noreferrer"
+                className={`w-full py-5 rounded-2xl text-[11px] font-black uppercase tracking-[0.3em] flex items-center justify-center gap-3 transition-all duration-300 ${
+                  isComingSoon
+                    ? "bg-bg-elevated text-text-muted border border-border-fine cursor-not-allowed opacity-60"
+                    : "bg-text-primary text-bg-base hover:bg-accent hover:text-white active:scale-95 shadow-float hover:shadow-2xl hover:shadow-accent/20"
                 }`}
               >
-                <span>{isComingSoon ? "Build Locked" : "Access Project"}</span>
-                <ExternalLink className="w-5 h-5" />
+                {isComingSoon ? "Build Locked" : "Launch Project"}
+                {!isComingSoon && <ExternalLink size={14} />}
+              </Link>
+
+              <Link
+                href="/"
+                className="w-full py-4 rounded-2xl text-[10px] font-bold uppercase tracking-widest text-text-muted hover:text-text-primary border border-border-fine hover:border-accent/30 flex items-center justify-center gap-2 transition-all duration-300"
+              >
+                <MoveLeft size={12} />
+                All Projects
               </Link>
             </div>
           </div>
         </div>
-
-        {/* Big Decorative Section Background */}
-        <div className="absolute top-[20%] left-[-10%] w-[50%] h-[50%] bg-cyan-400/5 blur-[150px] rounded-full pointer-events-none" />
       </div>
     </div>
   );
