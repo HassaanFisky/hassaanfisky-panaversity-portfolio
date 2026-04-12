@@ -182,7 +182,7 @@ export function AiraAssistant({ platform, context }: AiraAssistantProps) {
             initial={{ opacity: 0, y: 40, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 40, scale: 0.95 }}
-            className="fixed inset-x-4 md:inset-x-0 bottom-24 md:bottom-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-full md:w-[520px] md:h-[680px] max-h-[90vh] glass-apple rounded-[2.5rem] shadow-float z-[10001] flex flex-col overflow-hidden border-white/20 dark:border-white/10"
+            className="fixed inset-x-4 md:inset-x-0 bottom-24 md:bottom-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-full md:w-[560px] md:h-[780px] max-h-[92vh] glass-apple rounded-[2.5rem] shadow-float z-[10001] flex flex-col overflow-hidden border-white/20 dark:border-white/10"
           >
             {/* Header */}
             <div className="px-7 py-4 border-b border-border-fine bg-bg-base/40 flex items-center justify-between">
@@ -223,8 +223,8 @@ export function AiraAssistant({ platform, context }: AiraAssistantProps) {
               </button>
             </div>
 
-            {/* Content Area */}
-            <div className="flex-1 overflow-y-auto px-8 py-6 space-y-6 scrollbar-hide">
+            {/* Content Area — increased vertical space for chat messages */}
+            <div className="flex-1 overflow-y-auto px-7 py-4 space-y-5 scrollbar-hide">
               {activeTab === 'chat' ? (
                 <>
                   {messages.map((msg, i) => (

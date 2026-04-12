@@ -163,6 +163,15 @@
     z-index: 10;
   }
 
+  /* Scrollbar hide — used by AiraAssistant chat area */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
   body::before {
     content: "";
     position: fixed;
@@ -309,13 +318,16 @@
 /* ── Rain / Storm splash ripples ─────────── */
 /* Ellipse so they look like drops hitting a flat wet surface. */
 .rain-splash-ripple {
-  border:        1px solid rgba(160, 205, 255, 0.28);
-  border-radius: 50%;
-  opacity:       0;
-  animation:     splash-ripple var(--splash-dur, 1.3s)
-                 ease-out var(--splash-delay, 0s) infinite;
-  will-change:   transform, opacity;
-  transform:     translateZ(0);
+  border:           1px solid rgba(160, 205, 255, 0.28);
+  border-radius:    50%;
+  opacity:          0;
+  /* animation-duration and animation-delay are set inline by React;
+     default 1.3s / 0s used when inline styles are absent. */
+  animation:        splash-ripple 1.3s ease-out 0s infinite;
+  animation-duration:  var(--rsr-dur, 1.3s);
+  animation-delay:     var(--rsr-delay, 0s);
+  will-change:      transform, opacity;
+  transform:        translateZ(0);
 }
 
 @keyframes splash-ripple {
@@ -363,6 +375,41 @@ section.weather-hero {
   position: relative;
   z-index: 10;
   isolation: isolate;          /* prevents blend-mode bleed from particles  */
+}
+
+/* ── Cloudy sky — boost cloud visibility ─────────────────────────────────── */
+/* CloudySky blobs use opacity 0.30-0.55. In dark mode they're hard to see.
+   Boost filter brightness to make them crisper against the navy base. */
+[data-weather='cloudy'] .cloudy-sky-layer {
+  filter: brightness(1.5) contrast(1.1);
+}
+
+/* ── Globe / Earth button rotation ───────────────────────────────────────── */
+@keyframes globe-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.animate-globe-spin {
+  animation: globe-spin 18s linear infinite;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/* ── Adaptive text contrast for glass panels ──────────────────────────────
+   Ensures text is always visible regardless of background luminance.
+   Light weather (clear/cloudy) → force dark text on glass panels.
+   Dark weather (rain/storm/snow/sunny) → force light text (tokens handle).
+─────────────────────────────────────────── */
+[data-weather='clear'] .glass-apple,
+[data-weather='cloudy'] .glass-apple {
+  /* For light themes: enforce a slightly stronger backdrop to guarantee
+     dark text (--text-primary) stays legible. */
+  --glass-bg: rgba(252, 250, 248, 0.88);
+}
+.dark [data-weather='clear'] .glass-apple,
+[data-theme='dark'][data-weather='clear'] .glass-apple,
+.dark [data-weather='cloudy'] .glass-apple {
+  --glass-bg: rgba(8, 8, 8, 0.82);
 }
 
 /* ─── SURFACE WEATHER EFFECTS ────────────────────────────────────────────────
@@ -417,4 +464,23 @@ section.weather-hero {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.15),
     0 8px 32px -8px rgba(0, 0, 0, 0.08);
+}
+
+/* ── Button visibility insurance ─────────────────────────────────────────── */
+/* All interactive buttons get a subtle outline so they never blend into bg. */
+button:not([class*='bg-accent']):not([class*='bg-text']):not([class*='bg-bg-elevated']):not([role='toolbar'] button) {
+  --btn-outline-alpha: 0.12;
+}
+[data-weather='snow'] button,
+[data-weather='cloudy'] button {
+  --btn-outline-alpha: 0.18;
+}
+
+/* ── "AI Platform" navbar button contrast ────────────────────────────────── */
+/* The accent-filled top-right CTA needs a slightly stronger ring in light mode. */
+:root .navbar-cta-primary {
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.4), 0 4px 12px rgba(0,0,0,0.18);
+}
+.dark .navbar-cta-primary {
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.15), 0 4px 12px rgba(0,0,0,0.4);
 }

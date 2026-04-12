@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Logo } from "./Logo";
-import { GitBranch, FileText } from "lucide-react";
+import { GitBranch, FileText, Globe } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 
 /**
@@ -54,12 +54,13 @@ export function Navbar() {
             Resume
           </Link>
           
-          {/* CHANGED: "Launch CRM" → "AI Platform" */}
+          {/* AI Platform CTA — Globe icon with slow rotation for international/ecosystem feel */}
           <Link 
             href="https://hassaanfisky-aira-digital-fte.vercel.app"
             target="_blank"
-            className="px-6 py-2.5 bg-accent text-white rounded-full font-bold text-[10px] uppercase tracking-widest shadow-lg shadow-accent/20 ring-1 ring-white/20 hover:brightness-110 hover:ring-white/40 active:scale-95 transition-all duration-300"
+            className="navbar-cta-primary px-6 py-2.5 bg-accent text-white rounded-full font-bold text-[10px] uppercase tracking-widest ring-1 ring-white/20 hover:brightness-110 hover:ring-white/40 active:scale-95 transition-all duration-300 flex items-center gap-2"
           >
+            <Globe size={14} className="animate-globe-spin shrink-0" />
             AI Platform
           </Link>
         </div>

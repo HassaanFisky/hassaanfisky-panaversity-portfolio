@@ -166,6 +166,26 @@
   animation: spin-slow 12s linear infinite;
 }
 
+/* Globe/Earth button — slower, more natural rotation */
+@keyframes globe-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.animate-globe-spin {
+  animation: globe-spin 18s linear infinite;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/* Scrollbar hide — used by AiraAssistant and chat areas */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 /* Luxury Smooth Scroll */
 html {
   scroll-behavior: smooth;

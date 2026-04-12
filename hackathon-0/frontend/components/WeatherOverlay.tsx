@@ -229,7 +229,7 @@ function DesertSky() {
       className="absolute inset-0"
       style={GPU}
     >
-      {/* Layered golden-hour sky gradient */}
+      {/* Layered golden-hour sky gradient — reduced yellow to avoid harsh tone */}
       <div
         className="absolute inset-0"
         style={{
@@ -237,11 +237,11 @@ function DesertSky() {
             "linear-gradient(180deg," +
             "  #0d0500 0%," +
             "  #2a0e00 18%," +
-            "  #6b2700 38%," +
-            "  #b84f0a 58%," +
-            "  #e07818 78%," +
-            "  #f5b832 100%)",
-          opacity: 0.88,
+            "  #5a2000 38%," +
+            "  #9a4008 58%," +
+            "  #c06014 78%," +
+            "  #d99028 100%)",
+          opacity: 0.82,
           ...GPU,
         }}
       />
@@ -462,7 +462,8 @@ function CloudySky() {
         h:   260 + Math.random() * 180,
         top: Math.random() * 90,
         dur: 42 + Math.random() * 38,
-        op:  0.30 + Math.random() * 0.25,
+        // FIXED: bump opacity so clouds are clearly visible against navy base
+        op:  0.45 + Math.random() * 0.35,
       })),
     []
   );
@@ -473,7 +474,7 @@ function CloudySky() {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 3 }}
-      className="absolute inset-0"
+      className="absolute inset-0 cloudy-sky-layer"
       style={{ backdropFilter: "blur(1px)", ...GPU }}
     >
       <div className="absolute inset-0 bg-slate-900/15" style={GPU} />
@@ -482,14 +483,16 @@ function CloudySky() {
           key={c.id}
           animate={{ x: ["-22%", "122%"] }}
           transition={{ duration: c.dur, repeat: Infinity, ease: "linear" }}
-          className="absolute bg-white rounded-full"
+          className="absolute rounded-full"
           style={{
             width:  c.w,
             height: c.h,
             top:    `${c.top}%`,
             left:   "-15%",
-            filter: "blur(70px)",
-            opacity: c.op,
+            // Brighter white clouds for better visibility
+            background: `radial-gradient(ellipse, rgba(220,228,240,${c.op}) 0%, rgba(180,195,215,${c.op * 0.6}) 50%, transparent 85%)`,
+            filter: "blur(55px)",
+            opacity: 1,
             ...GPU,
           }}
         />
@@ -657,8 +660,9 @@ function RainParticles() {
             top:       `${s.y}%`,
             width:     `${s.size}px`,
             height:    `${s.size * 0.28}px`,
-            animationDelay:    `${s.delay}s`,
-            animationDuration: `${s.dur}s`,
+            // Pass timing as CSS custom props so the animation shorthand picks them up
+            ["--rsr-dur" as any]:   `${s.dur}s`,
+            ["--rsr-delay" as any]: `${s.delay}s`,
             ...GPU,
           }}
         />
@@ -781,8 +785,9 @@ function StormParticles() {
             top:       `${s.y}%`,
             width:     `${s.size}px`,
             height:    `${s.size * 0.28}px`,
-            animationDelay:    `${s.delay}s`,
-            animationDuration: `${s.dur}s`,
+            // CSS custom props picked up by the animation shorthand in globals.css
+            ["--rsr-dur" as any]:   `${s.dur}s`,
+            ["--rsr-delay" as any]: `${s.delay}s`,
             ...GPU,
           }}
         />
