@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowLeft, Download, Mail, Github, Linkedin, MapPin } from "lucide-react";
+import { ArrowLeft, Download, Mail, Github, Linkedin, MapPin, Globe } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
@@ -40,21 +40,35 @@ export default function ResumePage() {
             Back to Hub
           </Link>
 
-          <motion.a
-            href={PDF_PATH}
-            download="Hassaan_Resume.pdf"
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.93 }}
-            transition={{ type: "spring", stiffness: 500, damping: 20 }}
-            className="btn-tactile px-8 py-3 bg-accent text-white rounded-xl font-bold text-[10px] uppercase tracking-widest flex items-center gap-3 cursor-pointer"
-            style={{
-              boxShadow: "0 4px 24px rgba(var(--color-accent-raw, 99 102 241) / 0.45), 0 1px 0 rgba(255,255,255,0.12) inset",
-              backdropFilter: "blur(12px)",
-            }}
-          >
-            <Download size={14} />
-            Download PDF
-          </motion.a>
+          <div className="flex items-center gap-6">
+            <motion.a
+              href="https://hassaan-resume.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.93 }}
+              className="px-6 py-2.5 rounded-xl border border-white/10 glass-apple text-[9px] font-black uppercase tracking-widest text-text-primary hover:border-accent/40 transition-all flex items-center gap-3"
+            >
+              <Globe size={14} className="text-accent" />
+              Live Version
+            </motion.a>
+
+            <motion.a
+              href={PDF_PATH}
+              download="Hassaan_Resume.pdf"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.93 }}
+              transition={{ type: "spring", stiffness: 500, damping: 20 }}
+              className="btn-tactile px-8 py-3 bg-accent text-white rounded-xl font-bold text-[10px] uppercase tracking-widest flex items-center gap-3 cursor-pointer"
+              style={{
+                boxShadow: "0 4px 24px rgba(var(--color-accent-raw, 99 102 241) / 0.45), 0 1px 0 rgba(255,255,255,0.12) inset",
+                backdropFilter: "blur(12px)",
+              }}
+            >
+              <Download size={14} />
+              Download PDF
+            </motion.a>
+          </div>
         </div>
       </nav>
 

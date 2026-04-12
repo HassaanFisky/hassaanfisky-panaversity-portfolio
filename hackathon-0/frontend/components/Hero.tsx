@@ -58,16 +58,26 @@ export function Hero() {
           </p>
         </MotionDiv>
 
-        <MotionDiv variants={fadeUp} className="flex flex-col sm:flex-row items-center justify-center gap-12">
-          <button 
-            id="hero-view-projects-btn"
-            onClick={() => document.getElementById("hackathon-grid")?.scrollIntoView({ behavior: "smooth" })}
-            className="group relative px-14 py-7 bg-text-primary text-bg-base rounded-3xl font-black text-[13px] uppercase tracking-[0.4em] flex items-center gap-5 shadow-float transition-all hover:-translate-y-2 hover:bg-accent active:scale-95 active:translate-y-0 overflow-hidden"
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-            <span className="relative z-10">View My Projects</span>
-            <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-2 transition-transform duration-300" strokeWidth={3} />
-          </button>
+        <MotionDiv variants={fadeUp} className="flex flex-col xl:flex-row items-center justify-center gap-12">
+          <div className="flex flex-col md:flex-row items-center gap-8">
+            <button 
+              id="hero-view-projects-btn"
+              onClick={() => document.getElementById("hackathon-grid")?.scrollIntoView({ behavior: "smooth" })}
+              className="group relative px-14 py-7 bg-text-primary text-bg-base rounded-3xl font-black text-[13px] uppercase tracking-[0.4em] flex items-center gap-5 shadow-float transition-all hover:-translate-y-2 hover:bg-accent active:scale-95 active:translate-y-0 overflow-hidden w-full md:w-auto text-center"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+              <span className="relative z-10">View My Projects</span>
+              <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-2 transition-transform duration-300" strokeWidth={3} />
+            </button>
+
+            <Link
+              href="/resume"
+              className="group px-10 py-5 rounded-3xl glass-apple border border-white/10 text-[11px] font-black uppercase tracking-[0.3em] text-text-muted hover:text-text-primary transition-all flex items-center gap-4 hover:border-white/20 w-full md:w-auto justify-center"
+            >
+              Explore Resume
+              <div className="w-8 h-[1px] bg-accent/40 group-hover:w-12 transition-all" />
+            </Link>
+          </div>
           
           <div className="flex items-center gap-12 px-10 py-6 glass-apple border-white/20 rounded-[2rem] shadow-float">
             <div className="flex items-center gap-5 group">

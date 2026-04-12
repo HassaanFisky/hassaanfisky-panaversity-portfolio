@@ -57,8 +57,8 @@ export function Footer() {
               {/* CHANGED: "Architecture" → "Projects", "Skill Library" → "GitHub", etc. */}
               <FooterLink href="#hackathon-grid" label="Projects" />
               <FooterLink href="https://github.com/HassaanFisky" label="GitHub" />
-              <FooterLink href="https://learnflow-platform-h3.vercel.app" label="LearnFlow" />
-              <FooterLink href="https://panaversity.org/hackathons" label="Panaversity" />
+              <FooterLink href="https://hassaan-resume.vercel.app/" label="Digital Resume" />
+              <FooterLink href="/resume" label="Download PDF" />
             </ul>
           </div>
 
