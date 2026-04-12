@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 };
 
 import { ActionDock } from "@/components/ActionDock";
-import { SnowOverlay } from "@/components/SnowOverlay";
+import { WeatherOverlay } from "@/components/WeatherOverlay";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { AiraAssistant } from "@/components/AiraAssistant";
 
@@ -35,7 +35,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
             {children}
             <ActionDock />
-            <SnowOverlay />
+            <WeatherOverlay />
             <EcosystemNav />
             <AiraAssistant 
               platform="H3" 

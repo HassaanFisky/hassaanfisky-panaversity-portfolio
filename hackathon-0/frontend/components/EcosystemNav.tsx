@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import { Globe } from "lucide-react";
 
@@ -20,6 +20,13 @@ const ECOSYSTEM_APPS = [
 export function EcosystemNav() {
   const { t, lang } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
+
+  // Close this panel when any other panel opens
+  useEffect(() => {
+    const close = () => setIsOpen(false);
+    window.addEventListener("close-all-panels", close);
+    return () => window.removeEventListener("close-all-panels", close);
+  }, []);
 
   return (
     <>
@@ -71,12 +78,25 @@ export function EcosystemNav() {
 
         <button
           id="ecosystem-toggle-btn"
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => {
+            const next = !isOpen;
+            if (next) window.dispatchEvent(new CustomEvent("close-all-panels"));
+            setIsOpen(next);
+          }}
           className="w-16 h-16 glass-apple border-white/20 rounded-full shadow-float flex items-center justify-center text-text-primary hover:text-accent group relative transition-all active:scale-95 hover:scale-110"
           title={t.ui.ecosystem}
           aria-label={t.ui.ecosystem}
         >
-          <Globe size={24} className={isOpen ? "rotate-90" : "animate-[spin_30s_linear_infinite]"} strokeWidth={1.5} />
+          <motion.span
+            animate={isOpen ? { rotate: 90 } : { rotate: [0, 360] }}
+            transition={isOpen
+              ? { duration: 0.3, ease: "easeOut" }
+              : { duration: 30, repeat: Infinity, ease: "linear", type: "tween" }
+            }
+            style={{ display: "inline-flex" }}
+          >
+            <Globe size={24} strokeWidth={1.5} />
+          </motion.span>
           <div className="absolute top-1 right-1 w-3.5 h-3.5 bg-accent rounded-full border-2 border-bg-base shadow-sm animate-pulse" />
         </button>
       </div>

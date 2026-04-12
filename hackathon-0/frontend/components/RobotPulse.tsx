@@ -25,7 +25,7 @@ export function RobotPulse() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-30px" }}
       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-      className="relative w-full bg-white dark:bg-bg-surface border border-border-fine rounded-2xl shadow-card overflow-hidden"
+      className="relative w-full bg-bg-surface border border-border-fine rounded-2xl shadow-card overflow-hidden"
       style={{ willChange: "transform, opacity" }}
     >
       {/* Subtle pulse EKG line — pure CSS, zero JS */}

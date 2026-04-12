@@ -58,7 +58,7 @@ export function Navbar() {
           <Link 
             href="https://hassaanfisky-aira-digital-fte.vercel.app"
             target="_blank"
-            className="px-6 py-2.5 bg-accent text-white rounded-full font-bold text-[10px] uppercase tracking-widest shadow-lg shadow-accent/10 hover:brightness-110 active:scale-95 transition-all duration-300"
+            className="px-6 py-2.5 bg-accent text-white rounded-full font-bold text-[10px] uppercase tracking-widest shadow-lg shadow-accent/20 ring-1 ring-white/20 hover:brightness-110 hover:ring-white/40 active:scale-95 transition-all duration-300"
           >
             AI Platform
           </Link>

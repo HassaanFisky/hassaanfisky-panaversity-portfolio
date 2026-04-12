@@ -193,3 +193,127 @@ html {
   background: var(--accent-dim);
   color: var(--accent);
 }
+
+/* ─── WEATHER ATMOSPHERE ENGINE ────────────────────────────────────────���─────
+   Variable overrides per weather mode. WeatherOverlay sets data-weather on
+   <html> and triggers CSS transitions. All animations run on GPU.
+─────────────────────────────────────────────────────────────────────────── */
+
+/* Ensure page content (z-10) sits above the sky layer (z-[2]) */
+main { position: relative; z-index: 10; }
+
+[data-weather='clear'] {
+  --weather-bg-overlay: transparent;
+}
+
+[data-weather='snow'] {
+  --weather-bg-overlay: rgba(255, 255, 255, 0.02);
+  --accent:             #A5C9D9;
+}
+
+[data-weather='rain'] {
+  --bg-base:     #060d18;
+  --bg-surface:  #0d1a2e;
+  --bg-elevated: #081525;
+  --text-primary:    #D8ECF8;
+  --text-secondary:  #8AAAC8;
+  --text-muted:      #506070;
+  --accent:          #6B9FD4;
+  --border-fine:     rgba(100, 140, 200, 0.15);
+}
+
+[data-weather='rain'] .glass-apple {
+  background-color: rgba(6, 13, 24, 0.72);
+  border-color: rgba(100, 140, 200, 0.15);
+}
+
+[data-weather='storm'] {
+  --bg-base:     #000000;
+  --bg-surface:  #0d0d0d;
+  --bg-elevated: #080808;
+  --text-primary:    #FFFFFF;
+  --text-secondary:  #BCC8DC;
+  --text-muted:      #8090B8;
+  --accent:          #9BA8FF;
+  --border-fine:     rgba(155, 168, 255, 0.18);
+}
+
+[data-weather='storm'] .glass-apple {
+  background-color: rgba(0, 0, 0, 0.72);
+  border-color: rgba(155, 168, 255, 0.18);
+}
+
+[data-weather='sunny'] {
+  --bg-base:     #1a0900;
+  --bg-surface:  #2a1505;
+  --bg-elevated: #1f1004;
+  --text-primary:    #FFF5E0;
+  --text-secondary:  #F0D0A0;
+  --text-muted:      #A07840;
+  --accent:          #FF8C42;
+  --border-fine:     rgba(255, 160, 80, 0.20);
+}
+
+[data-weather='sunny'] .glass-apple {
+  background-color: rgba(26, 9, 0, 0.72);
+  border-color: rgba(255, 160, 80, 0.20);
+}
+
+[data-weather='cloudy'] {
+  --bg-base:     #0e1116;
+  --bg-surface:  #141820;
+  --bg-elevated: #0f1319;
+  --text-secondary: #94A3B8;
+}
+
+/* Snow parallax layers */
+.snow-layer-1 { opacity: 0.80; filter: blur(0.5px); }
+.snow-layer-2 { opacity: 0.50; filter: blur(1.5px); transform: scale(1.2); }
+.snow-layer-3 { opacity: 0.30; filter: blur(3px);   transform: scale(1.5); }
+
+/* Rain / Storm splash ripples */
+.rain-splash-ripple {
+  border: 1px solid rgba(160, 205, 255, 0.28);
+  border-radius: 50%;
+  opacity: 0;
+  animation: splash-ripple 1.3s ease-out infinite;
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+@keyframes splash-ripple {
+  0%   { transform: translateZ(0) scale(0.25); opacity: 0.55; }
+  100% { transform: translateZ(0) scale(3.5);  opacity: 0; }
+}
+
+/* Rain / Storm: wet glass streaks */
+[data-weather='rain'] .glass-apple,
+[data-weather='storm'] .glass-apple { position: relative; }
+
+[data-weather='rain'] .glass-apple::after,
+[data-weather='storm'] .glass-apple::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    174deg,
+    transparent 0px, transparent 28px,
+    rgba(140, 190, 255, 0.045) 28px, rgba(140, 190, 255, 0.06) 30px,
+    transparent 30px, transparent 55px
+  );
+  z-index: 0;
+  animation: rain-streaks 3.5s ease-in-out infinite alternate;
+}
+
+@keyframes rain-streaks {
+  0%   { opacity: 0.4; transform: translateY(0); }
+  100% { opacity: 0.9; transform: translateY(6px); }
+}
+
+/* Snow: frost on cards */
+[data-weather='snow'] .card-humanist {
+  border-color: rgba(185, 220, 240, 0.35);
+  box-shadow: 0 0 0 1px rgba(200, 230, 245, 0.15), 0 1px 3px -1px rgba(0,0,0,0.15);
+}

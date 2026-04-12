@@ -58,7 +58,7 @@ export default function SignUpPage() {
           href="/sign-in"
           className="text-[10px] font-bold uppercase tracking-[0.3em] text-text-muted hover:text-text-primary transition-colors"
         >
-          Access Archive
+          Sign In
         </Link>
       </header>
 
@@ -90,7 +90,7 @@ export default function SignUpPage() {
           </div>
 
           {/* Card */}
-          <div className="bg-white rounded-3xl border border-border-fine shadow-float p-10 space-y-8">
+          <div className="glass-apple rounded-3xl shadow-float p-10 space-y-8">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
                 <label htmlFor="name" className="block text-[10px] font-bold uppercase tracking-[0.3em] text-text-muted">
@@ -170,7 +170,7 @@ export default function SignUpPage() {
                 href="/sign-in"
                 className="font-bold text-accent hover:text-accent/80 transition-colors underline-offset-4 hover:underline"
               >
-                Access Archive
+                Sign In
               </Link>
             </p>
           </div>

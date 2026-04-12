@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, PanInfo } from "framer-motion";
-import { Languages, Sun, Snowflake, CloudRain, Zap, Cloud, MessageSquare, BookOpen } from "lucide-react";
+import { Languages, Sun, Snowflake, CloudRain, CloudLightning, Cloud, MessageSquare, BookOpen } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "next-themes";
 
@@ -18,7 +18,7 @@ const WEATHER_ICONS: Record<WeatherMode, React.ReactNode> = {
   clear:  <Sun size={20} />,
   snow:   <Snowflake size={20} />,
   rain:   <CloudRain size={20} />,
-  storm:  <Zap size={20} />,
+  storm:  <CloudLightning size={20} />,
   cloudy: <Cloud size={20} />,
   sunny:  <Sun size={20} className="text-yellow-400" />,
 };
@@ -219,7 +219,7 @@ export function ActionDock({ isPortfolio = false }: { isPortfolio?: boolean }) {
               className={`w-14 h-14 rounded-full flex items-center justify-center transition-all relative group ${
                 item.active
                   ? "bg-accent text-white shadow-lg"
-                  : "text-text-secondary hover:bg-white dark:hover:bg-white/10 hover:text-accent hover:shadow-md"
+                  : "text-text-secondary hover:bg-bg-surface hover:text-accent hover:shadow-md"
               }`}
               style={{ willChange: "transform" }}
               title={item.label}

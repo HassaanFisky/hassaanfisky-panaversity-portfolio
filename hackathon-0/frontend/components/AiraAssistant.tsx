@@ -29,23 +29,45 @@ export function AiraAssistant({ platform, context }: AiraAssistantProps) {
   const [activeTab, setActiveTab] = useState<"chat" | "notebook">("chat");
   const [notes, setNotes] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const selfDispatchRef = useRef(false);
 
   // Sync with Global Event Bus
   useEffect(() => {
-    const handleToggle = () => setIsOpen(prev => !prev);
+    const handleToggle = () => {
+      setIsOpen(prev => {
+        const next = !prev;
+        if (next) {
+          // Notify other panels to close — guard so we don't close ourselves
+          selfDispatchRef.current = true;
+          window.dispatchEvent(new CustomEvent("close-all-panels"));
+          selfDispatchRef.current = false;
+        }
+        return next;
+      });
+    };
     const handleNotebook = () => {
+      selfDispatchRef.current = true;
+      window.dispatchEvent(new CustomEvent("close-all-panels"));
+      selfDispatchRef.current = false;
       setIsOpen(true);
       setActiveTab("notebook");
     };
-    
+    // Close self when another panel opens (ignore self-dispatched events)
+    const handleCloseAll = () => {
+      if (selfDispatchRef.current) return;
+      setIsOpen(false);
+    };
+
     window.addEventListener("toggle-chat", handleToggle);
     window.addEventListener("toggle-aira", handleToggle);
     window.addEventListener("toggle-notebook", handleNotebook);
-    
+    window.addEventListener("close-all-panels", handleCloseAll);
+
     return () => {
       window.removeEventListener("toggle-chat", handleToggle);
       window.removeEventListener("toggle-aira", handleToggle);
       window.removeEventListener("toggle-notebook", handleNotebook);
+      window.removeEventListener("close-all-panels", handleCloseAll);
     };
   }, []);
 
@@ -160,10 +182,10 @@ export function AiraAssistant({ platform, context }: AiraAssistantProps) {
             initial={{ opacity: 0, y: 40, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 40, scale: 0.95 }}
-            className="fixed inset-x-4 md:inset-x-0 bottom-24 md:bottom-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-full md:w-[450px] h-[650px] max-h-[85vh] glass-apple rounded-[2.5rem] shadow-float z-[10001] flex flex-col overflow-hidden border-white/20 dark:border-white/10"
+            className="fixed inset-x-4 md:inset-x-0 bottom-24 md:bottom-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-full md:w-[520px] md:h-[680px] max-h-[90vh] glass-apple rounded-[2.5rem] shadow-float z-[10001] flex flex-col overflow-hidden border-white/20 dark:border-white/10"
           >
             {/* Header */}
-            <div className="px-8 py-6 border-b border-border-fine bg-bg-base/40 flex items-center justify-between">
+            <div className="px-7 py-4 border-b border-border-fine bg-bg-base/40 flex items-center justify-between">
               <div className="flex flex-col">
                 <div className="flex items-center gap-2">
                   <span className="text-[9px] font-bold tracking-[0.3em] text-accent uppercase font-mono">
@@ -256,7 +278,7 @@ export function AiraAssistant({ platform, context }: AiraAssistantProps) {
             </div>
 
             {/* Input Footer */}
-            <div className="p-8 border-t border-border-fine bg-bg-base/30 backdrop-blur-md">
+            <div className="px-6 py-4 border-t border-border-fine bg-bg-base/30 backdrop-blur-md">
               <div className="relative group">
                 <input 
                   type="text"
