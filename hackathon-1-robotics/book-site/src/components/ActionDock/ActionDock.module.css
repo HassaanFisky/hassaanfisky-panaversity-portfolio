@@ -1,0 +1,296 @@
+/* src/components/ActionDock/ActionDock.module.css
+   HASSAAN AI ARCHITECT — ActionDock v3.0
+   Lightning Glass + Apple Morphism
+   Dark-mode-safe: zero hardcoded white backgrounds
+*/
+
+/* ── CONTAINER ──────────────────────────────────────────────────────────── */
+.dockContainer {
+  position: fixed;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%) translateX(110px);
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  padding: 0.625rem;
+  background: var(--glass-bg, rgba(250, 249, 246, 0.88));
+  backdrop-filter: blur(var(--glass-blur, 18px));
+  -webkit-backdrop-filter: blur(var(--glass-blur, 18px));
+  border: 0.8px solid var(--glass-border, rgba(229, 224, 216, 0.55));
+  border-radius: 2rem;
+  box-shadow:
+    0 4px 20px -5px rgba(0, 0, 0, 0.1),
+    0 0 0 0.8px var(--glass-border, rgba(229, 224, 216, 0.55)),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  z-index: 10001;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Lightning glass shimmer — top accent line */
+.dockContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 15%;
+  right: 15%;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, var(--accent, #d97757), transparent);
+  opacity: 0.35;
+  border-radius: 999px;
+}
+
+.loaded {
+  transform: translateY(-50%) translateX(0);
+}
+
+/* ── DOCK ITEMS ──────────────────────────────────────────────────────────── */
+.dockItem {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.8) translateY(10px);
+}
+
+.loaded .dockItem {
+  animation: entryFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: calc(var(--idx, 0) * 0.12s);
+}
+
+@keyframes entryFade {
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* ── DOCK BUTTON — dark-mode-safe ────────────────────────────────────────── */
+.dockButton {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--bg-surface, #f0ebe1);
+  border: 0.8px solid var(--border, #e5e0d8);
+  color: var(--text-secondary, #5c564d);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Shimmer sweep on hover */
+.dockButton::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.dockButton:hover {
+  /* Use surface-elevated instead of white — dark mode safe */
+  background: var(--bg-elevated, #ede8df);
+  border-color: var(--accent, #d97757);
+  color: var(--accent, #d97757);
+  transform: scale(1.12) translateY(-2px);
+  box-shadow: 0 8px 18px -4px var(--accent-glow, rgba(217, 119, 87, 0.2));
+}
+
+.dockButton:hover::before {
+  opacity: 1;
+}
+
+.dockButton:active {
+  transform: scale(0.95);
+}
+
+/* ── ACTIVE STATE ────────────────────────────────────────────────────────── */
+.activeItem {
+  background: var(--accent-soft, rgba(217, 119, 87, 0.12)) !important;
+  color: var(--accent, #d97757) !important;
+  border-color: var(--accent, #d97757) !important;
+  box-shadow: 0 0 18px -3px var(--accent-glow, rgba(217, 119, 87, 0.25)) !important;
+}
+
+/* ── LANGUAGE BADGE ──────────────────────────────────────────────────────── */
+.langBadge {
+  position: absolute;
+  top: -7px;
+  right: -5px;
+  background: var(--accent, #d97757);
+  color: white;
+  font-size: 7px;
+  font-weight: 800;
+  padding: 2px 4px;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  pointer-events: none;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* ── ACTIVE PULSE DOT ────────────────────────────────────────────────────── */
+.activePulse {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent, #d97757);
+  box-shadow: 0 0 6px var(--accent, #d97757);
+  animation: pulseDot 1.8s ease-in-out infinite;
+}
+
+@keyframes pulseDot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.35); opacity: 0.6; }
+}
+
+/* ── LIGHTNING GLASS RING (Chat button) ──────────────────────────────────── */
+.chatButton {
+  background: linear-gradient(
+    135deg,
+    var(--bg-surface, #f0ebe1) 0%,
+    var(--bg-elevated, #ede8df) 100%
+  ) !important;
+}
+
+.glassRing {
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 1.5px solid transparent;
+  background: linear-gradient(135deg, var(--accent, #d97757), transparent 60%) border-box;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) padding-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask:
+    linear-gradient(#fff 0 0) padding-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.glassRingActive {
+  opacity: 1;
+  animation: ringRotate 3s linear infinite;
+}
+
+@keyframes ringRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ── LANGUAGE DROPDOWN ───────────────────────────────────────────────────── */
+.langDropdown {
+  position: absolute;
+  right: 3.5rem;
+  top: 0;
+  width: 160px;
+  background: var(--glass-bg, rgba(250, 249, 246, 0.95));
+  backdrop-filter: blur(var(--glass-blur, 18px));
+  -webkit-backdrop-filter: blur(var(--glass-blur, 18px));
+  border: 0.8px solid var(--border, #e5e0d8);
+  border-radius: 14px;
+  padding: 0.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(12px) scale(0.92);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--shadow-widget, 0 24px 56px -12px rgba(45, 41, 38, 0.14));
+  z-index: 10002;
+}
+
+.showDropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0) scale(1);
+}
+
+.langOption {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: 10px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary, #5c564d);
+  font-size: 0.825rem;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.langOption:hover {
+  /* Dark-mode-safe: use elevated surface, not white */
+  background: var(--bg-elevated, #ede8df);
+  color: var(--accent, #d97757);
+  transform: translateX(3px);
+}
+
+.activeLang {
+  background: var(--accent-soft, rgba(217, 119, 87, 0.1)) !important;
+  color: var(--accent, #d97757) !important;
+  font-weight: 600;
+}
+
+.langOptionFlag {
+  font-size: 0.7rem;
+  font-weight: 800;
+  background: var(--accent, #d97757);
+  color: white;
+  padding: 1px 5px;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+
+/* ── MOBILE ──────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .dockContainer {
+    right: 0.875rem;
+    top: auto;
+    bottom: 6rem;
+    transform: translateY(0) translateX(110px);
+    flex-direction: column;
+    border-radius: 1.5rem;
+  }
+
+  .loaded {
+    transform: translateY(0) translateX(0);
+  }
+
+  .langDropdown {
+    right: 3.5rem;
+    top: auto;
+    bottom: 0;
+    transform: translateX(12px) scale(0.92);
+  }
+
+  .showDropdown {
+    transform: translateX(0) scale(1);
+  }
+
+  .dockButton {
+    width: 40px;
+    height: 40px;
+  }
+}

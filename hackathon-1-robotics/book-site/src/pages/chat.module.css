@@ -1,0 +1,242 @@
+/**
+ * chat.module.css
+ * Styles for the dedicated /chat search page.
+ * Uses the High-Fidelity Humanist design language.
+ */
+
+.chatPageContainer {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 6rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 4rem);
+}
+
+.chatPageHeader {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25rem 1rem;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: 0.8px solid var(--accent);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 1.5rem;
+  animation: fadeUp 0.8s ease-out both;
+}
+
+.title {
+  font-family: var(--ifm-heading-font-family);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 1.25rem;
+  animation: fadeUp 0.8s 0.1s ease-out both;
+}
+
+.subtitle {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 500px;
+  margin: 0 auto;
+  animation: fadeUp 0.8s 0.2s ease-out both;
+}
+
+/* ── SEARCH FORM ─────────────────────────────────────────────────────────── */
+.searchBoxCard {
+  background: var(--bg-surface);
+  border: 0.8px solid var(--border);
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-card);
+  margin-bottom: 3.5rem;
+  animation: fadeUp 0.8s 0.3s ease-out both;
+}
+
+.searchForm {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.searchInput {
+  flex: 1;
+  padding: 0.875rem 1.5rem;
+  background: var(--bg);
+  border: 0.8px solid var(--border);
+  border-radius: 12px;
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.searchInput:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+
+.searchButton {
+  padding: 0.875rem 2rem;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s ease, transform 0.25s ease;
+}
+
+.searchButton:hover:not(:disabled) {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+}
+
+.searchButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── RESULTS AREA ────────────────────────────────────────────────────────── */
+.resultsArea {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.resultsBadge {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+
+.resultsGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.resultCard {
+  background: var(--bg);
+  border: 0.8px solid var(--border);
+  border-radius: 16px;
+  padding: 1.75rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.resultCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card);
+  border-color: var(--accent);
+}
+
+.resultHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.resultChapter {
+  font-family: var(--ifm-heading-font-family);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.resultSection {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.resultBody p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.resultFooter {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 0.8px solid var(--border-fine);
+}
+
+.readLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent) !important;
+  text-decoration: none !important;
+  transition: gap 0.2s ease;
+}
+
+.readLink:hover {
+  gap: 0.65rem;
+}
+
+/* ── FOOTER ──────────────────────────────────────────────────────────────── */
+.chatPageFooter {
+  text-align: center;
+  margin-top: 5rem;
+}
+
+.shareBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 2rem;
+  background: var(--bg-surface);
+  border: 0.8px solid var(--border);
+  color: var(--text-primary);
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.shareBtn:hover {
+  background: var(--bg-elevated);
+  border-color: var(--accent);
+}
+
+.emptyState {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 1rem;
+  margin-top: 4rem;
+}
+
+/* ── ANIMATIONS ──────────────────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── MOBILE RESPONSIVENESS ───────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .searchForm {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

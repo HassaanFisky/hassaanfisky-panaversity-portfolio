@@ -1,0 +1,50 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Environment variables (NEVER commit these)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Docusaurus build output
+.docusaurus/
+build/
+
+# Production build
+dist/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+coverage/
+
+# Misc
+*.bak
+*.tmp
+
+# Temp audit files
+temp-repo-audit/
+*_audit.json
+exposures.json
+PROJECTFIXER_REPORT.md
+
+.vercel
+.env*.local

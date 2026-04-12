@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Physical AI & Humanoid Robotics - Interactive Learning Platform">
+  <title>Physical AI &amp; Humanoid Robotics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Navigation Bar — NO animation applied per constraints -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="#" class="logo">
+        <svg class="logo-svg" viewBox="0 0 40 40" fill="none">
+          <circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="2"/>
+          <circle cx="20" cy="12" r="4" fill="currentColor"/>
+          <path d="M12 28 L20 18 L28 28" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <span class="logo-text">Physical AI</span>
+      </a>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#chapters">Chapters</a>
+        <a href="#chat-assist">Assistant</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero">
+    <div class="hero-badge">
+      <span>GIAIC Hackathon 2024</span>
+    </div>
+
+    <!--
+      SEO / Accessibility mirror:
+      Full plain-text heading, visually hidden, always indexed by crawlers
+      and read aloud by screen readers. The animated version below is
+      aria-hidden="true" so assistive tech only sees this one.
+    -->
+    <span class="sr-only">Robotics that feels beautifully human.</span>
+
+    <!--
+      Visual hero title: aria-hidden so screen readers skip it.
+      JS word-splits this for the staggered animation.
+    -->
+    <h1 class="hero-title" aria-hidden="true" data-pt="words">
+      Robotics that feels <br/>
+      <span class="hero-italic">beautifully human.</span>
+    </h1>
+
+    <p class="hero-subtitle" data-pt="fade" data-pt-delay="260">
+      Machines are learning to walk, grip, and reason.<br>
+      This textbook shows you exactly how they do it —<br>
+      from first principles to working hardware.
+    </p>
+
+    <!-- Buttons: NO animation per constraints -->
+    <div class="hero-buttons" data-pt="fade" data-pt-delay="420">
+      <a href="/docs/module-01-foundations/what-is-physical-ai" class="btn-primary">
+        Start Learning
+        <svg class="icon-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path>
+        </svg>
+      </a>
+      <a href="#chapters" class="btn-secondary">View Chapters</a>
+    </div>
+  </header>
+
+  <!-- Features Section -->
+  <section id="features" class="section-container">
+    <div class="section-header" data-pt="fade">
+      <h2>Three ideas that explain everything.</h2>
+      <p>Every concept in this book connects back to one of three foundations.</p>
+    </div>
+    <div class="grid-3">
+
+      <!-- Card 1 -->
+      <div class="card" data-pt="fade" data-pt-delay="0">
+        <div class="card-icon" style="background-color: #FDF1E7;">
+          <svg viewBox="0 0 24 24" fill="none" class="feature-svg" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/>
+            <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"/>
+          </svg>
+        </div>
+        <h3>Embodied Intelligence</h3>
+        <p>A brain without a body is just software. These systems sense the physical world and act inside it.</p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="card" data-pt="fade" data-pt-delay="110">
+        <div class="card-icon" style="background-color: #EDF2EE;">
+          <svg viewBox="0 0 24 24" fill="none" class="feature-svg" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="16" height="12" x="4" y="8" rx="2" ry="2"/>
+            <path d="M2 14h2"/>
+            <path d="M20 14h2"/>
+            <path d="M15 13v2"/>
+            <path d="M9 13v2"/>
+            <path d="M12 8V4H8"/>
+          </svg>
+        </div>
+        <h3>Hardware in the Loop</h3>
+        <p>Code is only half the equation. You will learn how motors, joints, and limbs turn instructions into motion.</p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="card" data-pt="fade" data-pt-delay="220">
+        <div class="card-icon" style="background-color: #F4EDFA;">
+          <svg viewBox="0 0 24 24" fill="none" class="feature-svg" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </div>
+        <h3>Spatial Perception</h3>
+        <p>A robot needs to know where it is before it knows where to go. Perception is the first act of intelligence.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Chapters Section -->
+  <section id="chapters" class="section-container">
+    <div class="section-header" data-pt="fade">
+      <h2>Five chapters. One complete picture.</h2>
+      <p>Read in order or jump to what you need. Each chapter stands on its own.</p>
+    </div>
+    <div class="grid-3">
+
+      <!-- Chapter 01 -->
+      <div class="card chapter-card" data-pt="fade" data-pt-delay="0">
+        <span class="chapter-num">Chapter 01</span>
+        <h3 class="chapter-title">Introduction to Physical AI</h3>
+        <p>What does it mean for a machine to exist in the world? Start here to understand why physical AI is different from software AI.</p>
+        <div class="chapter-footer">
+          <a href="/docs/module-01-foundations/what-is-physical-ai" class="chapter-link">Read Chapter
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Chapter 02 -->
+      <div class="card chapter-card" data-pt="fade" data-pt-delay="80">
+        <span class="chapter-num">Chapter 02</span>
+        <h3 class="chapter-title">Core Concepts</h3>
+        <p>You cannot build a robot without knowing its parts. This chapter covers sensors, motors, and the software layer that connects them.</p>
+        <div class="chapter-footer">
+          <a href="/docs/module-02-hardware/kinematics-dynamics" class="chapter-link">Read Chapter
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Chapter 03 -->
+      <div class="card chapter-card" data-pt="fade" data-pt-delay="160">
+        <span class="chapter-num">Chapter 03</span>
+        <h3 class="chapter-title">Practical Implementation</h3>
+        <p>Theory meets hardware here. Learn the algorithms that keep a bipedal robot balanced and moving at the same time.</p>
+        <div class="chapter-footer">
+          <a href="/docs/module-03-software/ros2-concepts" class="chapter-link">Read Chapter
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Chapter 04 — accent highlight card preserved exactly -->
+      <div class="card chapter-card" style="border-color: rgba(217, 119, 87, 0.3); background: linear-gradient(to bottom right, #fff, #FDF1E7);" data-pt="fade" data-pt-delay="240">
+        <span class="chapter-num">Chapter 04</span>
+        <h3 class="chapter-title">Case Studies</h3>
+        <p>Atlas. Optimus. Digit. See how each platform solved the same hard problems in fundamentally different ways.</p>
+        <div class="chapter-footer">
+          <a href="/docs/module-04-deployment/digital-twins" class="chapter-link">Read Chapter
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Chapter 05 -->
+      <div class="card chapter-card" data-pt="fade" data-pt-delay="320">
+        <span class="chapter-num">Chapter 05</span>
+        <h3 class="chapter-title">Resources &amp; Appendix</h3>
+        <p>Where to go next. Simulation tools, open-source code, hardware kits, and the communities building robots today.</p>
+        <div class="chapter-footer">
+          <a href="/docs/module-05-future/safety-ethics" class="chapter-link">Read Chapter
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer — NO animation applied per constraints -->
+  <footer>
+    <p>© 2024 Physical AI &amp; Humanoid Robotics. GIAIC Hackathon.</p>
+    <p style="margin-top: 0.5rem;">
+      <a href="https://github.com/HassaanFisky/Physical-AI-Humanoid-Robots-Textbook" style="color:var(--text-tertiary);" target="_blank">View on GitHub</a>
+    </p>
+  </footer>
+
+  <!-- AI Chat Widget — structure and logic preserved exactly -->
+  <div id="chat-assist" class="chat-widget">
+    <div class="chat-header">
+      <div class="chat-header-info">
+        <div class="avatar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7 7 7 0 0 1-7 7H5a7 7 0 0 1-7-7 7 7 0 0 1 7-7h1V5.73A2 2 0 0 1 5 4a2 2 0 0 1 2-2h5Z"></path>
+          </svg>
+        </div>
+        <div class="chat-title-wrapper">
+          <span class="chat-title">Aria Textbook Assistant</span>
+          <span class="chat-subtitle">Powered by Neural Net</span>
+        </div>
+      </div>
+      <button class="chat-toggle" id="chatToggle" aria-label="Toggle chat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m6 9 6 6 6-6"/>
+        </svg>
+      </button>
+    </div>
+    <div class="chat-body" id="chatBody">
+      <div class="chat-messages" id="chatMessages">
+        <div class="msg msg-bot">
+          <!-- CHANGED: editorial rewrite of welcome message -->
+          <p>Hello. I'm Aria, the textbook assistant. Ask me anything — from basic definitions to specific engineering questions.</p>
+        </div>
+      </div>
+      <div class="chat-input-area">
+        <input type="text" id="chatInput" placeholder="Ask a question..." autocomplete="off">
+        <button class="btn-send" id="chatSend" aria-label="Send message">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* ============================================================
+     * NATIVE PRE-TEXT SCROLL ANIMATION ENGINE
+     * Zero dependencies. GPU-composited CSS only.
+     * IntersectionObserver — no scroll event listeners.
+     * ============================================================ */
+    (function () {
+      'use strict';
+
+      /**
+       * Recursively splits text nodes inside el into .pt-word spans,
+       * preserving <br> elements and nested inline elements (e.g. <span>).
+       */
+      function splitWords(el) {
+        function processNode(node) {
+          if (node.nodeType === Node.TEXT_NODE) {
+            const text = node.textContent;
+            if (!text.trim()) return;
+            const frag = document.createDocumentFragment();
+            text.split(/(\s+)/).forEach(function (token) {
+              if (/^\s+$/.test(token)) {
+                frag.appendChild(document.createTextNode(token));
+              } else if (token.length > 0) {
+                const span = document.createElement('span');
+                span.className = 'pt-word';
+                span.textContent = token;
+                frag.appendChild(span);
+              }
+            });
+            node.parentNode.replaceChild(frag, node);
+          } else if (node.nodeType === Node.ELEMENT_NODE) {
+            // Recurse into child elements to handle <span class="hero-italic"> etc.
+            Array.from(node.childNodes).forEach(processNode);
+          }
+        }
+        Array.from(el.childNodes).forEach(processNode);
+      }
+
+      /** Assigns staggered transitionDelay to each .pt-word in a container. */
+      function assignWordDelays(el) {
+        el.querySelectorAll('.pt-word').forEach(function (word, i) {
+          word.style.transitionDelay = (i * 55) + 'ms';
+        });
+      }
+
+      function init() {
+        /* ── Word-split: hero title only ── */
+        const wordEls = document.querySelectorAll('[data-pt="words"]');
+        wordEls.forEach(function (el) {
+          splitWords(el);
+          assignWordDelays(el);
+        });
+
+        /* ── Fade elements: section headers, cards, subtitle, buttons ── */
+        const fadeEls = document.querySelectorAll('[data-pt="fade"]');
+
+        const fadeObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            const el = entry.target;
+            const delay = parseInt(el.dataset.ptDelay || '0', 10);
+            // Use setTimeout for the data-pt-delay offset
+            setTimeout(function () {
+              el.classList.add('is-visible');
+            }, delay);
+            fadeObserver.unobserve(el);
+          });
+        }, { threshold: 0.12 });
+
+        fadeEls.forEach(function (el) { fadeObserver.observe(el); });
+
+        /* ── Word trigger: fires when hero title enters viewport ── */
+        const wordObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            entry.target.querySelectorAll('.pt-word').forEach(function (w) {
+              w.classList.add('is-visible');
+            });
+            wordObserver.unobserve(entry.target);
+          });
+        }, { threshold: 0.25 });
+
+        wordEls.forEach(function (el) { wordObserver.observe(el); });
+      }
+
+      // Kick off after DOM is ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    }());
+
+    /* ============================================================
+     * CHAT WIDGET LOGIC — unchanged from original
+     * ============================================================ */
+    const chatToggle = document.getElementById('chatToggle');
+    const chatBody   = document.getElementById('chatBody');
+    const chatInput  = document.getElementById('chatInput');
+    const chatSend   = document.getElementById('chatSend');
+    const chatMessages = document.getElementById('chatMessages');
+
+    let isExpanded = true;
+    let chatHistory = [];
+    let isTyping = false;
+
+    chatToggle.addEventListener('click', () => {
+      isExpanded = !isExpanded;
+      chatBody.classList.toggle('collapsed', !isExpanded);
+      chatToggle.querySelector('svg').style.transform = isExpanded ? 'rotate(0deg)' : 'rotate(180deg)';
+      chatToggle.querySelector('svg').style.transition = 'transform 0.3s';
+    });
+
+    function appendMessage(text, isBot, sources = []) {
+      const msgDiv = document.createElement('div');
+      msgDiv.className = `msg ${isBot ? 'msg-bot' : 'msg-user'}`;
+      let html = `<p>${text}</p>`;
+      if (sources && sources.length > 0) {
+        html += `<div class="msg-sources">
+          <span style="font-weight: 500;">Sources:</span>
+          ${sources.map(s => `<span class="source-tag">${s}</span>`).join('')}
+        </div>`;
+      }
+      msgDiv.innerHTML = html;
+      chatMessages.appendChild(msgDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      chatHistory.push({ role: isBot ? 'assistant' : 'user', content: text });
+      if (chatHistory.length > 10) chatHistory.shift();
+    }
+
+    function setTyping(loading) {
+      isTyping = loading;
+      if (loading) {
+        const loadingDiv = document.createElement('div');
+        loadingDiv.className = 'msg msg-bot';
+        loadingDiv.id = 'typingIndicator';
+        loadingDiv.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
+        chatMessages.appendChild(loadingDiv);
+      } else {
+        const indicator = document.getElementById('typingIndicator');
+        if (indicator) indicator.remove();
+      }
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      chatSend.style.opacity = loading ? '0.5' : '1';
+      chatSend.style.pointerEvents = loading ? 'none' : 'auto';
+    }
+
+    async function sendMessage() {
+      const message = chatInput.value.trim();
+      if (!message || isTyping) return;
+      appendMessage(message, false);
+      chatInput.value = '';
+      setTyping(true);
+      try {
+        const response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message, history: chatHistory.slice(0, -1) })
+        });
+        if (!response.ok) throw new Error('API failed');
+        const data = await response.json();
+        setTyping(false);
+        appendMessage(data.answer, true, data.sources);
+      } catch (error) {
+        console.error('Chat error:', error);
+        setTyping(false);
+        appendMessage("I'm currently unable to access the knowledge base. Please try again later.", true);
+      }
+    }
+
+    chatSend.addEventListener('click', sendMessage);
+    chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
+
+    // Smooth scroll for nav links
+    document.querySelectorAll('.nav-links a, .btn-secondary').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "name": "panaversity-h1-robotics-root",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "cd book-site && npm install && npm run build && cd .. && node -e \"const fs=require('fs'); if(fs.existsSync('build')) fs.rmSync('build', {recursive:true}); fs.mkdirSync('build'); fs.cpSync('book-site/build', 'build', {recursive:true}); fs.cpSync('ui-variant', 'build', {recursive:true, filter:(src)=>!src.endsWith('.git') && !src.includes('node_modules')});\"",
+    "dev": "cd book-site && npm run start"
+  }
+}
