@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowLeft, Download, Mail, Github, Linkedin, MapPin } from "lucide-react";
+import * as Lucide from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
@@ -35,7 +35,7 @@ export default function ResumePage() {
             className="group flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.4em] text-text-muted hover:text-accent transition-all"
           >
             <div className="w-10 h-10 rounded-full glass-apple flex items-center justify-center group-hover:-translate-x-1 transition-transform drop-shadow-lg">
-              <ArrowLeft size={16} />
+              <Lucide.ArrowLeft size={16} />
             </div>
             Back to Hub
           </Link>
@@ -52,7 +52,7 @@ export default function ResumePage() {
               backdropFilter: "blur(12px)",
             }}
           >
-            <Download size={14} />
+            <Lucide.Download size={14} />
             Download PDF
           </motion.a>
         </div>
@@ -122,10 +122,10 @@ function FallbackResume() {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <ContactItem icon={<Mail size={18} />} label="Email" value="fiskyhere@gmail.com" />
-            <ContactItem icon={<Github size={18} />} label="GitHub" value="github.com/Hassaanfisky" />
-            <ContactItem icon={<Linkedin size={18} />} label="LinkedIn" value="linkedin.com/in/hassaan" />
-            <ContactItem icon={<MapPin size={18} />} label="Location" value="Karachi, Pakistan" />
+            <ContactItem icon={<Lucide.Mail size={18} />} label="Email" value="fiskyhere@gmail.com" />
+            <ContactItem icon={<Lucide.Github size={18} />} label="GitHub" value="github.com/Hassaanfisky" />
+            <ContactItem icon={<Lucide.Linkedin size={18} />} label="LinkedIn" value="linkedin.com/in/hassaan" />
+            <ContactItem icon={<Lucide.MapPin size={18} />} label="Location" value="Karachi, Pakistan" />
           </div>
         </section>
 
