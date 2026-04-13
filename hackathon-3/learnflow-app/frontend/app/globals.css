@@ -91,7 +91,7 @@
   }
 
   .btn-tactile:active {
-    transform: scale(0.98);
+    transform: scale(0.97);
   }
 
   .glass-nav {
@@ -118,8 +118,8 @@
 /* ─── HI-FI UTILITIES ─── */
 @layer utilities {
   .glass-apple {
-    backdrop-filter: blur(40px);
-    -webkit-backdrop-filter: blur(40px);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
     transition: all 0.5s;
     background-color: rgba(250, 249, 246, 0.75);
     border: 1px solid rgba(56, 49, 46, 0.05);

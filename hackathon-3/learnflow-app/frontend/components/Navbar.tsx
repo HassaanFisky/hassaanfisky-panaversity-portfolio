@@ -122,7 +122,7 @@ export function Navbar() {
 
           <Link
             href={user ? "/learn" : "/sign-up"}
-            className="hidden sm:flex btn-tactile px-6 py-2.5 bg-[#141210] text-[#E58A6D] text-[10px] font-bold uppercase tracking-[0.3em] rounded-xl border border-border-fine hover:border-accent hover:text-accent shadow-xl shadow-black/20 active:scale-95 transition-all duration-300"
+            className="hidden sm:flex btn-tactile px-6 py-2.5 bg-bg-elevated text-accent text-[10px] font-bold uppercase tracking-[0.3em] rounded-xl border border-border-fine hover:bg-accent hover:text-white shadow-card transition-editorial"
           >
             {user ? "Dashboard" : "Sign Up"}
           </Link>

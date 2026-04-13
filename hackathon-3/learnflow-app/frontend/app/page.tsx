@@ -138,7 +138,7 @@ export default function LandingPage() {
                     <p className="text-text-secondary text-lg italic font-serif leading-relaxed">Pick up where you left off. Every milestone matters.</p>
                   </div>
                   
-                  <div className="bg-white rounded-[2.5rem] p-12 border border-border-fine shadow-card space-y-10">
+                  <div className="glass-apple rounded-[2.5rem] p-12 border border-border-fine shadow-card space-y-10">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-6">
                          <div className="w-14 h-14 rounded-2xl bg-accent-soft flex items-center justify-center text-accent shadow-float">
@@ -170,7 +170,7 @@ export default function LandingPage() {
                       </Link>
                       <Link
                         href="/arena"
-                        className="btn-tactile bg-[#141210] text-[#E58A6D] border border-[#2E2B27] font-bold text-[11px] uppercase tracking-[0.25em] w-full py-5 rounded-2xl flex items-center justify-center gap-3 hover:border-[#E58A6D] transition-all"
+                        className="btn-tactile bg-bg-elevated text-accent border border-border-fine font-bold text-[11px] uppercase tracking-[0.25em] w-full py-5 rounded-2xl flex items-center justify-center gap-3 hover:border-accent transition-editorial"
                       >
                         <Target size={18} /> Play &amp; Learn
                       </Link>
@@ -206,7 +206,7 @@ export default function LandingPage() {
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
               {loading ? (
                 Array.from({ length: 3 }).map((_, i) => (
-                  <div key={i} className="h-80 rounded-[2.5rem] bg-white border border-border-fine animate-pulse" />
+                  <div key={i} className="h-80 rounded-[2.5rem] bg-bg-surface border border-border-fine animate-pulse" />
                 ))
               ) : modules.map((module, i) => (
                 <MotionDiv
@@ -218,7 +218,7 @@ export default function LandingPage() {
                   transition={{ delay: i * 0.1 }}
                 >
                   <Link href={`/learn/${module.slug}`} className="group block h-full">
-                    <div className="h-full bg-white border border-border-fine rounded-[2.5rem] p-12 shadow-card hover:shadow-float transition-editorial group-hover:-translate-y-3 flex flex-col justify-between relative overflow-hidden">
+                    <div className="h-full bg-bg-surface border border-border-fine rounded-[2.5rem] p-12 shadow-card hover:shadow-float transition-editorial group-hover:-translate-y-3 flex flex-col justify-between relative overflow-hidden">
                        <div className="space-y-8">
                           <div className="flex items-center justify-between">
                             <div className="w-12 h-12 rounded-2xl bg-bg-surface border border-border-fine flex items-center justify-center text-accent font-black text-xs">
@@ -268,7 +268,7 @@ export default function LandingPage() {
 
 function SimpleStatCard({ icon, label, value, className }: { icon: any, label: string, value: string, className?: string }) {
   return (
-    <div className={cn("bg-white border border-border-fine rounded-3xl p-8 shadow-sm flex flex-col items-center text-center gap-4 hover:shadow-float transition-all group", className)}>
+    <div className={cn("bg-bg-surface border border-border-fine rounded-3xl p-8 shadow-sm flex flex-col items-center text-center gap-4 hover:shadow-float transition-all group", className)}>
       <div className="text-accent/40 group-hover:text-accent transition-colors">{icon}</div>
       <div>
         <span className="block text-[9px] font-black uppercase tracking-[0.3em] text-text-muted mb-1">{label}</span>

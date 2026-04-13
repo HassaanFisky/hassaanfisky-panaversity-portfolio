@@ -45,7 +45,7 @@ export function TaskCard({ task, onComplete, onDelete, onEditClick }: TaskCardPr
       variants={fadeUp}
       layout
       className={cn(
-        "group relative rounded-2xl border border-border-fine bg-white p-6 shadow-card hover:shadow-float hover:-translate-y-[2px] transition-editorial overflow-hidden",
+        "group relative rounded-2xl border border-border-fine bg-bg-surface p-6 shadow-card hover:shadow-float hover:-translate-y-[2px] transition-editorial overflow-hidden",
         task.completed && "opacity-55"
       )}
     >

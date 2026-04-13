@@ -40,7 +40,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${lora.variable} selection:bg-[#D97757]/20 selection:text-[#D97757]`}>
+    <html lang="en" className={`${inter.variable} ${lora.variable} selection:bg-accent/20 selection:text-accent`}>
       <body className="font-sans bg-background text-foreground min-h-screen antialiased overflow-x-hidden">
         <LanguageProvider>
           {/* Subtle Background Detail */}
@@ -65,9 +65,9 @@ export default function RootLayout({
             position="bottom-right" 
             toastOptions={{
               style: {
-                background: "#FAF9F6",
-                color: "#38312E",
-                border: "0.8px solid #E5E0D8",
+                background: "var(--bg-surface)",
+                color: "var(--text-primary)",
+                border: "0.8px solid var(--border-fine)",
                 fontSize: "14px",
                 fontWeight: 500,
                 borderRadius: "16px",
