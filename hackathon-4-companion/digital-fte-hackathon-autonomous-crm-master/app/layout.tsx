@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import EcosystemNav from "@/components/EcosystemNav";
 import { AiraAssistant } from "@/components/AiraAssistant";
+import { CommandPalette } from "@/components/CommandPalette";
 import { LanguageProvider } from "@/components/LanguageProvider";
 import { SnowOverlay } from "@/components/SnowOverlay";
 import { ActionDock } from "@/components/ActionDock";
@@ -56,10 +57,13 @@ export default function RootLayout({
           </div>
 
           {/* Assistant Node */}
-          <AiraAssistant 
-            platform="H4" 
-            context="Digital FTE is monitoring the Kafka 'struggle.alerts' topic. CRM Tickets are synchronized. All autonomous agents are active." 
+          <AiraAssistant
+            platform="H4"
+            context="Digital FTE is monitoring the Kafka 'struggle.alerts' topic. CRM Tickets are synchronized. All autonomous agents are active."
           />
+
+          {/* Command-K Palette — Cmd+K / Ctrl+K or dock button */}
+          <CommandPalette />
 
           <Toaster 
             position="bottom-right" 

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Languages, Snowflake, MessageSquare, BookOpen } from "lucide-react";
+import { Languages, Snowflake, MessageSquare, BookOpen, Command } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
 
 /**
@@ -67,13 +67,20 @@ export function ActionDock({ isPortfolio = false }: { isPortfolio?: boolean }) {
       action: () => window.dispatchEvent(new CustomEvent("toggle-aira")),
       active: false 
     },
-    ...(!isPortfolio ? [{ 
-      id: "notebook", 
-      icon: <BookOpen size={20} />, 
-      label: t.ui?.notebook || "Notebook", 
+    ...(!isPortfolio ? [{
+      id: "notebook",
+      icon: <BookOpen size={20} />,
+      label: t.ui?.notebook || "Notebook",
       action: () => window.dispatchEvent(new CustomEvent("toggle-notebook")),
-      active: false 
-    }] : [])
+      active: false
+    }] : []),
+    {
+      id: "cmd",
+      icon: <Command size={20} />,
+      label: "Command ⌘K",
+      action: () => window.dispatchEvent(new CustomEvent("toggle-command-palette")),
+      active: false
+    }
   ];
 
   return (
