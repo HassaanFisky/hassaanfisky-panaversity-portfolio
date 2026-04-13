@@ -151,7 +151,7 @@ export default function SignUpPage() {
                   <Loader2 className="h-4 w-4 animate-spin" />
                 ) : (
                   <>
-                    Initialize Protocol <ArrowRight className="h-4 w-4" />
+                    Sign Up <ArrowRight className="h-4 w-4" />
                   </>
                 )}
               </button>

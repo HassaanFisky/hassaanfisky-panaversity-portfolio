@@ -26,7 +26,7 @@ export default function SignInPage() {
       if (res.error) throw new Error(res.error.message);
       router.push("/learn");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Access Protocol Denial");
+      setError(err instanceof Error ? err.message : "Sign in failed. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -46,7 +46,7 @@ export default function SignInPage() {
           <GraduationCap className="text-[#D97757]" size={24} />
           <span className="font-serif font-bold text-lg tracking-tight uppercase">LearnFlow</span>
         </Link>
-        <Link href="/sign-up" className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#8A857D] hover:text-[#2D2926] transition-colors bg-[#FAF9F6] px-6 py-2.5 rounded-full border border-[#E5E0D8]">Faculty Enrollment</Link>
+        <Link href="/sign-up" className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#8A857D] hover:text-[#2D2926] transition-colors bg-[#FAF9F6] px-6 py-2.5 rounded-full border border-[#E5E0D8]">Sign Up</Link>
       </header>
 
       {/* Content */}
@@ -54,12 +54,12 @@ export default function SignInPage() {
         <div className="w-full max-w-md">
           {/* Editorial Eyebrow */}
           <div className="mb-12 space-y-4 text-center">
-            <div className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#D97757]">Faculty Authorization</div>
+            <div className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#D97757]">Welcome Back</div>
             <h1 className="text-5xl font-serif tracking-tight text-[#2D2926] leading-tight">
-              Access <span className="italic font-normal">Archive.</span>
+              Sign in to <span className="italic font-normal">LearnFlow.</span>
             </h1>
             <p className="text-sm font-medium text-[#8A857D] leading-relaxed max-w-xs mx-auto">
-              Please enter your unified Panaversity credentials to access this node.
+              Enter your email and password to continue.
             </p>
           </div>
 
@@ -67,20 +67,20 @@ export default function SignInPage() {
           <div className="bg-white rounded-[32px] border border-[#E5E0D8] shadow-[0_32px_64px_-16px_rgba(45,41,38,0.1)] p-12 space-y-8 relative overflow-hidden">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
-                <label className="block text-[10px] font-bold uppercase tracking-[0.3em] text-[#8A857D]">Institutional Email</label>
+                <label className="block text-[10px] font-bold uppercase tracking-[0.3em] text-[#8A857D]">Email</label>
                 <input
                   required
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full bg-[#FAF9F6] border border-[#E5E0D8] rounded-2xl px-6 py-4 text-sm font-medium focus:outline-none focus:border-[#D97757] focus:ring-4 focus:ring-[#D97757]/5 transition-all placeholder:text-[#BBB6AE]"
-                  placeholder="scholar@panaversity.edu"
+                  placeholder="you@example.com"
                 />
               </div>
 
               <div className="space-y-2">
                 <div className="flex justify-between items-center px-1">
-                  <label className="block text-[10px] font-bold uppercase tracking-[0.3em] text-[#8A857D]">Access Passcode</label>
+                  <label className="block text-[10px] font-bold uppercase tracking-[0.3em] text-[#8A857D]">Password</label>
                   <Link href="#" className="text-[9px] font-bold uppercase tracking-widest text-[#D97757]/50 hover:text-[#D97757]">Request Key</Link>
                 </div>
                 <input
@@ -94,8 +94,8 @@ export default function SignInPage() {
               </div>
 
               {error && (
-                <div className="p-4 rounded-xl bg-red-50 text-red-600 text-xs font-bold text-center border border-red-100 italic">
-                  — Access Protocols Refused —
+                <div className="p-4 rounded-xl bg-red-50 text-red-600 text-xs font-bold text-center border border-red-100">
+                  {error}
                 </div>
               )}
 
@@ -108,7 +108,7 @@ export default function SignInPage() {
                   <Loader2 className="h-4 w-4 animate-spin" />
                 ) : (
                   <>
-                    UPLINK_SEQUENCER <ArrowRight size={15} />
+                    Sign In <ArrowRight size={15} />
                   </>
                 )}
               </button>
@@ -116,19 +116,19 @@ export default function SignInPage() {
 
             <div className="flex items-center gap-4 py-2">
                <div className="flex-1 h-[0.5px] bg-[#E5E0D8]" />
-               <span className="text-[8px] font-bold uppercase tracking-[0.5em] text-[#BBB6AE]">Centralized Unified Data</span>
+               <span className="text-[8px] font-bold uppercase tracking-[0.5em] text-[#BBB6AE]">or</span>
                <div className="flex-1 h-[0.5px] bg-[#E5E0D8]" />
             </div>
 
             <p className="text-center text-[12px] font-medium text-[#8A857D]">
-              New Faculty?{" "}
-              <Link href="/sign-up" className="text-[#D97757] font-bold hover:underline underline-offset-4 decoration-2">Protocol Initialization</Link>
+              Don&apos;t have an account?{" "}
+              <Link href="/sign-up" className="text-[#D97757] font-bold hover:underline underline-offset-4 decoration-2">Sign Up</Link>
             </p>
           </div>
 
           <div className="mt-12 flex flex-col items-center gap-4 opacity-40">
             <div className="h-px w-24 bg-[#E5E0D8]" />
-            <div className="text-[9px] font-bold uppercase tracking-[0.5em] text-[#8A857D]">Panaversity LearnFlow • Core Node</div>
+            <div className="text-[9px] font-bold uppercase tracking-[0.5em] text-[#8A857D]">Panaversity LearnFlow</div>
           </div>
         </div>
       </main>

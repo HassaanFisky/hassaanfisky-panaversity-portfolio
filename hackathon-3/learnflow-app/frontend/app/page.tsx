@@ -172,7 +172,7 @@ export default function LandingPage() {
                         href="/arena"
                         className="btn-tactile bg-[#141210] text-[#E58A6D] border border-[#2E2B27] font-bold text-[11px] uppercase tracking-[0.25em] w-full py-5 rounded-2xl flex items-center justify-center gap-3 hover:border-[#E58A6D] transition-all"
                       >
-                        <Target size={18} /> The Arena
+                        <Target size={18} /> Play &amp; Learn
                       </Link>
                     </div>
                   </div>
@@ -182,7 +182,7 @@ export default function LandingPage() {
                   <SimpleStatCard icon={<Star size={20} />} label="Streak" value="5 Runs" />
                   <SimpleStatCard icon={<Clock size={20} />} label="Focus" value="12h" />
                   <SimpleStatCard icon={<CheckCircle2 size={20} />} label="Stages" value={`${modules.length}`} />
-                  <SimpleStatCard icon={<Zap size={20} className={cn("transition-colors", uplink === "SYNCING..." ? "text-yellow-500 animate-pulse" : "text-emerald-500")} />} label="Uplink" value={uplink} />
+                  <SimpleStatCard icon={<Zap size={20} className={cn("transition-colors", uplink === "SYNCING..." ? "text-yellow-500 animate-pulse" : "text-emerald-500")} />} label="Status" value={uplink} />
                 </div>
               </MotionDiv>
             </div>
@@ -234,7 +234,7 @@ export default function LandingPage() {
                           </div>
                        </div>
                        <div className="pt-10 flex items-center justify-between mt-10 border-t border-border-fine">
-                          <span className="text-[10px] font-black uppercase tracking-[0.35em] text-text-muted group-hover:text-accent">Open Blueprint</span>
+                          <span className="text-[10px] font-black uppercase tracking-[0.35em] text-text-muted group-hover:text-accent">Start</span>
                           <ArrowRight size={18} className="text-accent opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
                        </div>
                     </div>
@@ -250,7 +250,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12">
           <div className="flex flex-col gap-3 scale-90 origin-left">
              <span className="font-serif font-bold text-5xl tracking-tighter">LearnFlow</span>
-             <span className="text-[10px] uppercase font-black tracking-[0.5em] text-text-muted">Mastery Protocol v2.5</span>
+             <span className="text-[10px] uppercase font-black tracking-[0.5em] text-text-muted">LearnFlow Platform</span>
           </div>
           <p className="text-[10px] font-black uppercase tracking-[0.4em] text-text-muted opacity-40">
             © 2026 Architected by Hassaan & AI

@@ -10,9 +10,9 @@ import { ThemeToggle } from "./ThemeToggle";
 import { useSession, signOut } from "@/lib/auth-client";
 
 const NAV_LINKS = [
-  { href: "/learn", label: "Knowledge Nodes", icon: BookOpen },
-  { href: "/practice", label: "Mastery Flow", icon: Terminal },
-  { href: "/teacher", label: "Faculty Protocol", icon: ShieldCheck },
+  { href: "/learn", label: "Learn", icon: BookOpen },
+  { href: "/practice", label: "Practice", icon: Terminal },
+  { href: "/teacher", label: "Teacher", icon: ShieldCheck },
 ];
 
 /**
@@ -104,7 +104,7 @@ export function Navbar() {
                   onClick={handleSignOut}
                   className="text-[9px] font-bold uppercase tracking-widest text-red-500/80 hover:text-red-500 transition-colors"
                 >
-                  Term
+                  Sign Out
                 </button>
               </div>
             ) : (
@@ -124,7 +124,7 @@ export function Navbar() {
             href={user ? "/learn" : "/sign-up"}
             className="hidden sm:flex btn-tactile px-6 py-2.5 bg-[#141210] text-[#E58A6D] text-[10px] font-bold uppercase tracking-[0.3em] rounded-xl border border-border-fine hover:border-accent hover:text-accent shadow-xl shadow-black/20 active:scale-95 transition-all duration-300"
           >
-            {user ? "Study Protocol" : "Join Faculty"}
+            {user ? "Dashboard" : "Sign Up"}
           </Link>
 
           <button className="lg:hidden text-text-muted">

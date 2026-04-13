@@ -48,7 +48,7 @@ export default function ArenaPage() {
               <div className="text-center mb-12">
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#2E2B27] bg-[#1C1A17] mb-6">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#E58A6D] animate-pulse" />
-                  <span className="text-[9px] font-black uppercase tracking-[0.5em] text-[#9C948A]">Cognitive Pressure System</span>
+                  <span className="text-[9px] font-black uppercase tracking-[0.5em] text-[#9C948A]">Training Modes</span>
                 </div>
                 <h1 className="text-4xl sm:text-5xl font-bold tracking-tight mb-3">The Habit Engine</h1>
                 <p className="text-[#9C948A] text-sm max-w-sm mx-auto">Choose your mode. Each one trains a different dimension of your mind.</p>
@@ -71,7 +71,7 @@ export default function ArenaPage() {
                   <p className="text-[#9C948A] text-xs leading-relaxed mb-5">
                     25-minute deep focus. Tab-tracking enabled. Extreme pressure.
                   </p>
-                  <div className="text-[9px] uppercase tracking-[0.4em] text-[#E58A6D] font-bold">Initiate →</div>
+                  <div className="text-[9px] uppercase tracking-[0.4em] text-[#E58A6D] font-bold">Start →</div>
                 </motion.button>
 
                 {/* Concept Sprint */}
@@ -89,7 +89,7 @@ export default function ArenaPage() {
                   <p className="text-[#9C948A] text-xs leading-relaxed mb-5">
                     60-second rapid matching. Adaptive difficulty. Combo multipliers.
                   </p>
-                  <div className="text-[9px] uppercase tracking-[0.4em] text-[#96D1C7] font-bold">Initiate →</div>
+                  <div className="text-[9px] uppercase tracking-[0.4em] text-[#96D1C7] font-bold">Start →</div>
                 </motion.button>
 
                 {/* Flux Mode — premium card */}
@@ -120,7 +120,7 @@ export default function ArenaPage() {
                   <p className="text-[#9C948A] text-xs leading-relaxed mb-5">
                     Five interactive mechanics. Time Bending, Focus Beam, Reality Glitch, Decision Storm, Memory Ghost.
                   </p>
-                  <div className="text-[9px] uppercase tracking-[0.4em] text-[#E58A6D] font-bold group-hover:text-[#FFB088] transition-colors">Enter Flux →</div>
+                  <div className="text-[9px] uppercase tracking-[0.4em] text-[#E58A6D] font-bold group-hover:text-[#FFB088] transition-colors">Start →</div>
                 </motion.button>
               </div>
 

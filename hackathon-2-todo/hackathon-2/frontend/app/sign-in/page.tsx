@@ -118,7 +118,7 @@ export default function SignInPage() {
                   <Loader2 className="h-4 w-4 animate-spin" />
                 ) : (
                   <>
-                    Access Archive <ArrowRight className="h-4 w-4" />
+                    Sign In <ArrowRight className="h-4 w-4" />
                   </>
                 )}
               </button>

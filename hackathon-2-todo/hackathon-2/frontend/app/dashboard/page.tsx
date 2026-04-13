@@ -38,9 +38,9 @@ function TaskSkeleton() {
 
 function EmptyState({ status }: { status: FilterStatus }) {
   const messages: Record<FilterStatus, string> = {
-    all:       "No active protocols. Initialize your first task to begin.",
-    pending:   "System idle. All pending tasks have been executed.",
-    completed: "No architectural history. Complete a task to see it here.",
+    all:       "No tasks yet. Add your first task to get started.",
+    pending:   "All done! No pending tasks.",
+    completed: "No completed tasks yet.",
   };
   return (
     <motion.div
@@ -78,9 +78,9 @@ function DeleteConfirm({
         exit={{ scale: 0.95, y: 16 }}
         className="w-full max-w-sm rounded-3xl border border-border-fine bg-bg-base p-10 shadow-float mx-4"
       >
-        <h3 className="font-serif text-2xl font-bold tracking-tight text-text-primary mb-2">Terminate Node?</h3>
+        <h3 className="font-serif text-2xl font-bold tracking-tight text-text-primary mb-2">Delete Task?</h3>
         <p className="text-sm prose-editorial text-text-secondary opacity-70">
-          This system resource will be permanently unlinked from the autonomous engine.
+          This task will be permanently deleted.
         </p>
         <div className="mt-8 flex justify-end gap-4">
           <button
@@ -93,7 +93,7 @@ function DeleteConfirm({
             onClick={onConfirm}
             className="btn-tactile rounded-xl bg-red-500 px-6 py-3 text-[11px] font-bold uppercase tracking-widest text-white hover:brightness-110 shadow-lg shadow-red-500/20"
           >
-            Terminate
+            Delete
           </button>
         </div>
       </motion.div>
@@ -131,7 +131,7 @@ export default function DashboardPage() {
       const data = await api.tasks.list(userId);
       setTasks(data);
     } catch {
-      toast.error("Protocol failure: Unable to sync task nodes.");
+      toast.error("Connection issue, please try again.");
     } finally {
       setLoading(false);
     }
@@ -166,7 +166,7 @@ export default function DashboardPage() {
       if (!userId) return;
       const task = await api.tasks.create(userId, data);
       setTasks((p) => [task, ...p]);
-      toast.success("Task node initialized ✅");
+      toast.success("Task created ✅");
     },
     [userId]
   );
@@ -176,7 +176,7 @@ export default function DashboardPage() {
       if (!userId || !editTask) return;
       const updated = await api.tasks.update(userId, editTask.id, data);
       setTasks((p) => p.map((t) => (t.id === updated.id ? updated : t)));
-      toast.success("Architectural update completed.");
+      toast.success("Task updated.");
     },
     [userId, editTask]
   );
@@ -197,7 +197,7 @@ export default function DashboardPage() {
     await api.tasks.delete(userId, deleteId);
     setTasks((p) => p.filter((t) => t.id !== deleteId));
     setDeleteId(null);
-    toast.success("Task node unlinked.");
+    toast.success("Task deleted.");
   }, [userId, deleteId]);
 
   // ── Derived list ──────────────────────────────────────────────────────────
@@ -268,8 +268,7 @@ export default function DashboardPage() {
         {/* Header row */}
         <div className="mb-16 flex flex-col gap-10 sm:flex-row sm:items-end sm:justify-between border-b border-border-fine pb-16">
           <div className="space-y-4">
-            <div className="text-[10px] font-bold uppercase tracking-[0.4em] text-accent">Autonomous Engine</div>
-            <h1 className="text-5xl md:text-6xl font-serif tracking-tight text-text-primary">OpenTask <span className="italic font-normal">Console</span></h1>
+            <h1 className="text-5xl md:text-6xl font-serif tracking-tight text-text-primary">My <span className="italic font-normal">Tasks</span></h1>
             <div className="flex items-center gap-6 text-[11px] font-bold uppercase tracking-widest text-text-muted">
                 <div className="flex items-center gap-2">
                     <LayoutGrid size={12} className="opacity-50" />
@@ -277,11 +276,11 @@ export default function DashboardPage() {
                 </div>
                 <div className="flex items-center gap-2">
                     <Clock size={12} className="opacity-50" />
-                    <span>{stats.pending} Idle</span>
+                    <span>{stats.pending} To Do</span>
                 </div>
                 <div className="flex items-center gap-2 text-[#579D84]">
                     <CheckCircle2 size={12} />
-                    <span>{stats.completed} Executed</span>
+                    <span>{stats.completed} Done</span>
                 </div>
             </div>
           </div>
@@ -290,7 +289,7 @@ export default function DashboardPage() {
             className="btn-tactile group flex items-center gap-4 rounded-xl bg-text-primary px-8 py-4 text-[12px] font-bold uppercase tracking-[0.3em] text-white shadow-float hover:brightness-110 transition-editorial"
           >
             <Plus className="h-4 w-4 group-hover:rotate-90 transition-transform duration-500" />
-            Initialize Node
+            New Task
             <kbd className="ml-2 rounded bg-white/10 px-1.5 py-0.5 text-[9px] opacity-50">N</kbd>
           </button>
         </div>
@@ -303,7 +302,7 @@ export default function DashboardPage() {
               if (count === 0) return null;
               return (
                 <div key={p} className="flex items-center gap-3">
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-text-muted">{p} Node Load/</span>
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-text-muted">{p.charAt(0).toUpperCase() + p.slice(1)} Priority</span>
                   <div className="flex items-center gap-2">
                     <PriorityBadge priority={p} />
                     <span className="text-[11px] font-bold text-text-primary opacity-50">{count}</span>
@@ -352,7 +351,7 @@ export default function DashboardPage() {
              <div className="flex items-center gap-4 text-[11px] font-bold uppercase tracking-[0.5em] text-text-muted">
                 <span>Panaversity Infrastructure</span>
                 <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-                <span>Node Core v4.1</span>
+                <span>TaskFlow v2</span>
              </div>
         </div>
       </main>
