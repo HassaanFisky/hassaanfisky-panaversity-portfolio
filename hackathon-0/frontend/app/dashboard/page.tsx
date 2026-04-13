@@ -57,7 +57,7 @@ export default function DashboardPage() {
         { name: "Physical AI & Robotics", url: "https://hackathon-1-robotics.vercel.app" },
         { name: "Evolution of To-Do", url: "https://evolution-of-todo.vercel.app" },
         { name: "LearnFlow Engine", url: "https://learnflow-platform-h3.vercel.app" },
-        { name: "AI Companion FTE", url: "https://hassaanfisky-aira-digital-fte.vercel.app" },
+        { name: "AI Companion FTE", url: "https://frontend-ochre-mu-82.vercel.app" },
       ];
 
       projects.forEach(p => checkStatus(p.name, p.url));
@@ -214,7 +214,7 @@ export default function DashboardPage() {
                   { name: "Physical AI & Robotics", url: "https://hackathon-1-robotics.vercel.app" },
                   { name: "Evolution of To-Do", url: "https://evolution-of-todo.vercel.app" },
                   { name: "LearnFlow Engine", url: "https://learnflow-platform-h3.vercel.app" },
-                  { name: "AI Companion FTE", url: "https://hassaanfisky-aira-digital-fte.vercel.app" },
+                  { name: "AI Companion FTE", url: "https://frontend-ochre-mu-82.vercel.app" },
                 ].map((service) => (
                   <a
                     key={service.name}

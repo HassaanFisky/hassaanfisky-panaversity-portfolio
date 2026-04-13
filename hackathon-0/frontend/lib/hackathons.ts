@@ -68,7 +68,7 @@ export const hackathons: Hackathon[] = [
     tech: ["Autonomous CRM", "Agent Orchestration", "CRM"],
     description: "A state-of-the-art managed agent platform. ARIA operates as an autonomous Digital FTE, streamlining customer relations and managing complex operational workflows with zero human intervention.",
     status: "live", 
-    url: "https://hassaanfisky-aira-digital-fte.vercel.app", 
+    url: "https://frontend-ochre-mu-82.vercel.app", 
     imageUrl: "/h4-thumb.png",
     points: "1,500 Achievement Points" 
   }

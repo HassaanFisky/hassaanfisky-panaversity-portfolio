@@ -16,7 +16,7 @@ const ECOSYSTEM_APPS = [
   { name: "Physical AI & Robotics", image: "https://panaversity-h1-robotics.vercel.app/h1-thumb.png", url: "https://panaversity-h1-robotics.vercel.app", id: "H1" },
   { name: "Evolution of To-Do", image: "https://evolution-of-todo.vercel.app/h2-thumb.png", url: "https://evolution-of-todo.vercel.app", id: "H2" },
   { name: "LearnFlow Engine", image: "https://learnflow-platform-h3.vercel.app/h3-thumb.png", url: "https://learnflow-platform-h3.vercel.app", id: "H3" },
-  { name: "Companion FTE", image: "https://panaversity-h4-companion.vercel.app/h4-thumb.png", url: "https://panaversity-h4-companion.vercel.app", id: "H4" },
+  { name: "Companion FTE", image: "https://frontend-ochre-mu-82.vercel.app/h4-thumb.png", url: "https://frontend-ochre-mu-82.vercel.app", id: "H4" },
 ];
 
 export function EcosystemNav() {
