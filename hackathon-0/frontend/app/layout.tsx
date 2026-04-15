@@ -8,6 +8,8 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { ActionDock } from "@/components/ActionDock";
 import { WeatherOverlay } from "@/components/WeatherOverlay";
+import { CompanionProvider } from "@/components/companion/CompanionContext";
+import { CompanionShell } from "@/components/companion/CompanionShell";
 
 const inter = Inter({ 
   subsets: ["latin"], 
@@ -58,17 +60,31 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            {/* Immersive Weather Environment Engine */}
-            <WeatherOverlay />
+            {/*
+             * CompanionProvider wraps ActionDock + CompanionShell so the
+             * Framer Motion layoutId="companion-orb" FLIP morph can connect
+             * the dock chat button to the companion window.
+             */}
+            <CompanionProvider>
+              {/* Immersive Weather Environment Engine */}
+              <WeatherOverlay />
 
-            <Navbar />
-            <main className="relative flex flex-col pt-16">
-              {children}
-            </main>
+              <Navbar />
+              <main className="relative flex flex-col pt-16">
+                {children}
+              </main>
 
-            {/* Bottom Unified Action Systems */}
-            <ActionDock isPortfolio={true} />
-            <EcosystemNav />
+              {/* Action dock — chat button carries layoutId="companion-orb" */}
+              <ActionDock isPortfolio={true} />
+              <EcosystemNav />
+
+              {/* Companion window (replaces old AiraAssistant mount) */}
+              <CompanionShell
+                platform="H0"
+                context="Panaversity Portfolio Hub — Showcasing H0–H4 hackathon projects by Hassaan AI Architect."
+                isPortfolio={true}
+              />
+            </CompanionProvider>
 
             <Footer />
           </ThemeProvider>

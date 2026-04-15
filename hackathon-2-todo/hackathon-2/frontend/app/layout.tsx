@@ -25,7 +25,8 @@ import { ActionDock } from "@/components/ActionDock";
 import { SnowOverlay } from "@/components/SnowOverlay";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { EcosystemNav } from "@/components/EcosystemNav";
-import { AiraAssistant } from "@/components/AiraAssistant";
+import { CompanionProvider } from "@/components/companion/CompanionContext";
+import { CompanionShell } from "@/components/companion/CompanionShell";
 
 export default function RootLayout({
   children,
@@ -40,15 +41,17 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            {children}
-            <ActionDock />
-            <SnowOverlay />
-            <EcosystemNav />
-            <AiraAssistant 
-              platform="H2" 
-              context="Your task stack is optimized. Syncing with the global learning protocol." 
-            />
-            <Toaster 
+            <CompanionProvider>
+              {children}
+              <ActionDock />
+              <SnowOverlay />
+              <EcosystemNav />
+              <CompanionShell
+                platform="H2"
+                context="TaskFlow task manager. Your task stack is optimized. Syncing with the global learning protocol."
+              />
+            </CompanionProvider>
+            <Toaster
               richColors 
               position="top-right" 
               closeButton 

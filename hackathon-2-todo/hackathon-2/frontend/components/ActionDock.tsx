@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Languages, Snowflake, MessageSquare, BookOpen } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "next-themes";
+import { useCompanion } from "@/components/companion/CompanionContext";
 
 /**
  * HASSAAN AI ARCHITECT — ActionDock Node
@@ -12,6 +13,7 @@ import { useTheme } from "next-themes";
  */
 export function ActionDock({ isPortfolio = false }: { isPortfolio?: boolean }) {
   const { lang, changeLanguage, t, languages } = useLanguage();
+  const { isOpen: companionOpen, toggle: toggleCompanion } = useCompanion();
   const [showLanguage, setShowLanguage] = useState(false);
   const [isSnowing, setIsSnowing] = useState(false);
   const { setTheme, resolvedTheme } = useTheme();
@@ -60,12 +62,13 @@ export function ActionDock({ isPortfolio = false }: { isPortfolio?: boolean }) {
       action: toggleSnow,
       active: isSnowing 
     },
-    { 
-      id: "chat", 
-      icon: <MessageSquare size={20} />, 
-      label: t.ui.companion, 
-      action: () => window.dispatchEvent(new CustomEvent("toggle-chat")),
-      active: false 
+    {
+      id:             "chat",
+      icon:           <MessageSquare size={20} />,
+      label:          t.ui.companion,
+      action:         toggleCompanion,
+      active:         companionOpen,
+      isCompanionOrb: true,
     },
     ...(!isPortfolio ? [{ 
       id: "notebook", 
@@ -108,23 +111,39 @@ export function ActionDock({ isPortfolio = false }: { isPortfolio?: boolean }) {
       </AnimatePresence>
 
       <div className="flex flex-col gap-3 glass-apple p-2.5 rounded-full shadow-float border-white/20 dark:border-white/10">
-        {navItems.map((item) => (
-          <button
-            key={item.id}
-            onClick={item.action}
-            className={`w-14 h-14 rounded-full flex items-center justify-center transition-all relative group ${
-              item.active 
-                ? "bg-accent text-white shadow-lg" 
-                : "text-text-secondary hover:bg-white dark:hover:bg-white/10 hover:text-accent hover:shadow-md"
-            }`}
-            title={item.label}
-          >
-            {item.icon}
-            <div className={`absolute ${lang === 'ur' ? 'left-full ml-4' : 'right-full mr-4'} px-3 py-1.5 bg-text-primary text-bg-base text-[9px] rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none uppercase tracking-[0.2em] font-bold shadow-xl border border-white/20`}>
-              {item.label}
-            </div>
-          </button>
-        ))}
+        {navItems.map((item) => {
+          const isOrb   = !!(item as any).isCompanionOrb;
+          const isGhost = isOrb && companionOpen;
+          return (
+            <motion.button
+              key={item.id}
+              layoutId={isOrb ? "companion-orb" : undefined}
+              onClick={item.action}
+              whileHover={!isGhost ? { scale: 1.12, y: -3 } : {}}
+              whileTap={!isGhost ? { scale: 0.82 } : {}}
+              transition={{ type: "spring", stiffness: 400, damping: 28 }}
+              aria-hidden={isGhost ? true : undefined}
+              className={`w-14 h-14 rounded-full flex items-center justify-center transition-all relative group ${
+                item.active
+                  ? "bg-accent text-white shadow-lg"
+                  : "text-text-secondary hover:bg-white dark:hover:bg-white/10 hover:text-accent hover:shadow-md"
+              }`}
+              style={{
+                willChange:    "transform, border-radius",
+                pointerEvents: isGhost ? "none" : "auto",
+                opacity:       isGhost ? 0 : 1,
+              }}
+              title={item.label}
+            >
+              {item.icon}
+              {!isGhost && (
+                <div className={`absolute ${lang === "ur" ? "left-full ml-4" : "right-full mr-4"} px-3 py-1.5 bg-text-primary text-bg-base text-[9px] rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none uppercase tracking-[0.2em] font-bold shadow-xl border border-white/20`}>
+                  {item.label}
+                </div>
+              )}
+            </motion.button>
+          );
+        })}
       </div>
     </div>
   );

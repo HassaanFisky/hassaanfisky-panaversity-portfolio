@@ -5,6 +5,7 @@ import { motion, AnimatePresence, PanInfo } from "framer-motion";
 import { Languages, Sun, Snowflake, CloudRain, CloudLightning, Cloud, MessageSquare, BookOpen } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "next-themes";
+import { useCompanion } from "@/components/companion/CompanionContext";
 
 /**
  * HASSAAN AI ARCHITECT — ActionDock v6.0
@@ -42,6 +43,7 @@ const SPRING_ICON   = { type: "spring", stiffness: 500, damping: 14, mass: 0.6 }
 
 export function ActionDock({ isPortfolio = false }: { isPortfolio?: boolean }) {
   const { lang, changeLanguage, t, languages } = useLanguage();
+  const { isOpen: companionOpen, toggle: toggleCompanion } = useCompanion();
   const [showLanguage, setShowLanguage] = useState(false);
   const [weatherIndex, setWeatherIndex] = useState(0);
   const { resolvedTheme } = useTheme();
@@ -121,12 +123,13 @@ export function ActionDock({ isPortfolio = false }: { isPortfolio?: boolean }) {
       ariaPressed: weatherIndex !== 0,
     },
     {
-      id:        "chat",
-      icon:      <MessageSquare size={20} />,
-      label:     t.ui.companion,
-      action:    () => window.dispatchEvent(new CustomEvent("toggle-chat")),
-      active:    false,
-      ariaLabel: "Toggle AI companion chat",
+      id:             "chat",
+      icon:           <MessageSquare size={20} />,
+      label:          t.ui.companion,
+      action:         toggleCompanion,
+      active:         companionOpen,
+      ariaLabel:      "Toggle AI companion chat",
+      isCompanionOrb: true,
     },
     ...(!isPortfolio
       ? [
@@ -202,40 +205,48 @@ export function ActionDock({ isPortfolio = false }: { isPortfolio?: boolean }) {
         className="flex flex-col gap-3 glass-apple p-2.5 rounded-full shadow-float border-white/20 dark:border-white/10"
       >
         {navItems.map((item) => {
-          // Build only the ARIA props that are defined for each item.
           const ariaProps: Record<string, string | boolean | undefined> = {
             "aria-label": item.ariaLabel ?? item.label,
           };
           if ("ariaExpanded" in item) ariaProps["aria-expanded"] = item.ariaExpanded;
           if ("ariaPressed"  in item) ariaProps["aria-pressed"]  = item.ariaPressed;
 
+          const isOrb   = !!(item as any).isCompanionOrb;
+          const isGhost = isOrb && companionOpen;
+
           return (
             <motion.button
               key={item.id}
+              layoutId={isOrb ? "companion-orb" : undefined}
               onClick={item.action}
-              whileHover={{ scale: 1.12, y: -3 }}
-              whileTap={{   scale: 0.82          }}
+              whileHover={!isGhost ? { scale: 1.12, y: -3 } : {}}
+              whileTap={!isGhost ? { scale: 0.82 } : {}}
               transition={SPRING_ZOOP}
+              aria-hidden={isGhost ? true : undefined}
               className={`w-14 h-14 rounded-full flex items-center justify-center transition-all relative group ${
                 item.active
                   ? "bg-accent text-white shadow-lg"
                   : "text-text-secondary hover:bg-bg-surface hover:text-accent hover:shadow-md"
               }`}
-              style={{ willChange: "transform" }}
+              style={{
+                willChange:    "transform, border-radius",
+                pointerEvents: isGhost ? "none" : "auto",
+                opacity:       isGhost ? 0 : 1,
+              }}
               title={item.label}
               {...ariaProps}
             >
               {item.icon}
-
-              {/* Tooltip */}
-              <div
-                className={`absolute ${
-                  lang === "ur" ? "left-full ml-4" : "right-full mr-4"
-                } px-3 py-1.5 bg-text-primary text-bg-base text-[9px] rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none uppercase tracking-[0.2em] font-bold shadow-xl border border-white/20`}
-                aria-hidden="true"
-              >
-                {item.label}
-              </div>
+              {!isGhost && (
+                <div
+                  className={`absolute ${
+                    lang === "ur" ? "left-full ml-4" : "right-full mr-4"
+                  } px-3 py-1.5 bg-text-primary text-bg-base text-[9px] rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none uppercase tracking-[0.2em] font-bold shadow-xl border border-white/20`}
+                  aria-hidden="true"
+                >
+                  {item.label}
+                </div>
+              )}
             </motion.button>
           );
         })}

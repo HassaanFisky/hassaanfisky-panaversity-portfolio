@@ -1,15 +1,21 @@
 import React, { useState, useEffect, useRef } from "react";
 import BrowserOnly from "@docusaurus/BrowserOnly";
+import { motion, AnimatePresence } from "framer-motion";
 import { Languages, Snowflake, MessageSquare, BookOpen } from "lucide-react";
 import { useLanguage } from "../../context/LanguageContext";
 import { useColorMode } from "@docusaurus/theme-common";
+import { useCompanion } from "../companion/CompanionContext";
+
+// Spring preset for dock buttons
+const SPRING_ZOOP = { type: "spring", stiffness: 620, damping: 18, mass: 0.8 };
 
 function ActionDockContent() {
   const { lang, changeLanguage, t, languages } = useLanguage();
+  const { isOpen: companionOpen, toggle: toggleCompanion } = useCompanion();
   const [showLanguage, setShowLanguage] = useState(false);
   const [isSnowing, setIsSnowing] = useState(false);
   const { colorMode, setColorMode } = useColorMode();
-  
+
   const dockRef = useRef(null);
   const languageRef = useRef(null);
 
@@ -54,12 +60,13 @@ function ActionDockContent() {
       action: toggleSnow,
       active: isSnowing 
     },
-    { 
-      id: "chat", 
-      icon: <MessageSquare size={20} />, 
-      label: t.ui.companion, 
-      action: () => window.dispatchEvent(new CustomEvent("toggle-chat")),
-      active: false 
+    {
+      id:             "chat",
+      icon:           <MessageSquare size={20} />,
+      label:          t.ui.companion,
+      action:         toggleCompanion,
+      active:         companionOpen,
+      isCompanionOrb: true,
     },
     { 
       id: "notebook", 
@@ -116,35 +123,81 @@ function ActionDockContent() {
           border: '0.8px solid var(--border-fine)'
         }}
       >
-        {navItems.map((item) => (
-          <button
-            key={item.id}
-            onClick={item.action}
-            className={`w-14 h-14 rounded-full flex items-center justify-center transition-all relative group ${
-              item.active 
-                ? "bg-accent text-white shadow-lg" 
-                : "bg-transparent text-text-secondary hover:bg-bg-elevated hover:text-accent hover:shadow-md"
-            }`}
-            style={{ 
-              border: item.active ? 'none' : '0.8px solid transparent',
-              cursor: 'pointer',
-              background: item.active ? 'var(--accent)' : 'transparent'
-            }}
-            title={item.label}
-          >
-            {item.icon}
-            <div 
-              className={`absolute ${lang === 'ur' ? 'left-full ml-4' : 'right-full mr-4'} px-3 py-1.5 bg-text-primary text-bg-base text-[9px] rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none uppercase tracking-[0.2em] font-bold shadow-xl`}
+        {navItems.map((item) => {
+          const isOrb   = !!item.isCompanionOrb;
+          const isGhost = isOrb && companionOpen;
+
+          return (
+            <motion.button
+              key={item.id}
+              layoutId={isOrb ? "companion-orb" : undefined}
+              onClick={item.action}
+              whileHover={!isGhost ? { scale: 1.12, y: -3 } : {}}
+              whileTap={!isGhost  ? { scale: 0.82 }         : {}}
+              transition={SPRING_ZOOP}
+              aria-hidden={isGhost ? true : undefined}
               style={{
-                backgroundColor: 'var(--text-primary)',
-                color: 'var(--bg)',
-                border: '0.8px solid var(--border-fine)'
+                width:          "3.5rem",
+                height:         "3.5rem",
+                borderRadius:   "50%",
+                display:        "flex",
+                alignItems:     "center",
+                justifyContent: "center",
+                cursor:         isGhost ? "default" : "pointer",
+                border:         item.active ? "none" : "0.8px solid transparent",
+                background:     item.active ? "var(--accent)" : "transparent",
+                color:          item.active ? "white" : "var(--text-secondary)",
+                transition:     "background 0.2s, color 0.2s",
+                position:       "relative",
+                willChange:     "transform, border-radius",
+                pointerEvents:  isGhost ? "none" : "auto",
+                opacity:        isGhost ? 0 : 1,
               }}
+              onMouseOver={(e) => {
+                if (!item.active && !isGhost) {
+                  e.currentTarget.style.background = "var(--bg-elevated)";
+                  e.currentTarget.style.color = "var(--accent)";
+                }
+              }}
+              onMouseOut={(e) => {
+                if (!item.active && !isGhost) {
+                  e.currentTarget.style.background = "transparent";
+                  e.currentTarget.style.color = "var(--text-secondary)";
+                }
+              }}
+              title={item.label}
+              className="dock-btn-group"
             >
-              {item.label}
-            </div>
-          </button>
-        ))}
+              {item.icon}
+              {!isGhost && (
+                <div
+                  style={{
+                    position:       "absolute",
+                    [lang === "ur" ? "left" : "right"]: "calc(100% + 1rem)",
+                    padding:        "0.375rem 0.75rem",
+                    background:     "var(--text-primary)",
+                    color:          "var(--bg)",
+                    fontSize:       "9px",
+                    borderRadius:   "0.5rem",
+                    opacity:        0,
+                    transition:     "opacity 0.2s",
+                    whiteSpace:     "nowrap",
+                    pointerEvents:  "none",
+                    textTransform:  "uppercase",
+                    letterSpacing:  "0.2em",
+                    fontWeight:     700,
+                    boxShadow:      "0 4px 12px rgba(0,0,0,0.12)",
+                    border:         "0.8px solid var(--border-fine)",
+                  }}
+                  aria-hidden="true"
+                  className="dock-tooltip"
+                >
+                  {item.label}
+                </div>
+              )}
+            </motion.button>
+          );
+        })}
       </div>
     </div>
   );

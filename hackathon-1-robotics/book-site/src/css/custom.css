@@ -1173,3 +1173,69 @@ body.lang-ro {
   }
 }
 
+/* ── COMPANION SYSTEM ────────────────────────────────────────────────────── */
+
+/* Premium glass surface for the Companion window (heavier blur than glass-apple) */
+.glass-companion {
+  backdrop-filter: blur(40px) saturate(200%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%);
+  background-color: var(--glass-bg);
+  border: 0.8px solid var(--glass-border);
+  transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Companion window responsive layout */
+/* Mobile: full-width bottom sheet (base styles in CompanionShell inline) */
+/* Desktop: fixed size, anchored bottom-right or bottom-left (RTL) */
+@media (min-width: 768px) {
+  .companion-window-responsive {
+    left:         auto !important;
+    right:        2.5rem;
+    bottom:       6rem !important;
+    border-radius: 2rem !important;
+    height:       660px !important;
+    width:        760px;
+  }
+
+  /* Desktop sidebar show/hide via display flex */
+  .companion-sidebar-desktop {
+    display: flex !important;
+  }
+
+  /* Hide mobile-only elements on desktop */
+  .companion-sidebar-scrim,
+  .companion-sidebar-mobile {
+    display: none !important;
+  }
+}
+
+/* Mobile: show mobile drawer, hide desktop sidebar */
+@media (max-width: 767px) {
+  .companion-sidebar-mobile,
+  .companion-sidebar-scrim {
+    display: flex !important;
+  }
+
+  .companion-sidebar-desktop {
+    display: none !important;
+  }
+}
+
+/* Dock tooltip hover reveal */
+.dock-btn-group:hover .dock-tooltip {
+  opacity: 1 !important;
+}
+
+/* Framer spin keyframe alias (Loader2 uses animate-spin class) */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.animate-spin-slow { animation: spin-slow 12s linear infinite; }
+
+/* RTL companion window anchor to bottom-left */
+[dir="rtl"] .companion-window-responsive {
+  right: auto;
+  left:  2.5rem !important;
+}
+
