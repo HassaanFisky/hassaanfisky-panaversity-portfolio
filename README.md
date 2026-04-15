@@ -67,5 +67,5 @@ A master deployment orchestrator is available for zero-config Vercel/Cloud-Run p
 
 ---
 
-**Built by Antigravity**
-_Advanced Agentic Coding @ Google DeepMind_
+**Built by HASSAAN FISKY**
+
