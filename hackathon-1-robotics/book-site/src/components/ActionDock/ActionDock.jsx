@@ -20,7 +20,7 @@ function ActionDockContent() {
   const languageRef = useRef(null);
 
   useEffect(() => {
-    const savedSnow = localStorage.getItem("h1_snow_enabled") === "true";
+    const savedSnow = localStorage.getItem("let_it_snow") === "1";
     setIsSnowing(savedSnow);
 
     const handleClickOutside = (event) => {
@@ -36,13 +36,13 @@ function ActionDockContent() {
   const toggleSnow = () => {
     const newState = !isSnowing;
     setIsSnowing(newState);
-    localStorage.setItem("h1_snow_enabled", newState.toString());
-    
+    localStorage.setItem("let_it_snow", newState ? "1" : "0");
+
     if (newState && colorMode === "light") {
       setColorMode("dark");
     }
-    
-    window.dispatchEvent(new CustomEvent("toggle-snow", { detail: { enabled: newState } }));
+
+    window.dispatchEvent(new CustomEvent("snow-toggle", { detail: { active: newState } }));
   };
 
   const navItems = [

@@ -7,8 +7,14 @@ interface ChatMessage {
 }
 
 interface ChatRequestBody {
-  message: string;
+  // New format: full messages array sent by CompanionChat
+  messages?: ChatMessage[];
+  // Legacy format: single message + history
+  message?: string;
   history?: ChatMessage[];
+  context?: string;
+  platform?: string;
+  lang?: string;
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -27,12 +33,21 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const { message, history = [] } = req.body as ChatRequestBody;
+  const body = req.body as ChatRequestBody;
 
-  if (!message) {
+  // Support both new format ({ messages }) and legacy format ({ message, history })
+  let conversationMessages: ChatMessage[] = [];
+  if (body.messages && body.messages.length > 0) {
+    conversationMessages = body.messages;
+  } else if (body.message) {
+    conversationMessages = [
+      ...(body.history ?? []).slice(-6),
+      { role: "user", content: body.message },
+    ];
+  } else {
     return res.status(400).json({
       error: "Message required",
-      answer: "Please provide a valid question for the Architect.",
+      content: "Please provide a valid question for the Architect.",
       sources: [],
     });
   }
@@ -42,8 +57,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
 
   if (!GROQ_API_KEY && !OPENROUTER_API_KEY) {
+    const msg = "The HASSAAN AI ARCHITECT assistant is not configured. Please add GROQ_API_KEY to your environment variables.";
     return res.json({
-      answer: "The HASSAAN AI ARCHITECT assistant is not configured. Please add GROQ_API_KEY to your environment variables. 105th turn audit proof 2nd check 100% compliant attempt.",
+      content: msg,
+      answer: msg,
       sources: ["System: Configuration Required"],
     });
   }
@@ -69,8 +86,7 @@ ECOSYSTEM NODES:
   try {
     const messages: ChatMessage[] = [
       { role: "system", content: SYSTEM_PROMPT },
-      ...history.slice(-6),
-      { role: "user", content: message },
+      ...conversationMessages.filter((m) => m.role !== "system").slice(-8),
     ];
 
     // Priority 1: Use Groq
@@ -107,15 +123,18 @@ ECOSYSTEM NODES:
     const sources = sourceMatches.slice(0, 3);
 
     return res.json({
+      content: answer,
       answer,
       sources: sources.length > 0 ? sources : ["Sync: Autonomous Knowledge Transfer"],
     });
 
   } catch (error: any) {
     console.error("Chat API error:", error);
+    const errMsg = `Cognitive Synchronization Error: ${error.message}. Please verify the GROQ_API_KEY.`;
     return res.status(500).json({
-      answer: `Cognitive Synchronization Error: ${error.message}. Please verify the GROQ_API_KEY.`,
-      sources: ["Error Check 105th turn audit proof 2nd check 100% compliant attempt."],
+      content: errMsg,
+      answer: errMsg,
+      sources: [],
     });
   }
 }

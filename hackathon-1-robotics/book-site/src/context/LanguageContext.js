@@ -37,6 +37,7 @@ export const languages = {
       companion: "AI Companion",
       openChat: "Open Chat",
       notebook: "Study Notebook",
+      snow: "Snow Effect",
     },
     notebook: {
       title: "Study Notebook",
@@ -111,6 +112,7 @@ export const languages = {
       companion: "اے آئی ساتھی",
       openChat: "چیٹ کھولیں",
       notebook: "مطالعہ نوٹ بک",
+      snow: "برف کا اثر",
     },
     notebook: {
       title: "مطالعہ نوٹ بک",
@@ -185,6 +187,7 @@ export const languages = {
       companion: "AI Saathi",
       openChat: "Chat Kholen",
       notebook: "Study Notebook",
+      snow: "Baraf Effect",
     },
     notebook: {
       title: "Study Notebook",
