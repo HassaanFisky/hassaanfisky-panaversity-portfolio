@@ -20,9 +20,9 @@
              radial-gradient(at 50% 0%, hsla(10, 20%, 90%, 1) 0, transparent 50%), 
              radial-gradient(at 100% 0%, hsla(30, 40%, 92%, 1) 0, transparent 50%);
   
-  --text-primary: #1C1815;
-  --text-secondary: #3D3530;
-  --text-muted: #6B6460;
+  --text-primary: #38312E;
+  --text-secondary: #57534E;
+  --text-muted: #8A857D;
   
   --accent: #D97757;
   --accent-dim: rgba(217, 119, 87, 0.18);
