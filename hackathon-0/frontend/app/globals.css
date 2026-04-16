@@ -13,8 +13,8 @@
 :root {
   /* Core Foundation - Light */
   --bg-base: #FCFAF8;
-  --bg-surface: #F2EBE0;
-  --bg-elevated: #EFE6D9;
+  --bg-surface: #F0EBE1;
+  --bg-elevated: #EBE5D8;
   --bg-mesh: radial-gradient(at 0% 0%, hsla(20, 30%, 95%, 1) 0, transparent 50%), 
              radial-gradient(at 50% 0%, hsla(10, 20%, 90%, 1) 0, transparent 50%), 
              radial-gradient(at 100% 0%, hsla(30, 40%, 92%, 1) 0, transparent 50%);
@@ -24,14 +24,25 @@
   --text-muted: #8A857D;
   
   --accent: #D97757;
-  --accent-dim: rgba(217, 119, 87, 0.18);
+  --accent-dim: rgba(217, 119, 87, 0.08);
   --accent-soft: rgba(217, 119, 87, 0.12);
-  --border-fine: rgba(28, 24, 21, 0.08);
+  --border-fine: #E5E0D8;
+  --border-muted: #DED8CD;
   --border-active: #D97757;
-  
-  --glass-bg: rgba(252, 250, 248, 0.75);
+  --radius-sm:    0.75rem;
+  --radius-md:    1.25rem;
+  --radius-lg:    2rem;
+  --shadow-card:  0 4px 16px -4px rgba(56, 49, 46, 0.08), 0 0 0 1px var(--border-fine);
+  --shadow-modal: 0 24px 64px -12px rgba(56, 49, 46, 0.12), 0 0 0 1px var(--border-fine);
+  --success:      #3D9970;
+  --error:        #D95757;
+  --font-serif:   var(--font-lora, "Lora", serif);
+  --font-sans:    var(--font-inter, "Inter", sans-serif);
+  --font-mono:    "JetBrains Mono", monospace;
+
+  --glass-bg: rgba(252, 250, 248, 0.85);
   --glass-border: rgba(255, 255, 255, 0.4);
-  
+
   /* Feature Defaults */
   --weather-bg-overlay: transparent;
   --lightning-opacity: 0;
@@ -40,25 +51,30 @@
 }
 
 .dark, [data-theme='dark'] {
-  --bg-base: #080808;
-  --bg-surface: #121212;
-  --bg-elevated: #1A1A1A;
-  --bg-mesh: radial-gradient(at 0% 0%, hsla(220, 20%, 5%, 1) 0, transparent 50%), 
-             radial-gradient(at 50% 0%, hsla(280, 20%, 8%, 1) 0, transparent 50%), 
+  --bg-base: #0A0A0A;
+  --bg-surface: #141414;
+  --bg-elevated: #1F1F1F;
+  --bg-mesh: radial-gradient(at 0% 0%, hsla(220, 20%, 5%, 1) 0, transparent 50%),
+             radial-gradient(at 50% 0%, hsla(280, 20%, 8%, 1) 0, transparent 50%),
              radial-gradient(at 100% 0%, hsla(320, 20%, 5%, 1) 0, transparent 50%);
-  
-  --text-primary: #F5F0EB;
-  --text-secondary: #C8C0B8;
-  --text-muted: #8A8480;
-  
+
+  --text-primary: #FAF9F6;
+  --text-secondary: #D1D5DB;
+  --text-muted: #9CA3AF;
+
   --accent: #E58A6D;
-  --accent-dim: rgba(229, 138, 109, 0.22);
+  --accent-dim: rgba(229, 138, 109, 0.1);
   --accent-soft: rgba(229, 138, 109, 0.15);
-  --border-fine: rgba(255, 255, 255, 0.08);
+  --border-fine: #262626;
+  --border-muted: #333333;
   --border-active: #E58A6D;
-  
-  --glass-bg: rgba(8, 8, 8, 0.7);
-  --glass-border: rgba(255, 255, 255, 0.1);
+  --shadow-card:  0 8px 32px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--border-fine);
+  --shadow-modal: 0 32px 80px -16px rgba(0, 0, 0, 0.7), 0 0 0 1px var(--border-fine);
+  --success:      #6EE7B7;
+  --error:        #EF4444;
+
+  --glass-bg: rgba(10, 10, 10, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.08);
   --grain-opacity: 0.08;
 }
 
@@ -148,6 +164,8 @@
     background-image: var(--bg-mesh);
     color: var(--text-primary);
     font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
     min-height: 100vh;
     overflow-x: hidden;
     /* Smooth weather transitions — background-color interpolates, bg-image snaps */
@@ -320,6 +338,50 @@
       0 0 0 1px rgba(255, 255, 255, 0.04);
   }
 }
+
+/* ─── MISSING UTILITIES ─────────────────────────────────────────────────── */
+@layer utilities {
+  .text-gradient {
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(to bottom right, var(--text-primary), var(--accent));
+  }
+}
+
+@layer components {
+  .glass-nav {
+    position: sticky;
+    top: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 50;
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    background-color: rgba(252, 250, 248, 0.8);
+    border: 0.8px solid var(--border-fine);
+    border-radius: var(--radius-lg);
+    width: calc(100% - 2rem);
+    max-width: 1100px;
+  }
+  .dark .glass-nav,
+  [data-theme='dark'] .glass-nav {
+    background-color: rgba(10, 10, 10, 0.85);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Smooth scroll */
+html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-base); }
+::-webkit-scrollbar-thumb { background: var(--border-fine); border-radius: 10px; border: 1px solid var(--bg-base); }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* Selection */
+::selection { background: var(--accent-dim); color: var(--accent); }
 
 /* ─── WEATHER PARTICLE EFFECTS ──────────────────────────────────────────────
    All particle animation is handled by Framer Motion (GPU compositor thread).

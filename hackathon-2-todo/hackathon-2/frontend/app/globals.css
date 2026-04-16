@@ -74,7 +74,7 @@
   --success:      #6EE7B7;
   --error:        #EF4444;
 
-  --glass-bg: rgba(10, 10, 10, 0.9);
+  --glass-bg: rgba(10, 10, 10, 0.7);
   --glass-border: rgba(255, 255, 255, 0.08);
   --grain-opacity: 0.08;
 }
