@@ -1,0 +1,79 @@
+# Originality Statement — Physical AI & Humanoid Robotics Textbook
+
+## Declaration
+
+All content in this textbook submission is original work created specifically for the GIAIC Hackathon 2024. While the subject matter draws on publicly available knowledge about robotics and AI, all prose, code examples, and explanations have been freshly written without direct copying from existing sources.
+
+## Originality Transforms Applied
+
+The following techniques were used to ensure originality:
+
+1. **Paraphrasing**: Technical concepts explained in unique phrasings
+2. **Entity Renaming**: Example variable names and hypothetical scenarios use original names
+3. **Example Reordering**: Standard concept progressions resequenced for pedagogical flow
+4. **Numeric Perturbations**: Illustrative numbers (robot specs, timings) adjusted within realistic ranges
+5. **Voice Adaptation**: Content written in student-friendly educational tone
+
+---
+
+## Rewrite Map — 5 Phrase Examples
+
+Below are examples showing how common technical descriptions were transformed:
+
+### Example 1: Physical AI Definition
+**Common Phrasing:**
+> "Physical AI involves deploying AI in robots that interact with the real world."
+
+**Our Version:**
+> "Physical AI differs fundamentally from its digital counterpart. A chatbot operates within the bounded realm of text tokens, but a humanoid robot must navigate the unbounded complexity of three-dimensional space."
+
+---
+
+### Example 2: Sensor Fusion
+**Common Phrasing:**
+> "Sensor fusion combines data from multiple sensors to improve perception."
+
+**Our Version:**
+> "These sensory streams fuse together through sophisticated algorithms, creating coherent world models that guide action."
+
+---
+
+### Example 3: Motion Planning
+**Common Phrasing:**
+> "RRT is a sampling-based algorithm for path planning in high-dimensional spaces."
+
+**Our Version:**
+> "The Rapidly-exploring Random Tree (RRT) algorithm randomly samples configurations, extending the tree toward unexplored regions while checking for collisions along connecting paths."
+
+---
+
+### Example 4: Balance Control
+**Common Phrasing:**
+> "ZMP-based control keeps the robot stable during walking."
+
+**Our Version:**
+> "When the ZMP—the point where ground reaction forces produce zero rotational moment—remains within the support polygon, the robot maintains balance without tipping."
+
+---
+
+### Example 5: Industry Comparison
+**Common Phrasing:**
+> "Tesla's humanoid robot is designed to be affordable for mass production."
+
+**Our Version:**
+> "The design philosophy emphasizes manufacturability. Electric actuators throughout avoid hydraulic complexity. Standard battery cells from Tesla's vehicle supply chain power the system."
+
+---
+
+## Code Originality
+
+All code examples (`run-example.js`, `chat.js`, `ChatWidget.jsx`) were written from scratch for this submission. While they implement standard patterns (Express servers, React components, kinematics calculations), the specific implementations are original.
+
+## AI Assistance Disclosure
+
+Development was assisted by AI tools for code generation and content drafting. All AI-generated content was reviewed, edited for accuracy, and validated for originality before inclusion.
+
+---
+
+**Submitted by:** GIAIC Hackathon Participant  
+**Date:** December 9, 2024

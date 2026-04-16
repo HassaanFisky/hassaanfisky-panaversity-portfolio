@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Send, Sparkles, Loader2, Bookmark, MessageCircle, Bot, Eraser } from "lucide-react";
 // @ts-ignore (Docusaurus JS Context)
-import { useLanguage } from "../context/LanguageContext";
+import { useLanguage } from "../context/LanguageContext.js";
 
 interface Message {
   role: "user" | "assistant";

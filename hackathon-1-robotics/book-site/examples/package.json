@@ -1,0 +1,17 @@
+{
+  "name": "physical-ai-examples",
+  "version": "1.0.0",
+  "description": "Physical AI & Humanoid Robotics textbook examples",
+  "main": "run-example.js",
+  "scripts": {
+    "start": "node run-example.js",
+    "test": "node run-example.js"
+  },
+  "keywords": ["robotics", "humanoid", "physical-ai", "kinematics"],
+  "author": "GIAIC Hackathon",
+  "license": "MIT",
+  "dependencies": {
+    "mathjs": "^12.0.0",
+    "dotenv": "^16.3.1"
+  }
+}

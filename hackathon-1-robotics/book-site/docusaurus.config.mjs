@@ -6,7 +6,7 @@ const config = {
   title: "PANAVERSITY | ROBOTICS",
   tagline: "The Future of Humanoid Robotics",
   favicon: "img/favicon.png",
-  url: "https://h1robotics.vercel.app",
+  url: "https://hackathon-1-robotics.vercel.app",
   baseUrl: "/",
   organizationName: "HassaanFisky",
   projectName: "Physical-AI-Humanoid-Robots-Textbook",
@@ -34,6 +34,26 @@ const config = {
         },
       }),
     ],
+  ],
+
+  // Alias framer-motion to an empty module on the server (SSG) build.
+  // framer-motion v11+ uses React.lazy() internally; webpack generates
+  // require.resolveWeak() calls which fail in Docusaurus's Node.js eval
+  // context. All framer-motion usage is inside BrowserOnly, so the alias is safe.
+  plugins: [
+    function patchFramerMotionServerBundle() {
+      return {
+        name: "patch-framer-motion-server",
+        configureWebpack(_config, isServer) {
+          if (!isServer) return {};
+          return {
+            resolve: {
+              alias: { "framer-motion": false },
+            },
+          };
+        },
+      };
+    },
   ],
 
   themeConfig:

@@ -6,10 +6,10 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CompanionSidebar }       from "./CompanionSidebar";
-import { CompanionChat }          from "./CompanionChat";
-import { useCompanionSessions }   from "./hooks/useCompanionSessions";
-import { useLanguage }            from "@site/src/context/LanguageContext";
+import { CompanionSidebar }       from "./CompanionSidebar.jsx";
+import { CompanionChat }          from "./CompanionChat.jsx";
+import { useCompanionSessions }   from "./hooks/useCompanionSessions.js";
+import { useLanguage }            from "@site/src/context/LanguageContext.js";
 
 const SPRING_SIDEBAR = { type: "spring", stiffness: 420, damping: 34, mass: 0.9 };
 

@@ -53,11 +53,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   // ── API KEYS ─────────────────────────────────────────────────────────────
-  const GROQ_API_KEY = process.env.GROQ_API_KEY; 
-  const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
+  const GROQ_API_KEY = process.env.GROQ_API_KEY;
 
-  if (!GROQ_API_KEY && !OPENROUTER_API_KEY) {
-    const msg = "The HASSAAN AI ARCHITECT assistant is not configured. Please add GROQ_API_KEY to your environment variables.";
+  if (!GROQ_API_KEY) {
+    const msg = "The HASSAAN AI ARCHITECT assistant is not configured. Please add GROQ_API_KEY to your Vercel environment variables.";
     return res.json({
       content: msg,
       answer: msg,
@@ -89,21 +88,14 @@ ECOSYSTEM NODES:
       ...conversationMessages.filter((m) => m.role !== "system").slice(-8),
     ];
 
-    // Priority 1: Use Groq
-    const API_URL = GROQ_API_KEY 
-      ? "https://api.groq.com/openai/v1/chat/completions" 
-      : "https://openrouter.ai/api/v1/chat/completions";
-    
-    const API_KEY = GROQ_API_KEY || OPENROUTER_API_KEY;
-
-    const response = await fetch(API_URL, {
+    const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${API_KEY}`,
+        Authorization: `Bearer ${GROQ_API_KEY}`,
       },
       body: JSON.stringify({
-        model: GROQ_API_KEY ? "llama3-8b-8192" : "openai/gpt-3.5-turbo",
+        model: "llama3-8b-8192",
         messages: messages,
         max_tokens: 500,
         temperature: 0.6,
@@ -130,7 +122,7 @@ ECOSYSTEM NODES:
 
   } catch (error: any) {
     console.error("Chat API error:", error);
-    const errMsg = `Cognitive Synchronization Error: ${error.message}. Please verify the GROQ_API_KEY.`;
+    const errMsg = `Cognitive Synchronization Error: ${error.message}. Please verify the GROQ_API_KEY environment variable on Vercel.`;
     return res.status(500).json({
       content: errMsg,
       answer: errMsg,

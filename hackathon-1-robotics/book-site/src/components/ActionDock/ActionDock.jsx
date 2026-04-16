@@ -2,9 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import BrowserOnly from "@docusaurus/BrowserOnly";
 import { motion, AnimatePresence } from "framer-motion";
 import { Languages, Snowflake, MessageSquare, BookOpen } from "lucide-react";
-import { useLanguage } from "../../context/LanguageContext";
+import { useLanguage } from "../../context/LanguageContext.js";
 import { useColorMode } from "@docusaurus/theme-common";
-import { useCompanion } from "../companion/CompanionContext";
+import { useCompanion } from "../companion/CompanionContext.jsx";
 
 // Spring preset for dock buttons
 const SPRING_ZOOP = { type: "spring", stiffness: 620, damping: 18, mass: 0.8 };

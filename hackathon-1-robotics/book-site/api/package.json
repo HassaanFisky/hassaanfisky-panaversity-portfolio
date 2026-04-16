@@ -1,0 +1,15 @@
+{
+  "name": "physical-ai-chat-api",
+  "version": "1.0.0",
+  "description": "Chat API server for Physical AI Textbook",
+  "main": "chat.js",
+  "scripts": {
+    "start": "node chat.js",
+    "dev": "node chat.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2"
+  }
+}

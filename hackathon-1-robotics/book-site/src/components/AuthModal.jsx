@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { auth } from '../lib/auth/AuthProvider';
+import { auth } from '../lib/auth/AuthProvider.js';
 import styles from './AuthModal.module.css'; // We'll create this next
 
 export default function AuthModal({ onClose, onLoginSuccess }) {

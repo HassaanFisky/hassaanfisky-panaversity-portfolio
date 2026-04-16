@@ -10,7 +10,7 @@ import {
   X, Send, Sparkles, Loader2, Bookmark, MessageCircle,
   Bot, Eraser, PanelLeftOpen, PanelLeftClose,
 } from "lucide-react";
-import { useLanguage } from "@site/src/context/LanguageContext";
+import { useLanguage } from "@site/src/context/LanguageContext.js";
 
 function makeGreeting(platform) {
   return {

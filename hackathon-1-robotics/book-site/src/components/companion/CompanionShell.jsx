@@ -7,10 +7,10 @@
 import React, { useEffect, useState } from "react";
 import { createPortal }               from "react-dom";
 import { motion, AnimatePresence, MotionConfig } from "framer-motion";
-import { useCompanion }               from "./CompanionContext";
-import { useCompanionEvents }         from "./hooks/useCompanionEvents";
-import { CompanionWindow }            from "./CompanionWindow";
-import { useLanguage }                from "@site/src/context/LanguageContext";
+import { useCompanion }               from "./CompanionContext.jsx";
+import { useCompanionEvents }         from "./hooks/useCompanionEvents.js";
+import { CompanionWindow }            from "./CompanionWindow.jsx";
+import { useLanguage }                from "@site/src/context/LanguageContext.js";
 
 const SPRING_MORPH = { type: "spring", stiffness: 380, damping: 30, mass: 1.1 };
 

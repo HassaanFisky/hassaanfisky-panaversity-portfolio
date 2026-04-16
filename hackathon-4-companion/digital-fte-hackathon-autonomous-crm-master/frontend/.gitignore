@@ -1,28 +1,37 @@
 # Dependencies
-node_modules
-.next
-.vercel
-dist
-build
+node_modules/
+.pnp
+.pnp.js
 
-# Environment
-.env
-.env.local
-.env.production
-.env*.local
+# Build outputs
+.next/
+out/
+build/
+dist/
 
-# Python
-venv
-__pycache__
+# Environment (set on Vercel dashboard — never commit)
+.env*
+
+# Vercel
+.vercel/
+
+# Debug / local artifacts
+build_error.txt
+build_output.log
+install_err.txt
+*.log
+
+# Python backend
+__pycache__/
 *.pyc
-.ipynb_checkpoints
+venv/
+.venv/
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
 
 # OS
 .DS_Store
 Thumbs.db
-
-# Misc
-*.tsbuildinfo
-build_output.log
-
-.vercel
+*.pem

@@ -1,8 +1,6 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
-/node_modules
-/.pnp
+# Dependencies
+node_modules/
+.pnp
 .pnp.*
 .yarn/*
 !.yarn/patches
@@ -10,38 +8,35 @@
 !.yarn/releases
 !.yarn/versions
 
-# testing
-/coverage
-
-# next.js
+# Build outputs
 /.next/
 /out/
-
-# production
 /build
+/dist
 
-# misc
-.DS_Store
-*.pem
-
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
-
-# env files (can opt-in for committing if needed)
+# Environment (set on Vercel dashboard — never commit)
 .env*
 
-# vercel
-.vercel
+# Vercel
+.vercel/
 
-# typescript
+# Debug / local artifacts (never in production repos)
+build_debug.txt
+build_log.txt
+build_log_2.txt
+build_log_utf8.txt
+build_verbose.log
+*.log
+
+# Claude Code internals
+CLAUDE.md
+AGENTS.md
+
+# TypeScript
 *.tsbuildinfo
 next-env.d.ts
 
-.vercel
-.env*.local
-
-.vercel
-.env*.local
+# OS
+.DS_Store
+Thumbs.db
+*.pem

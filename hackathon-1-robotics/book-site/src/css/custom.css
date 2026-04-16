@@ -1231,11 +1231,91 @@ body.lang-ro {
   from { transform: rotate(0deg); }
   to   { transform: rotate(360deg); }
 }
+.animate-spin { animation: spin 1s linear infinite; }
+@keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 .animate-spin-slow { animation: spin-slow 12s linear infinite; }
+
+/* ── ActionDock positioning shims ────────────────────────────────────────── */
+.left-10   { left: 2.5rem; }
+.right-10  { right: 2.5rem; }
+.bottom-10 { bottom: 2.5rem; }
+.z-\[9999\] { z-index: 9999; }
+.gap-3   { gap: 0.75rem; }
+.p-2     { padding: 0.5rem; }
+.p-2\.5  { padding: 0.625rem; }
+.mb-2    { margin-bottom: 0.5rem; }
+/* RTL ecosystem nav */
+.rtl-nav { right: 2rem; left: auto; }
 
 /* RTL companion window anchor to bottom-left */
 [dir="rtl"] .companion-window-responsive {
   right: auto;
   left:  2.5rem !important;
+}
+
+/* ─── H3 TOKEN ALIASES & MISSING TOKENS ─────────────────────────────────
+   Aligns H1 with the canonical H3 design system without touching
+   existing Docusaurus variable bindings.
+─────────────────────────────────────────────────────────────────────── */
+:root {
+  --bg-base:      var(--bg);          /* alias — cross-platform components use --bg-base */
+  --border-active: var(--accent);
+  --shadow-modal:  0 24px 64px -12px rgba(56, 49, 46, 0.12), 0 0 0 1px var(--border-fine);
+  --success:       #3D9970;
+  --error:         #D95757;
+  --font-mono:     "JetBrains Mono", monospace;
+}
+
+[data-theme="dark"] {
+  --bg-base:      var(--bg);
+  --shadow-modal:  0 32px 80px -16px rgba(0, 0, 0, 0.7), 0 0 0 1px var(--border-fine);
+  --success:       #6EE7B7;
+  --error:         #EF4444;
+}
+
+/* ─── MISSING COMPONENT CLASSES ──────────────────────────────────────── */
+.shadow-float {
+  box-shadow: 0 20px 50px -12px rgba(56, 49, 46, 0.12), 0 0 0 1px var(--border-fine);
+}
+[data-theme="dark"] .shadow-float {
+  box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--border-fine);
+}
+
+.card-humanist {
+  background-color: var(--bg-surface);
+  border: 0.8px solid var(--border-fine);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.card-humanist:hover {
+  box-shadow: var(--shadow-widget);
+  transform: translateY(-4px);
+  border-color: var(--accent);
+}
+
+.btn-tactile { transition: all 0.3s; }
+.btn-tactile:active { transform: scale(0.97); }
+
+.prose-editorial {
+  font-family: var(--ifm-heading-font-family);
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.text-gradient {
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(to bottom right, var(--text-primary), var(--accent));
+}
+
+/* Dot-grid body texture (H3 signature) */
+body {
+  background-image: radial-gradient(rgba(56, 49, 46, 0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+[data-theme="dark"] body {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
 }
 

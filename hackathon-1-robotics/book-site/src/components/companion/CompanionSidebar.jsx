@@ -1,6 +1,6 @@
 import React from "react";
 import { PlusCircle, PanelLeftClose } from "lucide-react";
-import { SessionHistoryItem } from "./SessionHistoryItem";
+import { SessionHistoryItem } from "./SessionHistoryItem.jsx";
 
 export function CompanionSidebar({
   sessions, activeSessionId, onNewSession, onSelectSession, onDeleteSession, onCollapse,
