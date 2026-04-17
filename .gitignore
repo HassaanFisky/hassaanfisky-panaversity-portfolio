@@ -49,3 +49,14 @@ yarn-error.log*
 # Vercel
 .vercel
 **/.vercel
+
+# Panaversity Sub-Repositories Isolation
+# These are independent repositories with their own .git folders.
+# They should not be tracked by the root workspace repository.
+hackathon-0/
+hackathon-0-portfolio/
+hackathon-1-robotics/
+hackathon-2-todo/
+hackathon-3/
+hackathon-4-companion/
+
