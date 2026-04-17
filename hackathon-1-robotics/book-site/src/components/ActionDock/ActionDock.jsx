@@ -13,36 +13,33 @@ function ActionDockContent() {
   const { lang, changeLanguage, t, languages } = useLanguage();
   const { isOpen: companionOpen, toggle: toggleCompanion } = useCompanion();
   const [showLanguage, setShowLanguage] = useState(false);
-  const [isSnowing, setIsSnowing] = useState(false);
-  const { colorMode, setColorMode } = useColorMode();
-
   const dockRef = useRef(null);
   const languageRef = useRef(null);
 
   useEffect(() => {
-    const savedSnow = localStorage.getItem("let_it_snow") === "1";
-    setIsSnowing(savedSnow);
-
     const handleClickOutside = (event) => {
       if (showLanguage && languageRef.current && !languageRef.current.contains(event.target)) {
         setShowLanguage(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [showLanguage]);
 
-  const toggleSnow = () => {
-    const newState = !isSnowing;
-    setIsSnowing(newState);
-    localStorage.setItem("let_it_snow", newState ? "1" : "0");
+  const WEATHER_MODES = ["clear", "snow", "rain", "storm", "sunny", "cloudy"];
+  const [weatherIndex, setWeatherIndex] = useState(0);
 
-    if (newState && colorMode === "light") {
-      setColorMode("dark");
-    }
+  useEffect(() => {
+    const saved = localStorage.getItem("weather_mode") || "clear";
+    const idx = WEATHER_MODES.indexOf(saved);
+    setWeatherIndex(idx >= 0 ? idx : 0);
+  }, []);
 
-    window.dispatchEvent(new CustomEvent("snow-toggle", { detail: { active: newState } }));
+  const cycleWeather = () => {
+    const nextIdx = (weatherIndex + 1) % WEATHER_MODES.length;
+    setWeatherIndex(nextIdx);
+    const newMode = WEATHER_MODES[nextIdx];
+    window.dispatchEvent(new CustomEvent("weather-change", { detail: { mode: newMode } }));
   };
 
   const navItems = [
@@ -54,11 +51,11 @@ function ActionDockContent() {
       active: showLanguage 
     },
     { 
-      id: "snow", 
-      icon: <Snowflake size={20} className={isSnowing ? "text-accent animate-spin-slow" : ""} />, 
-      label: t.ui.snow, 
-      action: toggleSnow,
-      active: isSnowing 
+      id: "weather", 
+      icon: <Snowflake size={20} className={WEATHER_MODES[weatherIndex] !== 'clear' ? "text-accent animate-spin-slow" : ""} />, 
+      label: t.ui.weather || "Weather", 
+      action: cycleWeather,
+      active: WEATHER_MODES[weatherIndex] !== 'clear' 
     },
     {
       id:             "chat",

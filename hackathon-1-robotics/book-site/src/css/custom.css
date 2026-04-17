@@ -63,6 +63,10 @@
   --ifm-menu-color-active: var(--accent);
   --ifm-menu-color-background-active: var(--accent-soft);
   --ifm-code-font-size: 0.875em;
+
+  /* Weather Engine */
+  --weather-bg-overlay: transparent;
+  --transition-speed: 800ms;
 }
 
 [data-theme="dark"] {
@@ -86,6 +90,31 @@
   --shadow-widget:
     0 24px 56px -12px rgba(0, 0, 0, 0.7), 0 0 0 1px var(--border-fine);
   --snow-color: rgba(255, 255, 255, 1);
+}
+
+/* ─── WEATHER THEMES ─── */
+[data-weather='rain'] {
+  --bg: #060d18;
+  --bg-surface: #0d1a2e;
+  --text-primary: #D8ECF8;
+  --accent: #6B9FD4;
+}
+
+[data-weather='storm'] {
+  --bg: #000000;
+  --text-primary: #FFFFFF;
+  --accent: #9BA8FF;
+}
+
+[data-weather='sunny'] {
+  --bg: #1a0900;
+  --text-primary: #FFF5E0;
+  --accent: #FF8C42;
+}
+
+[data-weather='snow'] {
+  --bg: #111827;
+  --accent: #A5C9D9;
 }
 
 /* ── TAILWIND SHIMS ── */
