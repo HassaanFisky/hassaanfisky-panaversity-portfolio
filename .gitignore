@@ -2,66 +2,34 @@
 node_modules/
 **/node_modules/
 
-# Next.js build output
+# Build outputs
 .next/
 **/.next/
 out/
-
-# Build outputs
 dist/
 build/
 .cache/
 .docusaurus/
+.vercel/
+**/.vercel/
 
-# Environment variables
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-*.env
-**/.env
-**/.env.*
+# AI Metadata
+.claude/
+.claire/
+**/.claude/
+**/.claire/
 
-# Python
-venv/
-**/venv/
-__pycache__/
-**/__pycache__/
-
-# Operating system files
-.DS_Store
-Thumbs.db
-
-# IDE files
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# Local logs
-logs
+# Temporary and Scratch
+scratch/
+temp/
 *.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Vercel
-.vercel
-**/.vercel
+deploy-log-*.txt
 
 # Panaversity Sub-Repositories Isolation
-# These are independent repositories with their own .git folders.
-# They should not be tracked by the root workspace repository.
 hackathon-0/
 hackathon-0-portfolio/
 hackathon-1-robotics/
 hackathon-2-todo/
 hackathon-3/
 hackathon-4-companion/
-
-
-# Temporary Files
-scratch/
-**/.claire/
-**/.claude/
+packages/
