@@ -60,3 +60,8 @@ hackathon-2-todo/
 hackathon-3/
 hackathon-4-companion/
 
+
+# Temporary Files
+scratch/
+**/.claire/
+**/.claude/
